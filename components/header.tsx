@@ -31,7 +31,10 @@ export function Header() {
         <a
           href="#care-in-your-state"
           className="flex h-[42px] items-center whitespace-nowrap rounded-full px-9 text-base font-semibold leading-[26px] tracking-[-0.32px] text-white shadow-sm"
-          style={{ background: "var(--gradient-primary)" }}
+          style={{
+            background:
+              "linear-gradient(265.32deg, #4C8C1A 2.23%, #166047 40.81%, #0E5A4D 69.11%, #0B3832 97.77%)",
+          }}
         >
           Care in your State
         </a>

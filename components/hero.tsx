@@ -22,7 +22,7 @@ function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
 const textGradient = {
   display: "inline-block",
   backgroundImage:
-    "linear-gradient(135deg, #4C8C1A 0%, #155F46 40.4%, #0E5A4D 70%, #0A3832 100%)",
+    "linear-gradient(265.32deg, #4C8C1A 2.23%, #166047 40.81%, #0E5A4D 69.11%, #0B3832 97.77%)",
   backgroundSize: "200% 200%",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
