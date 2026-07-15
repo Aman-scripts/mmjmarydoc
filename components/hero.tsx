@@ -80,14 +80,14 @@ export function Hero() {
             Your
           </h1>
           <h1
-            className="absolute whitespace-nowrap text-accent"
+            className="absolute whitespace-nowrap text-accent opacity-50"
             style={{ ...MARIJUANA, fontWeight: 800, fontSize: 110, lineHeight: "155px", letterSpacing: "-2.2px" }}
           >
             MARIJUANA
           </h1>
 
           <h1
-            className="absolute text-right text-accent"
+            className="absolute text-right text-accent opacity-50"
             style={{ ...CARD, fontWeight: 800, fontSize: 110, lineHeight: "155px", letterSpacing: "-2.2px" }}
           >
             CARD

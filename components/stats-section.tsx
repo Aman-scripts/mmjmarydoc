@@ -63,7 +63,7 @@ export function StatsSection() {
         {stats.map((stat) => (
           <div key={stat.number} className="absolute" style={{ left: stat.left, top: 0, width: 415, height: 231 }}>
             <span
-              className="absolute"
+              className="absolute opacity-50"
               style={{
                 left: 0,
                 top: 0,
