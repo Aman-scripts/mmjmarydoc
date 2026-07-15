@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Header } from "@/components/header";
+import { FigmaCanvas } from "@/components/figma-canvas";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -48,24 +49,12 @@ const LEAF = { left: 954 - HERO_ROW.left, top: 565 - HERO_ROW.top, width: 91, he
 
 export function Hero() {
   return (
-    <section className="relative overflow-x-auto" style={{ background: "#DFF8EC" }}>
-      <div
-        className="relative mx-auto"
-        style={{
-          width: 1440,
-          height: 922,
-          background: "linear-gradient(135deg, #DFF8EC 0%, #E6FFD2 100%)",
-        }}
+    <section className="relative" style={{ background: "#DFF8EC" }}>
+      <FigmaCanvas
+        width={1440}
+        height={922}
+        style={{ background: "linear-gradient(135deg, #DFF8EC 0%, #E6FFD2 100%)" }}
       >
-        <div
-          className="pointer-events-none absolute rounded-full opacity-60 blur-3xl"
-          style={{ left: 1191, top: 607, width: 278, height: 278, background: "var(--gradient-primary)" }}
-        />
-        <div
-          className="pointer-events-none absolute rounded-full opacity-60 blur-3xl"
-          style={{ left: -46, top: -78, width: 278, height: 278, background: "var(--gradient-primary)" }}
-        />
-
         <Header />
 
         <div className="absolute" style={{ left: HERO_ROW.left, top: HERO_ROW.top, width: HERO_ROW.width, height: HERO_ROW.height }}>
@@ -132,7 +121,7 @@ export function Hero() {
           <InstagramIcon className="h-4 w-4 text-muted-foreground" />
           <FacebookIcon className="h-4 w-4 text-muted-foreground" />
         </div>
-      </div>
+      </FigmaCanvas>
     </section>
   );
 }

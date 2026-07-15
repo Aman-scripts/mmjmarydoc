@@ -1,3 +1,5 @@
+import { FigmaCanvas } from "@/components/figma-canvas";
+
 const textGradient = {
   display: "inline-block",
   backgroundImage:
@@ -42,7 +44,7 @@ const stats = [
 
 export function StatsSection() {
   return (
-    <section className="relative mx-auto" style={{ width: 1440, height: TOP + 345 + BOTTOM }}>
+    <FigmaCanvas width={1440} height={TOP + 345 + BOTTOM} className="mx-auto">
       <h2
         className="absolute text-center text-primary"
         style={{
@@ -113,6 +115,6 @@ export function StatsSection() {
           </div>
         ))}
       </div>
-    </section>
+    </FigmaCanvas>
   );
 }

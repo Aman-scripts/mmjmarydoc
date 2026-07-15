@@ -1,3 +1,5 @@
+import { FigmaCanvas } from "@/components/figma-canvas";
+
 // Coordinates lifted 1:1 from the Figma frame (62:139 -> instance "Steps",
 // 83:332), each offset relative to this section's own top-left corner.
 const TOP = 0;
@@ -12,7 +14,7 @@ export function ProcessSection() {
           "linear-gradient(315deg, #4C8C1A 0%, #1D6540 32.2%, #0E5A4D 72.1%, #071D1A 100%)",
       }}
     >
-    <div className="relative mx-auto" style={{ width: 1440, height: TOP + 937 + BOTTOM }}>
+    <FigmaCanvas width={1440} height={TOP + 937 + BOTTOM} className="mx-auto">
       {/* Decorative ring behind the active step card */}
       <div
         className="pointer-events-none absolute rounded-full border"
@@ -137,7 +139,7 @@ export function ProcessSection() {
           Book My Consultation
         </a>
       </div>
-    </div>
+    </FigmaCanvas>
     </section>
   );
 }
