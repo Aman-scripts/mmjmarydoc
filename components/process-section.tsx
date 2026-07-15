@@ -1,4 +1,5 @@
 import { FigmaCanvas } from "@/components/figma-canvas";
+import { MobileProcessCarousel } from "@/components/mobile-process-carousel";
 
 // Coordinates lifted 1:1 from the Figma frame (62:139 -> instance "Steps",
 // 83:332), each offset relative to this section's own top-left corner.
@@ -9,6 +10,30 @@ const mobileGradient = {
   background:
     "linear-gradient(315deg, #4C8C1A 0%, #1D6540 32.2%, #0E5A4D 72.1%, #071D1A 100%)",
 } as const;
+
+// TODO: steps 1 and 3 copy is placeholder — the Figma API was rate-limited
+// when pulling this, so only step 2's text ("Consult with MMJ Doctor") is
+// confirmed from the source file. Swap these once the real copy is available.
+const steps = [
+  {
+    number: 1,
+    title: "Select Your State",
+    description:
+      "Tell us where you're located so we can confirm eligibility and connect you with a doctor licensed in your state's medical cannabis program.",
+  },
+  {
+    number: 2,
+    title: "Consult with MMJ Doctor",
+    description:
+      "Connect with our licensed MMJ Doctor via a video or audio call. The doctor will review your medical condition and determine eligibility under your state's medical cannabis program.",
+  },
+  {
+    number: 3,
+    title: "Get Your Medical Card",
+    description:
+      "Once approved, receive your medical marijuana recommendation and card, ready to use at licensed dispensaries in your state.",
+  },
+];
 
 function MobileProcessSection() {
   return (
@@ -29,44 +54,9 @@ function MobileProcessSection() {
           state-licensed MMJ doctor, giving you a reliable way to obtain your
           medical marijuana recommendation
         </p>
-
-        <div className="mt-6 flex flex-col items-center gap-4 rounded-3xl bg-white/5 p-6">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#DFF8EC]">
-            <span
-              className="text-primary"
-              style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 32, fontWeight: 700 }}
-            >
-              2
-            </span>
-          </div>
-          <h3
-            className="text-[#FAFAF8]"
-            style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.5rem, 6vw, 2rem)", fontWeight: 700 }}
-          >
-            Consult with MMJ Doctor
-          </h3>
-          <p className="text-[#DFF8EC]" style={{ fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: "26px" }}>
-            Connect with our licensed MMJ Doctor via a video or audio call.
-            The doctor will review your medical condition and determine
-            eligibility under your state&rsquo;s medical cannabis program.
-          </p>
-          <a
-            href="#book-consultation"
-            className="rounded-full bg-[#DFF8EC] px-9 py-2 text-base font-semibold text-primary"
-          >
-            Book My Consultation
-          </a>
-        </div>
-
-        <div className="mt-2 flex items-center gap-3">
-          {[1, 2, 3].map((n) => (
-            <span
-              key={n}
-              className={`h-2 w-2 rounded-full ${n === 2 ? "bg-[#DFF8EC]" : "bg-[#DFF8EC]/30"}`}
-            />
-          ))}
-        </div>
       </div>
+
+      <MobileProcessCarousel steps={steps} />
     </section>
   );
 }
