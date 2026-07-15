@@ -123,7 +123,7 @@ export function Hero() {
           <span className="text-xs italic leading-[18px] tracking-[-0.24px] text-muted-foreground [writing-mode:vertical-lr]">
             Read Our Story
           </span>
-          <span className="h-16 w-px bg-border" />
+          <span className="h-16 w-px bg-[#716f6d]" />
           <InstagramIcon className="h-4 w-4 text-muted-foreground" />
           <FacebookIcon className="h-4 w-4 text-muted-foreground" />
         </div>

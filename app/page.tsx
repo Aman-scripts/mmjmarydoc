@@ -2,6 +2,8 @@ import { Hero } from "@/components/hero";
 import { StatsSection } from "@/components/stats-section";
 import { ProcessSection } from "@/components/process-section";
 import { FeaturesSection } from "@/components/features-section";
+import { ValuesSection } from "@/components/values-section";
+import { JudgmentSection } from "@/components/judgment-section";
 
 export default function Home() {
   return (
@@ -10,6 +12,8 @@ export default function Home() {
       <StatsSection />
       <ProcessSection />
       <FeaturesSection />
+      <ValuesSection />
+      <JudgmentSection />
     </div>
   );
 }
