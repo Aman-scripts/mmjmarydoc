@@ -3,6 +3,7 @@ import { StatsSection } from "@/components/stats-section";
 import { ProcessSection } from "@/components/process-section";
 import { FeaturesSection } from "@/components/features-section";
 import { ValuesSection } from "@/components/values-section";
+import { PricingSection } from "@/components/pricing-section";
 import { JudgmentSection } from "@/components/judgment-section";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       <FeaturesSection />
       <ValuesSection />
       {/* <JudgmentSection /> */}
+      {/* <PricingSection /> */}
     </div>
   );
 }
