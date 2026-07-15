@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Header } from "@/components/header";
 import { FigmaCanvas } from "@/components/figma-canvas";
+import { MobileHero } from "@/components/mobile-hero";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -49,7 +50,12 @@ const LEAF = { left: 954 - HERO_ROW.left, top: 565 - HERO_ROW.top, width: 91, he
 
 export function Hero() {
   return (
-    <section className="relative" style={{ background: "#DFF8EC" }}>
+    <>
+      <div className="lg:hidden">
+        <MobileHero />
+      </div>
+
+      <section className="relative hidden lg:block" style={{ background: "#DFF8EC" }}>
       <FigmaCanvas
         width={1440}
         height={922}
@@ -122,6 +128,7 @@ export function Hero() {
           <FacebookIcon className="h-4 w-4 text-muted-foreground" />
         </div>
       </FigmaCanvas>
-    </section>
+      </section>
+    </>
   );
 }
