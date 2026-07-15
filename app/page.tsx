@@ -13,7 +13,7 @@ export default function Home() {
       <ProcessSection />
       <FeaturesSection />
       <ValuesSection />
-      <JudgmentSection />
+      {/* <JudgmentSection /> */}
     </div>
   );
 }
