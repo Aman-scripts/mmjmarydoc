@@ -8,6 +8,10 @@ import { FilePlus, RefreshCw, Check } from "lucide-react";
 // state that reveals a checklist panel — reproduced here as a hover reveal.
 const TOP = 100;
 const BOTTOM = 100;
+// Cards grow ~214px on hover (332px -> 546px). BOTTOM alone only covers 100px
+// of that, so the remainder (~114px) is added here to avoid overlapping the
+// section that follows, without padding out the layout more than necessary.
+const EXPAND_ALLOWANCE = 120;
 
 const plans = [
   {
@@ -46,10 +50,10 @@ const plans = [
 
 function PricingDesktop() {
   return (
-    <section className="relative hidden bg-background lg:block">
+    <section className="relative z-20 hidden bg-background lg:block">
       <FigmaCanvas
         width={1440}
-        height={TOP + 536 + BOTTOM}
+        height={TOP + 536 + BOTTOM + EXPAND_ALLOWANCE}
         className="mx-auto"
         style={{ overflow: "visible" }}
       >
@@ -73,7 +77,7 @@ function PricingDesktop() {
             letterSpacing: "-0.96px",
           }}
         >
-          Get Started in Just a Few Clicks
+          Get Started in Just a <span className="text-accent">Few Clicks</span>
         </h2>
 
         <p
@@ -182,7 +186,7 @@ function PricingMobile() {
             letterSpacing: "-0.02em",
           }}
         >
-          Get Started in Just a Few Clicks
+          Get Started in Just a <span className="text-accent">Few Clicks</span>
         </h2>
         <p className="text-base text-muted-foreground">
           Select your evaluation type and connect with a licensed provider to

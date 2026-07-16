@@ -58,7 +58,7 @@ function StandardsDesktop() {
           style={{ left: 289, top: TOP + 57, width: 862, fontWeight: 800, fontSize: 100, lineHeight: "155px", letterSpacing: "-2px" }}
         >
           <span className="italic text-primary">Our</span>{" "}
-          <span className="text-accent" style={{ fontSize: 110, letterSpacing: "-2.2px" }}>
+          <span className="text-accent opacity-50" style={{ fontSize: 110, letterSpacing: "-2.2px" }}>
             STANDARDS
           </span>
         </h2>
@@ -70,7 +70,7 @@ function StandardsDesktop() {
                 <div key={standard.number}>
                   <div className="flex items-center gap-6 py-6" style={{ height: ROW_HEIGHT }}>
                     <span
-                      className="shrink-0"
+                      className="shrink-0 opacity-50"
                       style={{
                         fontFamily: "var(--font-space-grotesk)",
                         fontSize: 80,
@@ -115,7 +115,7 @@ function StandardsMobile() {
           style={{ fontWeight: 800, fontSize: "clamp(1.75rem, 8vw, 2.75rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}
         >
           <span className="italic text-primary">Our</span>{" "}
-          <span className="text-accent">STANDARDS</span>
+          <span className="text-accent opacity-50">STANDARDS</span>
         </h2>
 
         <div className="flex w-full flex-col">
@@ -123,7 +123,7 @@ function StandardsMobile() {
             <div key={standard.number}>
               <div className="flex items-center gap-4 py-5">
                 <span
-                  className="shrink-0"
+                  className="shrink-0 opacity-50"
                   style={{
                     fontFamily: "var(--font-space-grotesk)",
                     fontSize: "clamp(2.5rem, 10vw, 3.5rem)",

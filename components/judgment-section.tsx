@@ -31,7 +31,7 @@ function JudgmentDesktop() {
             letterSpacing: "-0.96px",
           }}
         >
-          Seeking relief should never come with judgment
+          <span className="text-accent">Seeking relief</span> should never come with judgment
         </h2>
 
         <p
@@ -50,7 +50,11 @@ function JudgmentDesktop() {
         <a
           href="#care-in-your-state"
           className="absolute flex items-center justify-center rounded-full text-base font-semibold leading-[26px] tracking-[-0.32px] text-white"
-          style={{ ...BUTTON, background: "var(--gradient-primary)" }}
+          style={{
+            ...BUTTON,
+            background:
+              "linear-gradient(265.32deg, #4C8C1A 2.23%, #166047 40.81%, #0E5A4D 69.11%, #0B3832 97.77%)",
+          }}
         >
           Care in your State
         </a>
@@ -86,7 +90,7 @@ function JudgmentMobile() {
             letterSpacing: "-0.02em",
           }}
         >
-          Seeking relief should never come with judgment
+          <span className="text-accent">Seeking relief</span> should never come with judgment
         </h2>
 
         <p className="italic text-muted-foreground" style={{ fontSize: 16, lineHeight: "30px" }}>
@@ -96,7 +100,10 @@ function JudgmentMobile() {
         <a
           href="#care-in-your-state"
           className="rounded-full px-9 py-3 text-base font-semibold text-white"
-          style={{ background: "var(--gradient-primary)" }}
+          style={{
+            background:
+              "linear-gradient(265.32deg, #4C8C1A 2.23%, #166047 40.81%, #0E5A4D 69.11%, #0B3832 97.77%)",
+          }}
         >
           Care in your State
         </a>

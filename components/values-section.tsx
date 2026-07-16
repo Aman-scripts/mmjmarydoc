@@ -98,7 +98,7 @@ function ValuesDesktop() {
           }}
         >
           <span className="italic text-primary">Four things</span>{" "}
-          <span className="text-accent" style={{ fontSize: 110, letterSpacing: "-2.2px" }}>
+          <span className="text-accent opacity-50" style={{ fontSize: 110, letterSpacing: "-2.2px" }}>
             WE NEVER
           </span>
         </h2>
@@ -114,7 +114,7 @@ function ValuesDesktop() {
             letterSpacing: "-2.2px",
           }}
         >
-          <span className="text-accent">COMPROMISE</span>{" "}
+          <span className="text-accent opacity-50">COMPROMISE</span>{" "}
           <span className="italic" style={{ fontSize: 100, ...textGradient }}>
             On
           </span>
@@ -182,7 +182,14 @@ function ValuesDesktop() {
         <a
           href="#get-your-card"
           className="absolute flex items-center justify-center rounded-full text-base font-semibold leading-[26px] tracking-[-0.32px] text-white"
-          style={{ left: 634, top: TOP + 794, width: 174, height: 42, background: "var(--gradient-primary)" }}
+          style={{
+            left: 634,
+            top: TOP + 794,
+            width: 174,
+            height: 42,
+            background:
+              "linear-gradient(265.32deg, #4C8C1A 2.23%, #166047 40.81%, #0E5A4D 69.11%, #0B3832 97.77%)",
+          }}
         >
           Get your Card
         </a>
@@ -205,7 +212,7 @@ function ValuesMobile() {
           }}
         >
           <span className="italic text-primary">Four things</span>{" "}
-          <span className="text-accent">WE NEVER COMPROMISE</span>{" "}
+          <span className="text-accent opacity-50">WE NEVER COMPROMISE</span>{" "}
           <span className="italic" style={textGradient}>
             On
           </span>
@@ -245,7 +252,10 @@ function ValuesMobile() {
         <a
           href="#get-your-card"
           className="rounded-full px-9 py-3 text-base font-semibold text-white"
-          style={{ background: "var(--gradient-primary)" }}
+          style={{
+            background:
+              "linear-gradient(265.32deg, #4C8C1A 2.23%, #166047 40.81%, #0E5A4D 69.11%, #0B3832 97.77%)",
+          }}
         >
           Get your Card
         </a>
