@@ -38,7 +38,7 @@ const textGradient = {
 
 // Coordinates below are lifted 1:1 from the Figma frame (62:139 -> Frame 79,
 // 1440x922), each offset relative to the section's own top-left corner.
-const HERO_ROW = { left: 144, top: 229, width: 1216, height: 613 };
+const HERO_ROW = { left: 144, top: 201, width: 1216, height: 613 };
 const PLANT = { left: 403 - HERO_ROW.left, top: 0, width: 427, height: 613 };
 const CARD = { left: 176 - HERO_ROW.left, top: 402 - HERO_ROW.top, width: 314, height: 155 };
 const WITH_GUIDED = { left: 694 - HERO_ROW.left, top: 402 - HERO_ROW.top };
