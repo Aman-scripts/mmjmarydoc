@@ -194,3 +194,80 @@
     line-height: 1.4;
   }
 }
+
+@keyframes review-in-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes review-in-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-up-in {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes emerge-from-behind-left {
+  from {
+    opacity: 0;
+    transform: translateX(70px) rotate(-18deg) scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes emerge-from-behind-right {
+  from {
+    opacity: 0;
+    transform: translateX(-70px) rotate(18deg) scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes emerge-peek-left {
+  from {
+    opacity: 0;
+    transform: translateX(60px) rotate(-26deg) scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(-6deg) scale(1);
+  }
+}
+
+@keyframes emerge-peek-right {
+  from {
+    opacity: 0;
+    transform: translateX(-60px) rotate(26deg) scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(6deg) scale(1);
+  }
+}

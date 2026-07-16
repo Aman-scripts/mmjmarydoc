@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { FigmaCanvas } from "@/components/figma-canvas";
@@ -22,24 +25,130 @@ const textGradient = {
 // Figma places a 100px gap before and after this block, added as TOP/BOTTOM.
 const TOP = 100;
 const BOTTOM = 100;
+// One row can expand at a time; this reserves enough room so the revealed
+// answer doesn't overflow the canvas and get covered by whatever section
+// comes right after it (same fix used for the pricing cards' hover-expand).
+const EXPAND_ALLOWANCE = 160;
 
 const standards = [
-  { number: "01", title: "Set The Bar High" },
-  { number: "02", title: "State-Licensed Doctors" },
-  { number: "03", title: "HIPAA Compliant" },
-  { number: "04", title: "Same-Day Evaluation" },
-  { number: "05", title: "Affordable Pricing" },
-  { number: "06", title: "Money-Back Guarantee" },
-  { number: "07", title: "24/7 Customer Support" },
-  { number: "08", title: "Ongoing Support" },
+  {
+    number: "01",
+    title: "Set The Bar High",
+    answer:
+      "We hold every part of the experience — from the evaluation to customer support — to a higher standard than typical telehealth platforms.",
+  },
+  {
+    number: "02",
+    title: "State-Licensed Doctors",
+    answer:
+      "Every evaluation is conducted by a physician licensed in your state, so your recommendation is fully compliant and recognized.",
+  },
+  {
+    number: "03",
+    title: "HIPAA Compliant",
+    answer:
+      "Your medical information is handled under strict HIPAA-compliant security practices, kept private and confidential at every step.",
+  },
+  {
+    number: "04",
+    title: "Same-Day Evaluation",
+    answer:
+      "Most patients complete their evaluation and receive a decision the same day they apply, with no unnecessary waiting.",
+  },
+  {
+    number: "05",
+    title: "Affordable Pricing",
+    answer:
+      "Transparent, flat-rate pricing with no hidden fees — you know exactly what you're paying before you start.",
+  },
+  {
+    number: "06",
+    title: "Money-Back Guarantee",
+    answer:
+      "If you're not approved, you don't pay full price — we stand behind every evaluation with a money-back guarantee.",
+  },
+  {
+    number: "07",
+    title: "24/7 Customer Support",
+    answer:
+      "Our support team is available around the clock to help with scheduling, account questions, or anything else you need.",
+  },
+  {
+    number: "08",
+    title: "Ongoing Support",
+    answer:
+      "We stay with you beyond the first visit — renewals, follow-ups, and guidance are always just a message away.",
+  },
 ];
 
-const ROW_HEIGHT = 122;
+function StandardRow({
+  standard,
+  open,
+  onToggle,
+  showDivider,
+}: {
+  standard: (typeof standards)[number];
+  open: boolean;
+  onToggle: () => void;
+  showDivider: boolean;
+}) {
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={open}
+        className="flex w-full items-center gap-6 py-6 text-left"
+      >
+        <span
+          className="shrink-0 opacity-50"
+          style={{
+            fontFamily: "var(--font-space-grotesk)",
+            fontSize: 80,
+            fontWeight: 700,
+            lineHeight: "100px",
+            letterSpacing: "-1.6px",
+            ...textGradient,
+          }}
+        >
+          {standard.number}
+        </span>
+        <span
+          className="flex-1 text-primary"
+          style={{ fontFamily: "var(--font-sans)", fontSize: 24, fontWeight: 600, letterSpacing: "-0.48px" }}
+        >
+          {standard.title}
+        </span>
+        <span
+          className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300"
+          style={{ background: "var(--gradient-primary)", transform: open ? "rotate(135deg)" : "rotate(0deg)" }}
+        >
+          <ArrowUpRight className="h-4 w-4" />
+        </span>
+      </button>
+
+      <div
+        className="grid transition-[grid-template-rows] duration-300 ease-out"
+        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <p className="pb-6 pl-[104px] pr-16 text-base leading-relaxed text-muted-foreground">
+            {standard.answer}
+          </p>
+        </div>
+      </div>
+
+      {showDivider && <div className="h-0.5 rounded-full bg-[#DFF8EC]" />}
+    </div>
+  );
+}
 
 function StandardsDesktop() {
+  const [openItem, setOpenItem] = useState<string | null>(null);
+
   return (
-    <section className="relative hidden bg-white lg:block">
-      <FigmaCanvas width={1440} height={TOP + 803 + BOTTOM} className="mx-auto">
+    <section className="relative z-20 hidden bg-white lg:block">
+      <FigmaCanvas width={1440} height={TOP + 803 + EXPAND_ALLOWANCE + BOTTOM} className="mx-auto" style={{ overflow: "visible" }}>
         <div
           className="pointer-events-none absolute"
           style={{ left: 113, top: TOP + 82, width: 150, height: 106 }}
@@ -63,40 +172,17 @@ function StandardsDesktop() {
           </span>
         </h2>
 
-        <div className="absolute" style={{ left: 80, top: TOP + 255, width: 1280, height: 466 }}>
+        <div className="absolute" style={{ left: 80, top: TOP + 255, width: 1280 }}>
           {[0, 1].map((col) => (
             <div key={col} className="absolute top-0" style={{ left: col * 652, width: 628 }}>
               {standards.slice(col * 4, col * 4 + 4).map((standard, i) => (
-                <div key={standard.number}>
-                  <div className="flex items-center gap-6 py-6" style={{ height: ROW_HEIGHT }}>
-                    <span
-                      className="shrink-0 opacity-50"
-                      style={{
-                        fontFamily: "var(--font-space-grotesk)",
-                        fontSize: 80,
-                        fontWeight: 700,
-                        lineHeight: "100px",
-                        letterSpacing: "-1.6px",
-                        ...textGradient,
-                      }}
-                    >
-                      {standard.number}
-                    </span>
-                    <span
-                      className="flex-1 text-primary"
-                      style={{ fontFamily: "var(--font-sans)", fontSize: 24, fontWeight: 600, letterSpacing: "-0.48px" }}
-                    >
-                      {standard.title}
-                    </span>
-                    <span
-                      className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full text-white"
-                      style={{ background: "var(--gradient-primary)" }}
-                    >
-                      <ArrowUpRight className="h-4 w-4" />
-                    </span>
-                  </div>
-                  {i < 3 && <div className="h-0.5 rounded-full bg-[#DFF8EC]" />}
-                </div>
+                <StandardRow
+                  key={standard.number}
+                  standard={standard}
+                  open={openItem === standard.number}
+                  onToggle={() => setOpenItem((cur) => (cur === standard.number ? null : standard.number))}
+                  showDivider={i < 3}
+                />
               ))}
             </div>
           ))}
@@ -107,6 +193,8 @@ function StandardsDesktop() {
 }
 
 function StandardsMobile() {
+  const [openItem, setOpenItem] = useState<string | null>(null);
+
   return (
     <section className="relative overflow-hidden bg-white px-5 py-16 sm:px-8 lg:hidden">
       <div className="mx-auto flex max-w-xl flex-col items-center gap-10">
@@ -119,31 +207,49 @@ function StandardsMobile() {
         </h2>
 
         <div className="flex w-full flex-col">
-          {standards.map((standard, i) => (
-            <div key={standard.number}>
-              <div className="flex items-center gap-4 py-5">
-                <span
-                  className="shrink-0 opacity-50"
-                  style={{
-                    fontFamily: "var(--font-space-grotesk)",
-                    fontSize: "clamp(2.5rem, 10vw, 3.5rem)",
-                    fontWeight: 700,
-                    ...textGradient,
-                  }}
+          {standards.map((standard, i) => {
+            const open = openItem === standard.number;
+            return (
+              <div key={standard.number}>
+                <button
+                  type="button"
+                  onClick={() => setOpenItem((cur) => (cur === standard.number ? null : standard.number))}
+                  aria-expanded={open}
+                  className="flex w-full items-center gap-4 py-5 text-left"
                 >
-                  {standard.number}
-                </span>
-                <span className="flex-1 text-lg font-semibold text-primary">{standard.title}</span>
-                <span
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white"
-                  style={{ background: "var(--gradient-primary)" }}
+                  <span
+                    className="shrink-0 opacity-50"
+                    style={{
+                      fontFamily: "var(--font-space-grotesk)",
+                      fontSize: "clamp(2.5rem, 10vw, 3.5rem)",
+                      fontWeight: 700,
+                      ...textGradient,
+                    }}
+                  >
+                    {standard.number}
+                  </span>
+                  <span className="flex-1 text-lg font-semibold text-primary">{standard.title}</span>
+                  <span
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300"
+                    style={{ background: "var(--gradient-primary)", transform: open ? "rotate(135deg)" : "rotate(0deg)" }}
+                  >
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </button>
+
+                <div
+                  className="grid transition-[grid-template-rows] duration-300 ease-out"
+                  style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
                 >
-                  <ArrowUpRight className="h-4 w-4" />
-                </span>
+                  <div className="overflow-hidden">
+                    <p className="pb-5 pr-14 text-sm leading-relaxed text-muted-foreground">{standard.answer}</p>
+                  </div>
+                </div>
+
+                {i < standards.length - 1 && <div className="h-0.5 rounded-full bg-[#DFF8EC]" />}
               </div>
-              {i < standards.length - 1 && <div className="h-0.5 rounded-full bg-[#DFF8EC]" />}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

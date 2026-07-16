@@ -19,9 +19,9 @@ export default function Home() {
       <ValuesSection />
       <JudgmentSection />
       <PricingSection />
-      {/* <StandardsSection />
+      <StandardsSection />
       <ReviewsSection />
-      <FooterSection /> */}
+      <FooterSection />
     </div>
   );
 }

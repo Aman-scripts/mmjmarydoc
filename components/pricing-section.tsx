@@ -50,7 +50,7 @@ const plans = [
 
 function PricingDesktop() {
   return (
-    <section className="relative z-20 hidden bg-background lg:block">
+    <section className="relative z-30 hidden bg-background lg:block">
       <FigmaCanvas
         width={1440}
         height={TOP + 536 + BOTTOM + EXPAND_ALLOWANCE}

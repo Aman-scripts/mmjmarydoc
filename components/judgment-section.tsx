@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FigmaCanvas } from "@/components/figma-canvas";
+import { RevealOnView } from "@/components/reveal-on-view";
 
 // Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 97, 95:1155),
 // each offset relative to this section's own top-left corner (4899, 4705).
@@ -59,15 +60,32 @@ function JudgmentDesktop() {
           Care in your State
         </a>
 
-        <div className="absolute overflow-hidden rounded-[30px]" style={{ ...IMAGE_LEFT }}>
+        {/* Side images emerge from behind the main card after it appears */}
+        <RevealOnView
+          delay={500}
+          animationName="emerge-from-behind-left"
+          className="absolute overflow-hidden rounded-[30px]"
+          style={{ ...IMAGE_LEFT }}
+        >
           <Image src="/judgement-section-image1.png" alt="MaryDoc patient care" fill className="object-cover" />
-        </div>
-        <div className="absolute overflow-hidden rounded-[30px] shadow-lg" style={{ ...IMAGE_MIDDLE }}>
-          <Image src="/judgement-section-image2.png" alt="MaryDoc patient care" fill className="object-cover" />
-        </div>
-        <div className="absolute overflow-hidden rounded-[30px]" style={{ ...IMAGE_RIGHT }}>
+        </RevealOnView>
+        <RevealOnView
+          delay={500}
+          animationName="emerge-from-behind-right"
+          className="absolute overflow-hidden rounded-[30px]"
+          style={{ ...IMAGE_RIGHT }}
+        >
           <Image src="/judgement-section-image3.png" alt="MaryDoc patient care" fill className="object-cover" />
-        </div>
+        </RevealOnView>
+
+        {/* Main card appears first, on top of the other two */}
+        <RevealOnView
+          delay={0}
+          className="absolute overflow-hidden rounded-[30px] shadow-lg"
+          style={{ ...IMAGE_MIDDLE }}
+        >
+          <Image src="/judgement-section-image2.png" alt="MaryDoc patient care" fill className="object-cover" />
+        </RevealOnView>
       </FigmaCanvas>
     </section>
   );
@@ -108,9 +126,9 @@ function JudgmentMobile() {
           Care in your State
         </a>
 
-        <div className="relative mt-4 aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[30px]">
+        <RevealOnView className="relative mt-4 aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[30px]">
           <Image src="/judgement-section-image2.png" alt="MaryDoc patient care" fill className="object-cover" />
-        </div>
+        </RevealOnView>
       </div>
     </section>
   );

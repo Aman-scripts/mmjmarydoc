@@ -79,7 +79,7 @@ export function ProcessSection() {
 
       {/* Inactive step numbers peeking at the edges */}
       <div
-        className="absolute flex items-center justify-center rounded-full"
+        className="absolute flex items-center justify-center rounded-full border border-[#DFF8EC]"
         style={{ left: 136, top: TOP + 845, width: 48, height: 48 }}
       >
         <span
@@ -90,7 +90,7 @@ export function ProcessSection() {
         </span>
       </div>
       <div
-        className="absolute flex items-center justify-center rounded-full"
+        className="absolute flex items-center justify-center rounded-full border border-[#DFF8EC]"
         style={{ left: 1257, top: TOP + 845, width: 48, height: 48 }}
       >
         <span
