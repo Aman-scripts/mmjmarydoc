@@ -11,15 +11,14 @@ const mobileGradient = {
     "linear-gradient(315deg, #4C8C1A 0%, #1D6540 32.2%, #0E5A4D 72.1%, #071D1A 100%)",
 } as const;
 
-// TODO: steps 1 and 3 copy is placeholder — the Figma API was rate-limited
-// when pulling this, so only step 2's text ("Consult with MMJ Doctor") is
-// confirmed from the source file. Swap these once the real copy is available.
+// TODO: step 3 copy is still placeholder — not present in the Figma frames
+// pulled so far. Swap it once the real copy is available.
 const steps = [
   {
     number: 1,
-    title: "Select Your State",
+    title: "Book Your Appointment",
     description:
-      "Tell us where you're located so we can confirm eligibility and connect you with a doctor licensed in your state's medical cannabis program.",
+      "Provide your basic details and medical history through our HIPAA-compliant form. Schedule your consultation at your chosen time from the comfort of your home.",
   },
   {
     number: 2,
@@ -48,7 +47,7 @@ function MobileProcessSection() {
         >
           Three Simple Steps to Apply for Your Medical Marijuana Card
         </h2>
-        <p className="text-[#DFF8EC]" style={{ fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: "26px" }}>
+        <p className="italic text-[#DFF8EC]" style={{ fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: "26px" }}>
           You need to follow a three-step process designed to prioritize your
           convenience and care. Every evaluation is conducted by a
           state-licensed MMJ doctor, giving you a reliable way to obtain your
@@ -123,7 +122,7 @@ export function ProcessSection() {
           Three Simple Steps to Apply for Your Medical Marijuana Card
         </h2>
         <p
-          className="mx-auto text-center text-[#DFF8EC]"
+          className="mx-auto text-center italic text-[#DFF8EC]"
           style={{
             fontFamily: "var(--font-sans)",
             fontSize: 16,
@@ -173,7 +172,7 @@ export function ProcessSection() {
             Consult with MMJ Doctor
           </h3>
           <p
-            className="text-[#DFF8EC]"
+            className="italic text-[#DFF8EC]"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: 16,

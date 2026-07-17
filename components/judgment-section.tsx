@@ -32,7 +32,7 @@ function JudgmentDesktop() {
             letterSpacing: "-0.96px",
           }}
         >
-          <span className="text-accent">Seeking relief</span> should never come with judgment
+          <span className="italic text-accent">Seeking relief</span> should never come with judgment
         </h2>
 
         <p
@@ -108,8 +108,12 @@ function JudgmentMobile() {
             letterSpacing: "-0.02em",
           }}
         >
-          <span className="text-accent">Seeking relief</span> should never come with judgment
+          <span className="italic text-accent">Seeking relief</span> should never come with judgment
         </h2>
+
+        <RevealOnView className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[30px]">
+          <Image src="/judgement-section-image2.png" alt="MaryDoc patient care" fill className="object-cover" />
+        </RevealOnView>
 
         <p className="italic text-muted-foreground" style={{ fontSize: 16, lineHeight: "30px" }}>
           {paragraphText}
@@ -125,10 +129,6 @@ function JudgmentMobile() {
         >
           Care in your State
         </a>
-
-        <RevealOnView className="relative mt-4 aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[30px]">
-          <Image src="/judgement-section-image2.png" alt="MaryDoc patient care" fill className="object-cover" />
-        </RevealOnView>
       </div>
     </section>
   );

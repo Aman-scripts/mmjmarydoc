@@ -95,7 +95,7 @@ export function Hero() {
           </h1>
 
           <p
-            className="absolute text-right text-base leading-[26px] tracking-[-0.32px] text-muted-foreground"
+            className="absolute text-right italic text-base leading-[26px] tracking-[-0.32px] text-muted-foreground"
             style={{ ...DESCRIPTION }}
           >
             MaryDoc connects you with licensed physicians in your state for

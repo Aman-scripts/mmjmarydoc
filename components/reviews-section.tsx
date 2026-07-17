@@ -3,22 +3,13 @@
 import { useState } from "react";
 import type { CSSProperties } from "react";
 import Image from "next/image";
-import { Quote, ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { RevealOnView } from "@/components/reveal-on-view";
 
-// Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 68, 101:249),
-// each offset relative to this section's own top-left corner (4899, 6914).
-// Figma places a 100px gap before and after this block; the preceding
-// section (Standards) already accounts for the gap on its own BOTTOM, so
-// only the trailing gap is added here to avoid double-counting it.
-const TOP = 0;
-const BOTTOM = 100;
+const TOP = 100;
+const BOTTOM = 40;
 
-// Only the first review's copy is confirmed from Figma (it was repeated
-// across all three fanned cards in the source file); the rest here are
-// placeholder testimonials added so the forward/back carousel has real
-// content to cycle through — swap in real reviews when available.
 const reviews = [
   {
     text: "I went to site chose document format, scheduled appt., and received consultation call within 2-3 minutes. Spent 5 min. on the interview, and had recommendation within minutes!",
@@ -37,13 +28,29 @@ const reviews = [
   },
 ];
 
-// The two side cards are almost entirely covered by the front card in the
-// real design — only a sliver of their rounded edge peeks out — so they're
-// rendered as plain solid panels rather than duplicating the full content.
-// Their resting rotation (-6deg / 6deg) is baked into the emerge-peek-left/
-// right keyframes' end state, applied via the wrapping RevealOnView.
-function PeekCard({ style }: { style: CSSProperties }) {
-  return <div className="absolute rounded-[30px] bg-primary shadow-lg" style={style} />;
+function PeekCard({
+  style,
+  className,
+  quote,
+}: {
+  style: CSSProperties;
+  className?: string;
+  quote?: { left: number; top: number; size: number };
+}) {
+  return (
+    <div className={className ?? "absolute overflow-hidden rounded-[30px] bg-primary shadow-lg"} style={style}>
+      {quote && (
+        <Image
+          src="/quote.svg"
+          alt=""
+          width={quote.size}
+          height={quote.size}
+          className="absolute opacity-80"
+          style={{ left: quote.left, top: quote.top }}
+        />
+      )}
+    </div>
+  );
 }
 
 function FrontCard({
@@ -66,11 +73,13 @@ function FrontCard({
         animation: `review-in-from-${direction} 0.35s ease-out`,
       }}
     >
-      <Quote
-        className="absolute text-white"
-        style={{ left: 188, top: 0, width: 139, height: 139 }}
-        fill="currentColor"
-        strokeWidth={0}
+      <Image
+        src="/quote.svg"
+        alt=""
+        width={139}
+        height={139}
+        className="absolute"
+        style={{ left: 188, top: 0 }}
       />
 
       <Image
@@ -166,11 +175,11 @@ function ReviewsDesktop() {
             letterSpacing: "-0.96px",
           }}
         >
-          Hear From <span className="text-accent">Our Patients</span>
+          Hear From <span className="italic text-accent">Our Patients</span>
         </h2>
 
         <p
-          className="absolute text-center text-muted-foreground"
+          className="absolute text-center italic text-muted-foreground"
           style={{ left: 0, top: TOP + 112, width: 1439, fontSize: 16, lineHeight: "26px", letterSpacing: "-0.32px" }}
         >
           Real experiences shared by patients who chose MaryDoc for compassionate, physician-led care
@@ -215,7 +224,7 @@ function ReviewsDesktop() {
 }
 
 function ReviewsMobile() {
-  const { review, direction, tick, next, prev } = useReviewCarousel();
+  const { review, direction, tick } = useReviewCarousel();
 
   return (
     <section className="relative overflow-hidden bg-background px-5 py-16 sm:px-8 lg:hidden">
@@ -233,57 +242,60 @@ function ReviewsMobile() {
             letterSpacing: "-0.02em",
           }}
         >
-          Hear From <span className="text-accent">Our Patients</span>
+          Hear From <span className="italic text-accent">Our Patients</span>
         </h2>
-        <p className="text-base text-muted-foreground">
+        <p className="text-base italic text-muted-foreground">
           Real experiences shared by patients who chose MaryDoc for compassionate, physician-led care
         </p>
 
-        <div className="mt-6 flex w-full flex-col gap-6">
-          <div
-            key={tick}
-            className="relative flex flex-col overflow-hidden rounded-[30px] bg-[#DFF8EC] p-6 text-left shadow-md"
-            style={{ animation: `review-in-from-${direction} 0.35s ease-out` }}
-          >
-            <Quote className="absolute right-4 top-0 h-16 w-16 text-white" fill="currentColor" strokeWidth={0} />
-            <Image src="/google.svg" alt="Google" width={44} height={44} />
-            <p className="mt-6 text-base text-muted-foreground">{review.text}</p>
-            <a
-              href="#read-more"
-              className="mt-6 w-fit rounded-full border border-primary px-9 py-2 text-base font-semibold text-primary"
+        <div className="mt-6 w-full">
+          <FigmaCanvas width={351} height={534} style={{ overflow: "visible" }}>
+            <PeekCard
+              className="absolute z-0 overflow-hidden rounded-[30px] bg-primary shadow-lg"
+              style={{ left: 37, top: 17, width: 283, height: 500, transform: "rotate(7.86deg)" }}
+              quote={{ left: 145, top: 0, size: 114 }}
+            />
+
+            <div
+              key={tick}
+              className="absolute z-10 flex flex-col overflow-hidden rounded-[30px] bg-[#DFF8EC] p-6 text-left shadow-md"
+              style={{ left: 13, top: 13, width: 283, height: 500, animation: `review-in-from-${direction} 0.35s ease-out` }}
             >
-              Read More
-            </a>
-            <div className="mt-6 h-px w-full bg-border" />
-            <div className="mt-6 flex items-center gap-3">
-              <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full">
-                <Image src="/review-section-image1.svg" alt={review.name} width={48} height={48} />
-              </div>
-              <div>
-                <p className="text-base text-foreground">{review.name}</p>
-                <p className="text-xs text-muted-foreground">{review.time}</p>
+              <Image
+                src="/quote.svg"
+                alt=""
+                width={114}
+                height={114}
+                className="absolute"
+                style={{ left: 145, top: 0 }}
+              />
+
+              <Image src="/google.svg" alt="Google" width={44} height={44} className="mt-8" />
+
+              <p className="mt-6 text-muted-foreground" style={{ fontSize: 15, lineHeight: "24px" }}>
+                {review.text}
+              </p>
+
+              <a
+                href="#read-more"
+                className="mt-6 w-fit rounded-full border border-primary px-8 py-2 text-base font-semibold text-primary"
+              >
+                Read More
+              </a>
+
+              <div className="mt-6 h-px w-full bg-border" />
+
+              <div className="mt-6 flex items-center gap-3">
+                <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full">
+                  <Image src="/review-section-image1.svg" alt={review.name} width={48} height={48} />
+                </div>
+                <div>
+                  <p className="text-base text-foreground">{review.name}</p>
+                  <p className="text-xs text-muted-foreground">{review.time}</p>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="flex items-center justify-center gap-4">
-            <button
-              aria-label="Previous review"
-              onClick={prev}
-              className="flex h-11 w-11 items-center justify-center rounded-full text-white"
-              style={{ background: "var(--gradient-primary)" }}
-            >
-              <ArrowLeft className="h-4 w-4" />
-            </button>
-            <button
-              aria-label="Next review"
-              onClick={next}
-              className="flex h-11 w-11 items-center justify-center rounded-full text-white"
-              style={{ background: "var(--gradient-primary)" }}
-            >
-              <ArrowRight className="h-4 w-4" />
-            </button>
-          </div>
+          </FigmaCanvas>
         </div>
       </div>
     </section>

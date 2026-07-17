@@ -20,14 +20,9 @@ const textGradient = {
   margin: "-0.3em -0.2em",
 } as const;
 
-// Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 113, 101:230),
-// each offset relative to this section's own top-left corner (4899, 6011).
-// Figma places a 100px gap before and after this block, added as TOP/BOTTOM.
 const TOP = 100;
 const BOTTOM = 100;
-// One row can expand at a time; this reserves enough room so the revealed
-// answer doesn't overflow the canvas and get covered by whatever section
-// comes right after it (same fix used for the pricing cards' hover-expand).
+
 const EXPAND_ALLOWANCE = 160;
 
 const standards = [
@@ -114,7 +109,7 @@ function StandardRow({
           {standard.number}
         </span>
         <span
-          className="flex-1 text-primary"
+          className="text-primary"
           style={{ fontFamily: "var(--font-sans)", fontSize: 24, fontWeight: 600, letterSpacing: "-0.48px" }}
         >
           {standard.title}
@@ -145,10 +140,19 @@ function StandardRow({
 
 function StandardsDesktop() {
   const [openItem, setOpenItem] = useState<string | null>(null);
+  const restPct = ((TOP + 803 + BOTTOM) / 1440) * 100;
+  const expandedPct = ((TOP + 803 + BOTTOM + EXPAND_ALLOWANCE) / 1440) * 100;
 
   return (
-    <section className="relative z-20 hidden bg-white lg:block">
-      <FigmaCanvas width={1440} height={TOP + 803 + EXPAND_ALLOWANCE + BOTTOM} className="mx-auto" style={{ overflow: "visible" }}>
+    <section
+      className="relative hidden bg-white transition-[padding-bottom] duration-300 ease-out lg:block"
+      style={{ height: 0, paddingBottom: `${openItem ? expandedPct : restPct}%` }}
+    >
+      <FigmaCanvas
+        width={1440}
+        height={TOP + 803 + BOTTOM + EXPAND_ALLOWANCE}
+        className="absolute inset-0 mx-auto"
+      >
         <div
           className="pointer-events-none absolute"
           style={{ left: 113, top: TOP + 82, width: 150, height: 106 }}
@@ -198,13 +202,17 @@ function StandardsMobile() {
   return (
     <section className="relative overflow-hidden bg-white px-5 py-16 sm:px-8 lg:hidden">
       <div className="mx-auto flex max-w-xl flex-col items-center gap-10">
-        <h2
-          className="text-center"
-          style={{ fontWeight: 800, fontSize: "clamp(1.75rem, 8vw, 2.75rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}
-        >
-          <span className="italic text-primary">Our</span>{" "}
-          <span className="text-accent opacity-50">STANDARDS</span>
-        </h2>
+        <div className="flex items-center gap-3">
+          <Image src="/faq-section-top.svg" alt="" width={38} height={27} className="shrink-0" />
+          <h2
+            className="text-center"
+            style={{ fontWeight: 800, fontSize: "clamp(1.75rem, 8vw, 2.75rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}
+          >
+            <span className="italic text-primary">Our</span>{" "}
+            <span className="text-accent opacity-50">STANDARDS</span>
+          </h2>
+          <Image src="/faq-section-top.svg" alt="" width={38} height={27} className="shrink-0 -scale-x-100" />
+        </div>
 
         <div className="flex w-full flex-col">
           {standards.map((standard, i) => {
@@ -228,7 +236,7 @@ function StandardsMobile() {
                   >
                     {standard.number}
                   </span>
-                  <span className="flex-1 text-lg font-semibold text-primary">{standard.title}</span>
+                  <span className="text-lg font-semibold text-primary">{standard.title}</span>
                   <span
                     className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300"
                     style={{ background: "var(--gradient-primary)", transform: open ? "rotate(135deg)" : "rotate(0deg)" }}

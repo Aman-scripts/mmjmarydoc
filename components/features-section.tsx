@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { FigmaCanvas } from "@/components/figma-canvas";
-import { MobileImageCarousel } from "@/components/mobile-image-carousel";
 
 // Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 88, 86:724),
 // each offset relative to this section's own top-left corner (4899, 2504).
@@ -33,7 +32,7 @@ function FeaturesDesktop() {
           }}
         >
           Making{" "}
-          <em className="not-italic italic text-accent">Medical Cannabis</em>{" "}
+          <em className="italic text-accent">Medical Cannabis</em>{" "}
           More Accessible
         </h2>
 
@@ -95,37 +94,40 @@ function FeaturesMobile() {
             letterSpacing: "-0.02em",
           }}
         >
-          Making <em className="not-italic italic text-accent">Medical Cannabis</em> More
+          Making <em className="italic text-accent">Medical Cannabis</em> More
           Accessible
         </h2>
+
+        <div className="relative mt-4">
+          <FigmaCanvas width={350} height={262} style={{ overflow: "visible" }}>
+            <div className="pointer-events-none absolute opacity-50" style={{ left: -17, top: 136, width: 147, height: 139 }}>
+              <Image src="/left-bottom.svg" alt="" fill className="object-contain" />
+            </div>
+            <div className="pointer-events-none absolute opacity-50" style={{ left: 241, top: 24, width: 106, height: 128 }}>
+              <Image src="/right-top.svg" alt="" fill className="object-contain" />
+            </div>
+
+            <div className="absolute overflow-hidden rounded-2xl" style={{ left: 60, top: 56, width: 248, height: 137 }}>
+              <Image src="/image1.png" alt="Cannabis plant" fill className="object-cover" />
+            </div>
+            <div className="absolute overflow-hidden rounded-full shadow-lg" style={{ left: 1, top: 0, width: 90, height: 124 }}>
+              <Image src="/Image2.png" alt="Holding tincture bottles" fill className="object-cover" />
+            </div>
+            <div className="absolute overflow-hidden rounded-2xl" style={{ left: 261, top: 168, width: 89, height: 60 }}>
+              <Image src="/image3.png" alt="Doctor consultation supplies" fill className="object-cover" />
+            </div>
+            <span
+              className="absolute flex items-center justify-center rounded-full bg-[#DFF8EC] text-xs font-semibold text-primary shadow-sm"
+              style={{ left: 133, top: 156, width: 101, height: 27 }}
+            >
+              Select State
+            </span>
+          </FigmaCanvas>
+        </div>
 
         <div className="flex flex-col gap-4 whitespace-pre-line italic text-muted-foreground" style={{ fontSize: 16, lineHeight: "26px" }}>
           {`For years, getting a medical marijuana card meant navigating confusing websites or impersonal clinics. Many patients living with chronic pain, anxiety, PTSD, and other qualifying conditions were left feeling judged while searching for safe, legitimate care.\n\nMaryDoc was created to change that. We connect patients with licensed physicians for secure online evaluations, making access to medical cannabis simple, trusted, and compassionate. Our mission is to provide a seamless, transparent experience that puts patients first—making quality care more accessible across 30+ states.`}
         </div>
-
-        <div className="relative mt-4">
-          <div className="pointer-events-none absolute -left-6 -top-10 h-24 w-24 opacity-50">
-            <Image src="/right-top.svg" alt="" fill className="object-contain" />
-          </div>
-          <div className="pointer-events-none absolute -bottom-10 -right-6 h-24 w-24 opacity-50">
-            <Image src="/left-bottom.svg" alt="" fill className="object-contain" />
-          </div>
-
-          <MobileImageCarousel
-            slides={[
-              { src: "/image1.png", alt: "Cannabis plant" },
-              { src: "/Image2.png", alt: "Holding tincture bottles" },
-              { src: "/image3.png", alt: "Doctor consultation supplies" },
-            ]}
-          />
-        </div>
-
-        <a
-          href="#get-your-card"
-          className="mx-auto mt-10 rounded-full bg-[#DFF8EC] px-9 py-3 text-base font-semibold text-primary"
-        >
-          Get your Card
-        </a>
       </div>
     </section>
   );

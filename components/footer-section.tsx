@@ -39,7 +39,7 @@ export function FooterSection() {
     >
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-col items-center gap-4 lg:items-start">
-          <Image src="/logo_marydoc.svg" alt="Marydoc" width={150} height={48} />
+          <Image src="/footer-logo.svg" alt="Marydoc" width={150} height={48} />
           <div className="flex items-center gap-3">
             <FacebookIcon className="h-5 w-5 text-white/90" />
             <InstagramIcon className="h-5 w-5 text-white/90" />
@@ -47,7 +47,7 @@ export function FooterSection() {
           </div>
         </div>
 
-        <nav className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+        <nav className="flex flex-col items-center justify-center gap-8 lg:flex-row lg:flex-wrap lg:gap-10">
           {navLinks.map((link) => (
             <a
               key={link}

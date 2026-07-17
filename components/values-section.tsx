@@ -1,3 +1,6 @@
+"use client";
+
+import { useRef, useState } from "react";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { ShieldCheck, Globe, Heart, Award } from "lucide-react";
 
@@ -199,6 +202,22 @@ function ValuesDesktop() {
 }
 
 function ValuesMobile() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+
+  function handleScroll() {
+    const track = trackRef.current;
+    if (!track) return;
+    const index = Math.round(track.scrollLeft / track.clientWidth);
+    setActive(index);
+  }
+
+  function scrollToIndex(index: number) {
+    const track = trackRef.current;
+    if (!track) return;
+    track.scrollTo({ left: index * track.clientWidth, behavior: "smooth" });
+  }
+
   return (
     <section className="relative overflow-hidden bg-background px-5 py-16 sm:px-8 lg:hidden">
       <div className="mx-auto flex max-w-xl flex-col items-center gap-10 text-center">
@@ -218,34 +237,54 @@ function ValuesMobile() {
           </span>
         </h2>
 
-        <div className="flex w-full flex-col gap-6">
+        <div
+          ref={trackRef}
+          onScroll={handleScroll}
+          className="flex w-full snap-x snap-mandatory overflow-x-auto scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
           {cards.map((card) => (
-            <div key={card.title} className="relative overflow-hidden rounded-[30px] bg-[#DFF8EC] p-8 text-left">
-              <span
-                className="pointer-events-none absolute right-4 top-2 select-none"
-                style={{
-                  fontFamily: "var(--font-space-grotesk)",
-                  fontSize: "clamp(4rem, 20vw, 6rem)",
-                  fontWeight: 700,
-                  ...textGradient,
-                  opacity: 0.15,
-                }}
-              >
-                {card.number}
-              </span>
-              <div className="relative flex flex-col gap-4">
-                <div className="flex items-center gap-4">
-                  <div
-                    className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-white"
-                    style={{ background: "var(--gradient-primary)" }}
-                  >
-                    <card.Icon className="h-6 w-6" />
+            <div key={card.title} className="w-full shrink-0 snap-center px-1">
+              <div className="relative overflow-hidden rounded-[30px] bg-[#DFF8EC] p-8 text-left">
+                <span
+                  className="pointer-events-none absolute right-4 top-2 select-none"
+                  style={{
+                    fontFamily: "var(--font-space-grotesk)",
+                    fontSize: "clamp(4rem, 20vw, 6rem)",
+                    fontWeight: 700,
+                    ...textGradient,
+                    opacity: 0.15,
+                  }}
+                >
+                  {card.number}
+                </span>
+                <div className="relative flex flex-col gap-4">
+                  <div className="flex items-center gap-4">
+                    <div
+                      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-white"
+                      style={{ background: "var(--gradient-primary)" }}
+                    >
+                      <card.Icon className="h-6 w-6" />
+                    </div>
+                    <span className="text-2xl font-semibold text-primary">{card.title}</span>
                   </div>
-                  <span className="text-2xl font-semibold text-primary">{card.title}</span>
+                  <p className="text-base leading-relaxed text-muted-foreground">{card.description}</p>
                 </div>
-                <p className="text-base leading-relaxed text-muted-foreground">{card.description}</p>
               </div>
             </div>
+          ))}
+        </div>
+
+        <div className="flex items-center justify-center gap-3">
+          {cards.map((card, index) => (
+            <button
+              key={card.title}
+              type="button"
+              aria-label={`Go to ${card.title}`}
+              onClick={() => scrollToIndex(index)}
+              className={`h-2 rounded-full transition-all ${
+                index === active ? "w-6 bg-primary" : "w-2 bg-primary/30"
+              }`}
+            />
           ))}
         </div>
 

@@ -1,5 +1,13 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
 import { FigmaCanvas } from "@/components/figma-canvas";
-import { FilePlus, RefreshCw, Check } from "lucide-react";
+import { RefreshCw, Check } from "lucide-react";
+
+function NewEvaluationIcon({ className }: { className?: string }) {
+  return <Image src="/newevaluation.svg" alt="" width={16} height={16} className={className} />;
+}
 
 // Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 71, 95:1342),
 // each offset relative to this section's own top-left corner (4899, 5375).
@@ -8,14 +16,15 @@ import { FilePlus, RefreshCw, Check } from "lucide-react";
 // state that reveals a checklist panel — reproduced here as a hover reveal.
 const TOP = 100;
 const BOTTOM = 100;
-// Cards grow ~214px on hover (332px -> 546px). BOTTOM alone only covers 100px
-// of that, so the remainder (~114px) is added here to avoid overlapping the
-// section that follows, without padding out the layout more than necessary.
-const EXPAND_ALLOWANCE = 120;
+// Cards grow ~214px on hover (332px -> 546px). That growth is reserved in
+// this section's own fixed height (via EXPAND_ALLOWANCE) and clipped to it
+// (overflow: hidden), so the checklist expands entirely within the pricing
+// section itself instead of spilling into — or shifting — whatever follows.
+const EXPAND_ALLOWANCE = 220;
 
 const plans = [
   {
-    Icon: FilePlus,
+    Icon: NewEvaluationIcon,
     badge: "New Evaluation",
     title: "New Card Evaluation",
     description: "Get Started with Your Medical Cannabis Evaluation.",
@@ -49,13 +58,19 @@ const plans = [
 ];
 
 function PricingDesktop() {
+  const [expanded, setExpanded] = useState(false);
+  const restPct = ((TOP + 536 + BOTTOM) / 1440) * 100;
+  const expandedPct = ((TOP + 536 + BOTTOM + EXPAND_ALLOWANCE) / 1440) * 100;
+
   return (
-    <section className="relative z-30 hidden bg-background lg:block">
+    <section
+      className="relative hidden bg-background transition-[padding-bottom] duration-300 ease-out lg:block"
+      style={{ height: 0, paddingBottom: `${expanded ? expandedPct : restPct}%` }}
+    >
       <FigmaCanvas
         width={1440}
         height={TOP + 536 + BOTTOM + EXPAND_ALLOWANCE}
-        className="mx-auto"
-        style={{ overflow: "visible" }}
+        className="absolute inset-0 mx-auto"
       >
         <span
           className="absolute flex items-center justify-center rounded-full bg-[#DFF8EC] text-xs font-normal leading-[18px] tracking-[-0.24px] text-primary"
@@ -77,11 +92,11 @@ function PricingDesktop() {
             letterSpacing: "-0.96px",
           }}
         >
-          Get Started in Just a <span className="text-accent">Few Clicks</span>
+          Get Started in Just a <span className="italic text-accent">Few Clicks</span>
         </h2>
 
         <p
-          className="absolute text-center text-muted-foreground"
+          className="absolute text-center italic text-muted-foreground"
           style={{
             left: 411,
             top: TOP + 112,
@@ -101,10 +116,12 @@ function PricingDesktop() {
             key={plan.title}
             className="group absolute z-0 rounded-[30px] bg-[#DFF8EC] px-11 py-8 shadow-sm transition-shadow duration-300 hover:z-10 hover:shadow-xl"
             style={{ left: plan.left, top: TOP + 204, width: 411 }}
+            onMouseEnter={() => setExpanded(true)}
+            onMouseLeave={() => setExpanded(false)}
           >
-            <div className="flex items-center gap-4">
-              <div className="flex h-[48px] w-[48px] items-center justify-center rounded-full bg-white shadow-sm">
-                <plan.Icon className="h-6 w-6 text-primary" />
+            <div className="flex items-center justify-between">
+              <div className="flex h-9 w-14 items-center justify-center rounded-full border border-primary/30 bg-transparent">
+                <plan.Icon className="h-4 w-4 text-primary" />
               </div>
               <span
                 className="flex items-center justify-center rounded-full px-4 py-0.5 text-xs font-normal leading-[18px] tracking-[-0.24px] text-white"
@@ -186,19 +203,19 @@ function PricingMobile() {
             letterSpacing: "-0.02em",
           }}
         >
-          Get Started in Just a <span className="text-accent">Few Clicks</span>
+          Get Started in Just a <span className="italic text-accent">Few Clicks</span>
         </h2>
-        <p className="text-base text-muted-foreground">
+        <p className="text-base italic text-muted-foreground">
           Select your evaluation type and connect with a licensed provider to
           begin your medical cannabis journey online.
         </p>
 
         <div className="mt-6 flex w-full flex-col gap-6">
           {plans.map((plan) => (
-            <div key={plan.title} className="flex flex-col items-center gap-6 rounded-[30px] bg-[#DFF8EC] px-8 py-8 text-center">
-              <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-sm">
-                  <plan.Icon className="h-6 w-6 text-primary" />
+            <div key={plan.title} className="flex flex-col gap-6 rounded-[30px] bg-[#DFF8EC] px-8 py-8 text-left">
+              <div className="flex items-center justify-between">
+                <div className="flex h-9 w-14 items-center justify-center rounded-full border border-primary/30 bg-transparent">
+                  <plan.Icon className="h-4 w-4 text-primary" />
                 </div>
                 <span
                   className="rounded-full px-4 py-0.5 text-xs font-normal text-white"
@@ -222,7 +239,7 @@ function PricingMobile() {
 
               <a
                 href="#start-evaluation"
-                className="rounded-full px-9 py-3 text-base font-semibold text-white"
+                className="w-full rounded-full py-3 text-center text-base font-semibold text-white"
                 style={{ background: "var(--gradient-primary)" }}
               >
                 {plan.cta}
