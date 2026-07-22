@@ -1,14 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { MobileProcessCarousel } from "@/components/mobile-process-carousel";
+import { RevealOnView } from "@/components/reveal-on-view";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 }
 
 // Coordinates lifted 1:1 from the Figma frame (62:139 -> instance "Steps",
@@ -58,9 +60,9 @@ const BUBBLE_RADIUS = 585;
 // matches the original hand-placed corner positions almost exactly.
 const NEIGHBOR_ANGLE = 79;
 
-function pointOnRing(angleDeg: number, radius: number) {
+function pointOnRing(angleDeg: number, radius: number, center = RING_CENTER) {
   const rad = (angleDeg * Math.PI) / 180;
-  return { x: RING_CENTER.x + radius * Math.sin(rad), y: RING_CENTER.y - radius * Math.cos(rad) };
+  return { x: center.x + radius * Math.sin(rad), y: center.y - radius * Math.cos(rad) };
 }
 
 // For step i, which arc angle it sits at while step `active` is centered —
@@ -75,27 +77,81 @@ function angleFor(i: number, active: number): number | null {
 }
 
 function MobileProcessSection() {
-  return (
-    <section className="relative w-full overflow-hidden px-5 py-16 sm:px-8 lg:hidden" style={mobileGradient}>
-      <div className="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
-        <span className="rounded-full bg-[#DFF8EC] px-4 py-0.5 text-xs font-normal text-primary">
-          Process
-        </span>
-        <h2
-          className="text-[#FAFAF8]"
-          style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.75rem, 7vw, 2.5rem)", fontWeight: 700, letterSpacing: "-0.02em" }}
-        >
-          Three Simple Steps to Apply for Your Medical Marijuana Card
-        </h2>
-        <p className="italic text-[#DFF8EC]" style={{ fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: "26px" }}>
-          You need to follow a three-step process designed to prioritize your
-          convenience and care. Every evaluation is conducted by a
-          state-licensed MMJ doctor, giving you a reliable way to obtain your
-          medical marijuana recommendation
-        </p>
-      </div>
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const pinRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
+  const [active, setActive] = useState(0);
 
-      <MobileProcessCarousel steps={steps} />
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const track = trackRef.current;
+      if (!track) return;
+
+      const tween = gsap.to(track, {
+        xPercent: -(100 * (STEP_COUNT - 1)) / STEP_COUNT,
+        ease: "none",
+        scrollTrigger: {
+          trigger: wrapperRef.current,
+          start: "top+=250px",
+          end: `+=${(STEP_COUNT - 1) * window.innerHeight}`,
+          scrub: true,
+          pin: pinRef.current,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            setActive(Math.round(self.progress * (STEP_COUNT - 1)));
+          },
+        },
+      });
+
+      scrollTriggerRef.current = tween.scrollTrigger ?? null;
+    }, wrapperRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  function scrollToIndex(index: number) {
+    const st = scrollTriggerRef.current;
+    if (!st) return;
+    const target = st.start + (st.end - st.start) * (index / (STEP_COUNT - 1));
+    gsap.to(window, { scrollTo: target, duration: 0.6, ease: "power2.out" });
+  }
+
+  return (
+    <section className="relative w-full overflow-hidden lg:hidden" ref={wrapperRef}>
+      <div ref={pinRef} className="w-full px-5 py-16 sm:px-8" style={mobileGradient}>
+        <RevealOnView className="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
+          <span className="rounded-full bg-[#DFF8EC] px-4 py-0.5 text-xs font-normal text-primary">
+            Process
+          </span>
+          <h2
+            className="text-[#FAFAF8]"
+            style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.75rem, 7vw, 2.5rem)", fontWeight: 700, letterSpacing: "-0.02em" }}
+          >
+            Three Simple Steps to Apply for Your Medical Marijuana Card
+          </h2>
+          <p className="italic text-[#DFF8EC]" style={{ fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: "26px" }}>
+            You need to follow a three-step process designed to prioritize your
+            convenience and care. Every evaluation is conducted by a
+            state-licensed MMJ doctor, giving you a reliable way to obtain your
+            medical marijuana recommendation
+          </p>
+        </RevealOnView>
+
+        <div className="relative mt-8">
+          {/* Full-width divider (Figma "Line 5") sitting behind the badge's
+              connector dot — a plain straight line, not an arc/ring. */}
+          <Image
+            src="/mobile-proces-line.svg"
+            alt=""
+            width={390}
+            height={1}
+            className="pointer-events-none absolute inset-x-0 w-full"
+            style={{ top: 91, width: "100%", height: "auto" }}
+          />
+          <MobileProcessCarousel ref={trackRef} steps={steps} active={active} onDotClick={scrollToIndex} />
+        </div>
+      </div>
     </section>
   );
 }

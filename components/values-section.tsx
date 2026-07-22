@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { ShieldCheck, Globe, Heart, Award } from "lucide-react";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+  gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
 }
 
 const textGradient = {
@@ -443,103 +444,142 @@ function ValuesDesktop() {
   );
 }
 
+const CARD_COUNT = cards.length;
+
 function ValuesMobile() {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const pinRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const [active, setActive] = useState(0);
 
-  function handleScroll() {
-    const track = trackRef.current;
-    if (!track) return;
-    const index = Math.round(track.scrollLeft / track.clientWidth);
-    setActive(index);
-  }
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const track = trackRef.current;
+      if (!track) return;
+
+      const tween = gsap.to(track, {
+        xPercent: -(100 * (CARD_COUNT - 1)) / CARD_COUNT,
+        ease: "none",
+        scrollTrigger: {
+          trigger: wrapperRef.current,
+          start: "top top",
+          end: `+=${(CARD_COUNT - 1) * window.innerHeight}`,
+          scrub: true,
+          pin: pinRef.current,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            setActive(Math.round(self.progress * (CARD_COUNT - 1)));
+          },
+        },
+      });
+
+      scrollTriggerRef.current = tween.scrollTrigger ?? null;
+    }, wrapperRef);
+
+    return () => ctx.revert();
+  }, []);
 
   function scrollToIndex(index: number) {
-    const track = trackRef.current;
-    if (!track) return;
-    track.scrollTo({ left: index * track.clientWidth, behavior: "smooth" });
+    const st = scrollTriggerRef.current;
+    if (!st) return;
+    const target = st.start + (st.end - st.start) * (index / (CARD_COUNT - 1));
+    gsap.to(window, { scrollTo: target, duration: 0.6, ease: "power2.out" });
   }
 
   return (
-    <section className="relative overflow-hidden bg-background px-5 py-16 sm:px-8 lg:hidden">
-      <div className="mx-auto flex max-w-xl flex-col items-center gap-10 text-center">
-        <h2
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontWeight: 800,
-            fontSize: "clamp(1.75rem, 8vw, 2.75rem)",
-            lineHeight: 1.15,
-            letterSpacing: "-0.02em",
-          }}
-        >
-          <span className="italic text-primary">Four things</span>{" "}
-          <span className="text-accent opacity-50">WE NEVER COMPROMISE</span>{" "}
-          <span className="italic" style={textGradient}>
-            On
-          </span>
-        </h2>
+    <section className="relative overflow-hidden bg-background lg:hidden">
+      <div className="px-5 pt-16 sm:px-8">
+        <div className="mx-auto flex max-w-xl flex-col items-center text-center">
+          <h2
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontWeight: 800,
+              fontSize: "clamp(1.75rem, 8vw, 2.75rem)",
+              lineHeight: 1.15,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            <span className="italic text-primary">Four things</span>{" "}
+            <span className="text-accent opacity-50">WE NEVER COMPROMISE</span>{" "}
+            <span className="italic" style={textGradient}>
+              On
+            </span>
+          </h2>
+        </div>
+      </div>
 
-        <div
-          ref={trackRef}
-          onScroll={handleScroll}
-          className="flex w-full snap-x snap-mandatory overflow-x-auto scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {cards.map((card) => (
-            <div key={card.title} className="w-full shrink-0 snap-center px-1">
-              <div className="relative overflow-hidden rounded-[30px] bg-[#DFF8EC] p-8 text-left">
-                <span
-                  className="pointer-events-none absolute right-4 top-2 select-none"
-                  style={{
-                    fontFamily: "var(--font-space-grotesk)",
-                    fontSize: "clamp(4rem, 20vw, 6rem)",
-                    fontWeight: 700,
-                    ...textGradient,
-                    opacity: 0.15,
-                  }}
-                >
-                  {card.number}
-                </span>
-                <div className="relative flex flex-col gap-4">
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-white"
-                      style={{ background: "var(--gradient-primary)" }}
-                    >
-                      <card.Icon className="h-6 w-6" />
+      {/* Only the card track + dots are pinned — the heading above and the CTA
+          below stay in normal flow so the pinned viewport has room to show a
+          full card instead of the heading eating the frame. */}
+      <div ref={wrapperRef} className="relative w-full">
+        <div ref={pinRef} className="w-full bg-background px-5 py-10 sm:px-8">
+          <div className="mx-auto flex max-w-xl flex-col items-center gap-10">
+            <div className="relative w-full overflow-hidden">
+              <div ref={trackRef} className="flex" style={{ width: `${CARD_COUNT * 100}%` }}>
+                {cards.map((card) => (
+                  <div key={card.title} className="shrink-0 px-1" style={{ width: `${100 / CARD_COUNT}%` }}>
+                    <div className="relative overflow-hidden rounded-[30px] bg-[#DFF8EC] p-8 text-left">
+                      <span
+                        className="pointer-events-none absolute right-4 top-2 select-none"
+                        style={{
+                          fontFamily: "var(--font-space-grotesk)",
+                          fontSize: "clamp(4rem, 20vw, 6rem)",
+                          fontWeight: 700,
+                          ...textGradient,
+                          opacity: 0.15,
+                        }}
+                      >
+                        {card.number}
+                      </span>
+                      <div className="relative flex flex-col gap-4">
+                        <div className="flex items-center gap-4">
+                          <div
+                            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-white"
+                            style={{ background: "var(--gradient-primary)" }}
+                          >
+                            <card.Icon className="h-6 w-6" />
+                          </div>
+                          <span className="text-2xl font-semibold text-primary">{card.title}</span>
+                        </div>
+                        <p className="text-base leading-relaxed text-muted-foreground">{card.description}</p>
+                      </div>
                     </div>
-                    <span className="text-2xl font-semibold text-primary">{card.title}</span>
                   </div>
-                  <p className="text-base leading-relaxed text-muted-foreground">{card.description}</p>
-                </div>
+                ))}
               </div>
             </div>
-          ))}
-        </div>
 
-        <div className="flex items-center justify-center gap-3">
-          {cards.map((card, index) => (
-            <button
-              key={card.title}
-              type="button"
-              aria-label={`Go to ${card.title}`}
-              onClick={() => scrollToIndex(index)}
-              className={`h-2 rounded-full transition-all ${
-                index === active ? "w-6 bg-primary" : "w-2 bg-primary/30"
-              }`}
-            />
-          ))}
+            <div className="flex items-center justify-center gap-3">
+              {cards.map((card, index) => (
+                <button
+                  key={card.title}
+                  type="button"
+                  aria-label={`Go to ${card.title}`}
+                  onClick={() => scrollToIndex(index)}
+                  className={`h-2 rounded-full transition-all ${
+                    index === active ? "w-6 bg-primary" : "w-2 bg-primary/30"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
+      </div>
 
-        <a
-          href="#get-your-card"
-          className="rounded-full px-9 py-3 text-base font-semibold text-white"
-          style={{
-            background:
-              "linear-gradient(265.32deg, #4C8C1A 2.23%, #166047 40.81%, #0E5A4D 69.11%, #0B3832 97.77%)",
-          }}
-        >
-          Get your Card
-        </a>
+      <div className="px-5 pb-16 sm:px-8">
+        <div className="mx-auto flex max-w-xl flex-col items-center text-center">
+          <a
+            href="#get-your-card"
+            className="rounded-full px-9 py-3 text-base font-semibold text-white"
+            style={{
+              background:
+                "linear-gradient(265.32deg, #4C8C1A 2.23%, #166047 40.81%, #0E5A4D 69.11%, #0B3832 97.77%)",
+            }}
+          >
+            Get your Card
+          </a>
+        </div>
       </div>
     </section>
   );
