@@ -27,11 +27,17 @@ const textGradient = {
   margin: "-0.3em -0.2em",
 } as const;
 
-// Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 100, 95:1340),
-// each offset relative to this section's own top-left corner (4899, 3676).
-// Figma places a 100px gap before and after this block, added as TOP/BOTTOM.
-const TOP = 100;
-const BOTTOM = 100;
+// Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 100, 95:1340).
+const TOP = 60;
+const BOTTOM = 48;
+const DESIGN_W = 1440;
+const DESIGN_H = TOP + 929 + BOTTOM;
+
+/** Scaled poster height for the current viewport width. */
+function displayCanvasHeight() {
+  const w = Math.min(DESIGN_W, window.innerWidth);
+  return w * (DESIGN_H / DESIGN_W);
+}
 
 const cards = [
   {
@@ -186,6 +192,7 @@ function shapedHopPoints(shape: { dx: number; dy: number }[], from: { x: number;
 
 function ValuesDesktop() {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const panRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const numberRefs = useRef<(HTMLSpanElement | null)[]>([]);
@@ -198,106 +205,120 @@ function ValuesDesktop() {
     loadCurveShape().then((curveShape) => {
       if (cancelled) return;
       ctx = gsap.context(() => {
-      const cardEls = cardRefs.current;
-      const numberEls = numberRefs.current;
-      if (cardEls.some((el) => !el) || numberEls.some((el) => !el)) return;
+        const cardEls = cardRefs.current;
+        const numberEls = numberRefs.current;
+        if (cardEls.some((el) => !el) || numberEls.some((el) => !el)) return;
 
-      const parkedRotate = SLOTS[3].rotate;
+        const parkedRotate = SLOTS[3].rotate;
 
-      cardEls.forEach((el, j) => {
-        const parked = {
-          x: SLOTS[3].left - SLOTS[j].left + 260,
-          y: SLOTS[3].top - SLOTS[j].top + 50,
-          z: 0,
-        };
-        gsap.set(el, {
-          x: parked.x,
-          y: parked.y,
-          z: parked.z,
-          rotate: parkedRotate,
-          opacity: 0,
-          force3D: true,
-          willChange: "transform, opacity",
+        cardEls.forEach((el, j) => {
+          const parked = {
+            x: SLOTS[3].left - SLOTS[j].left + 260,
+            y: SLOTS[3].top - SLOTS[j].top + 50,
+            z: 0,
+          };
+          gsap.set(el, {
+            x: parked.x,
+            y: parked.y,
+            z: parked.z,
+            rotate: parkedRotate,
+            opacity: 0,
+            force3D: true,
+            willChange: "transform, opacity",
+          });
+          gsap.set(numberEls[j], { rotate: -parkedRotate, force3D: true });
         });
-        gsap.set(numberEls[j], { rotate: -parkedRotate, force3D: true });
-      });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: wrapperRef.current,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1.5,
-        },
-        defaults: { ease: "none", duration: 1, force3D: true },
-      });
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: wrapperRef.current,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 1.5,
+            invalidateOnRefresh: true,
+          },
+          defaults: { ease: "none", duration: 1, force3D: true },
+        });
 
-      for (let q = 1; q <= 4; q++) {
-        const segStart = q - 1;
-        const isLast = q === 4;
-        for (let j = 0; j < q; j++) {
-          const el = cardEls[j];
-          const numberEl = numberEls[j];
-          const isFirstAppearance = q === j + 1;
-          const toSlot = 4 - q + j;
-          const to = slotPose(j, toSlot, isLast);
+        for (let q = 1; q <= 4; q++) {
+          const segStart = q - 1;
+          const isLast = q === 4;
+          for (let j = 0; j < q; j++) {
+            const el = cardEls[j];
+            const numberEl = numberEls[j];
+            const isFirstAppearance = q === j + 1;
+            const toSlot = 4 - q + j;
+            const to = slotPose(j, toSlot, isLast);
 
-          const from = isFirstAppearance
-            ? {
-                x: SLOTS[3].left - SLOTS[j].left + 260,
-                y: SLOTS[3].top - SLOTS[j].top + 50,
-                z: 0,
-              }
-            : slotPose(j, 4 - (q - 1) + j, false);
+            const from = isFirstAppearance
+              ? {
+                  x: SLOTS[3].left - SLOTS[j].left + 260,
+                  y: SLOTS[3].top - SLOTS[j].top + 50,
+                  z: 0,
+                }
+              : slotPose(j, 4 - (q - 1) + j, false);
 
-          // Only the entrance follows the real curve shape (from
-          // value-section-path.svg); slot-to-slot shifts glide straight so
-          // cards don't bob up and down on every scroll segment.
-          if (isFirstAppearance) {
-            tl.to(
-              el,
-              {
-                motionPath: {
-                  path: shapedHopPoints(
-                    curveShape,
-                    { x: from.x, y: from.y },
-                    { x: to.x, y: to.y }
-                  ),
-                  curviness: 1,
+            if (isFirstAppearance) {
+              tl.to(
+                el,
+                {
+                  motionPath: {
+                    path: shapedHopPoints(
+                      curveShape,
+                      { x: from.x, y: from.y },
+                      { x: to.x, y: to.y }
+                    ),
+                    curviness: 1,
+                  },
+                  z: to.z,
+                  rotate: to.rotate,
+                  opacity: 1,
                 },
-                z: to.z,
-                rotate: to.rotate,
-                opacity: 1,
-              },
-              segStart
+                segStart
+              );
+            } else {
+              tl.to(
+                el,
+                { x: to.x, y: to.y, z: to.z, rotate: to.rotate, opacity: 1 },
+                segStart
+              );
+            }
+            tl.to(numberEl, { rotate: -to.rotate }, segStart);
+          }
+        }
+
+        if (ctaRef.current) {
+          gsap.set(ctaRef.current, { opacity: 0 });
+          tl.to(ctaRef.current, { opacity: 1, duration: 0.3 }, 3.7);
+        }
+
+        // 1024+ fix: never force a full-screen sticky when the poster is shorter
+        // than the viewport — that left a huge empty band under the CTA. Only pan
+        // when the scaled canvas is actually taller than the screen.
+        const pan = panRef.current;
+        const sticky = stickyRef.current;
+        if (pan && sticky) {
+          const canvasH = displayCanvasHeight();
+          const overflow = window.innerHeight - canvasH;
+
+          if (overflow < 0) {
+            sticky.style.height = "100vh";
+            sticky.style.top = "0px";
+            tl.fromTo(
+              pan,
+              { y: 0 },
+              { y: overflow, ease: "none", duration: 4 },
+              0
             );
           } else {
-            tl.to(
-              el,
-              { x: to.x, y: to.y, z: to.z, rotate: to.rotate, opacity: 1 },
-              segStart
-            );
+            sticky.style.height = `${canvasH}px`;
+            sticky.style.top = `${overflow / 2}px`;
+            gsap.set(pan, { y: 0 });
           }
-          tl.to(numberEl, { rotate: -to.rotate }, segStart);
         }
-      }
+      }, wrapperRef);
 
-      if (ctaRef.current) {
-        gsap.set(ctaRef.current, { opacity: 0 });
-        tl.to(ctaRef.current, { opacity: 1, duration: 0.3 }, 3.7);
-      }
-
-      // When the viewport is shorter than the native-size canvas, pan the canvas
-      // upward across the whole pin: the heading is fully visible at the start,
-      // and by the end the card bottoms and CTA are fully visible. No scaling.
-      const pan = panRef.current;
-      if (pan) {
-        const overflow = Math.min(0, window.innerHeight - pan.offsetHeight);
-        if (overflow < 0) {
-          tl.to(pan, { y: overflow, ease: "none", duration: 4 }, 0);
-        }
-      }
-    }, wrapperRef);
+      ScrollTrigger.refresh();
     });
 
     return () => {
@@ -309,20 +330,18 @@ function ValuesDesktop() {
   return (
     <section className="relative hidden bg-background lg:block">
       <div ref={wrapperRef} className="relative" style={{ height: "300vh" }}>
-        <div className="sticky top-0 flex h-screen items-start justify-center overflow-hidden">
-      <div ref={panRef} className="w-full" style={{ maxWidth: 1440 }}>
-      <FigmaCanvas
-        width={1440}
-        height={TOP + 929 + BOTTOM}
-        className="mx-auto"
-        // Cap at the design's native 1440px so wide monitors don't upscale the
-        // canvas past the viewport height (which clipped the heading, the card
-        // bottoms, and the CTA). This is the exact Figma frame size, centered.
-        // overflow visible lets the outer cards (Trust/Experience) bleed into
-        // the side margins on wide screens instead of being cut at the canvas
-        // edge; the sticky wrapper still clips at the viewport boundary.
-        style={{ width: "100%", maxWidth: 1440, overflow: "visible" }}
-      >
+        <div
+          ref={stickyRef}
+          className="sticky flex items-start justify-center overflow-hidden"
+          style={{ top: 0 }}
+        >
+          <div ref={panRef} className="w-full" style={{ maxWidth: DESIGN_W }}>
+            <FigmaCanvas
+              width={DESIGN_W}
+              height={DESIGN_H}
+              className="mx-auto"
+              style={{ width: "100%", maxWidth: DESIGN_W, overflow: "visible" }}
+            >
         <h2
           className="absolute whitespace-nowrap"
           style={{
