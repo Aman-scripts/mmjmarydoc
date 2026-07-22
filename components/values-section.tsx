@@ -1,8 +1,15 @@
-"use client";
+﻿"use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { ShieldCheck, Globe, Heart, Award } from "lucide-react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+}
 
 const textGradient = {
   display: "inline-block",
@@ -84,10 +91,237 @@ const cards = [
   },
 ];
 
+// Fixed final slots (0 = leftmost/most counter-rotated, 3 = rightmost/most clockwise),
+// lifted from Figma's reveal prototype (Frame 96 -> 97 -> 99 -> 98 -> 100): each new
+// card always lands in slot 3, and previously placed cards shift one slot left.
+// Figma arc is already centered on the CTA (left: 634) — no extra x/y nudge,
+// or the fan drifts left and the button looks off-center.
+const SLOTS = cards.map((card) => ({ left: card.left, top: card.top, rotate: card.rotate }));
+
+// Final resting translate3d — applied only on the last reveal (all 4 cards shown).
+const FINAL_TRANSFORM = [
+  { x: -160, y: 0, z: 10 }, // Trust
+  { x: -160, y: -20, z: 10 }, // Access
+  { x: -160, y: -40, z: 10 }, // Compassion
+  { x: -160, y: -60, z: 10 }, // Experience
+] as const;
+
+function slotPose(cardIndex: number, slotIndex: number, withFinal = false) {
+  const base = SLOTS[cardIndex];
+  const slot = SLOTS[slotIndex];
+  const f = withFinal ? FINAL_TRANSFORM[slotIndex] : { x: 0, y: 0, z: 0 };
+  return {
+    x: slot.left - base.left + f.x,
+    y: slot.top - base.top + f.y,
+    z: f.z,
+    rotate: slot.rotate,
+  };
+}
+
+// Real entrance-motion curve: sampled at runtime directly from the actual
+// public/value-section-path.svg file (fetched once, rendered into an
+// off-DOM SVGPathElement so the browser's native getPointAtLength() can read
+// its true geometry) — never a hand-copied/hardcoded set of control points,
+// so any future edit to the file is picked up automatically.
+let curveShapePromise: Promise<{ dx: number; dy: number }[]> | null = null;
+
+function loadCurveShape() {
+  if (!curveShapePromise) {
+    curveShapePromise = fetch("/value-section-path.svg")
+      .then((res) => res.text())
+      .then((svgText) => {
+        const doc = new DOMParser().parseFromString(svgText, "image/svg+xml");
+        const pathEl = doc.querySelector("path");
+        const d = pathEl?.getAttribute("d") ?? "";
+
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("d", d);
+        const total = path.getTotalLength();
+
+        // The right portion of the curve (arc-length 62% -> 100%) sweeps down
+        // from up near the peak into the low right endpoint — the same shape
+        // as a card swooping in from up-and-away down into its slot.
+        const samples = 16;
+        const raw = Array.from({ length: samples }, (_, i) => {
+          const len = total * (0.62 + 0.38 * (i / (samples - 1)));
+          const p = path.getPointAtLength(len);
+          return { x: p.x, y: p.y };
+        });
+
+        const first = raw[0];
+        const last = raw[raw.length - 1];
+        const trend = { x: last.x - first.x, y: last.y - first.y };
+        const trendLen = Math.hypot(trend.x, trend.y) || 1;
+        // Deviation from the straight line between first/last, normalized by
+        // trend length, so it can be rescaled to any hop while keeping shape.
+        return raw.map((p, i) => {
+          const along = i / (raw.length - 1);
+          const lerp = { x: first.x + trend.x * along, y: first.y + trend.y * along };
+          return { dx: (p.x - lerp.x) / trendLen, dy: (p.y - lerp.y) / trendLen };
+        });
+      });
+  }
+  return curveShapePromise;
+}
+
+// Builds a multi-point path from `from` to `to` following the real curve's
+// shape (scaled and rotated to fit however long/short/angled this specific
+// hop is), instead of a straight line or a single guessed midpoint.
+function shapedHopPoints(shape: { dx: number; dy: number }[], from: { x: number; y: number }, to: { x: number; y: number }) {
+  const hop = { x: to.x - from.x, y: to.y - from.y };
+  const hopLen = Math.hypot(hop.x, hop.y) || 1;
+  const cos = hop.x / hopLen;
+  const sin = hop.y / hopLen;
+  return shape.map(({ dx, dy }, i) => {
+    const along = i / (shape.length - 1);
+    const base = { x: from.x + hop.x * along, y: from.y + hop.y * along };
+    // Rotate the normalized (dx,dy) deviation to align with this hop's own
+    // direction, then scale it by the hop's actual length.
+    const rx = dx * cos - dy * sin;
+    const ry = dx * sin + dy * cos;
+    return { x: base.x + rx * hopLen, y: base.y + ry * hopLen };
+  });
+}
+
 function ValuesDesktop() {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const panRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const numberRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const ctaRef = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    let ctx: gsap.Context | undefined;
+    let cancelled = false;
+
+    loadCurveShape().then((curveShape) => {
+      if (cancelled) return;
+      ctx = gsap.context(() => {
+      const cardEls = cardRefs.current;
+      const numberEls = numberRefs.current;
+      if (cardEls.some((el) => !el) || numberEls.some((el) => !el)) return;
+
+      const parkedRotate = SLOTS[3].rotate;
+
+      cardEls.forEach((el, j) => {
+        const parked = {
+          x: SLOTS[3].left - SLOTS[j].left + 260,
+          y: SLOTS[3].top - SLOTS[j].top + 50,
+          z: 0,
+        };
+        gsap.set(el, {
+          x: parked.x,
+          y: parked.y,
+          z: parked.z,
+          rotate: parkedRotate,
+          opacity: 0,
+          force3D: true,
+          willChange: "transform, opacity",
+        });
+        gsap.set(numberEls[j], { rotate: -parkedRotate, force3D: true });
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapperRef.current,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1.5,
+        },
+        defaults: { ease: "none", duration: 1, force3D: true },
+      });
+
+      for (let q = 1; q <= 4; q++) {
+        const segStart = q - 1;
+        const isLast = q === 4;
+        for (let j = 0; j < q; j++) {
+          const el = cardEls[j];
+          const numberEl = numberEls[j];
+          const isFirstAppearance = q === j + 1;
+          const toSlot = 4 - q + j;
+          const to = slotPose(j, toSlot, isLast);
+
+          const from = isFirstAppearance
+            ? {
+                x: SLOTS[3].left - SLOTS[j].left + 260,
+                y: SLOTS[3].top - SLOTS[j].top + 50,
+                z: 0,
+              }
+            : slotPose(j, 4 - (q - 1) + j, false);
+
+          // Only the entrance follows the real curve shape (from
+          // value-section-path.svg); slot-to-slot shifts glide straight so
+          // cards don't bob up and down on every scroll segment.
+          if (isFirstAppearance) {
+            tl.to(
+              el,
+              {
+                motionPath: {
+                  path: shapedHopPoints(
+                    curveShape,
+                    { x: from.x, y: from.y },
+                    { x: to.x, y: to.y }
+                  ),
+                  curviness: 1,
+                },
+                z: to.z,
+                rotate: to.rotate,
+                opacity: 1,
+              },
+              segStart
+            );
+          } else {
+            tl.to(
+              el,
+              { x: to.x, y: to.y, z: to.z, rotate: to.rotate, opacity: 1 },
+              segStart
+            );
+          }
+          tl.to(numberEl, { rotate: -to.rotate }, segStart);
+        }
+      }
+
+      if (ctaRef.current) {
+        gsap.set(ctaRef.current, { opacity: 0 });
+        tl.to(ctaRef.current, { opacity: 1, duration: 0.3 }, 3.7);
+      }
+
+      // When the viewport is shorter than the native-size canvas, pan the canvas
+      // upward across the whole pin: the heading is fully visible at the start,
+      // and by the end the card bottoms and CTA are fully visible. No scaling.
+      const pan = panRef.current;
+      if (pan) {
+        const overflow = Math.min(0, window.innerHeight - pan.offsetHeight);
+        if (overflow < 0) {
+          tl.to(pan, { y: overflow, ease: "none", duration: 4 }, 0);
+        }
+      }
+    }, wrapperRef);
+    });
+
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
+  }, []);
+
   return (
     <section className="relative hidden bg-background lg:block">
-      <FigmaCanvas width={1440} height={TOP + 929 + BOTTOM} className="mx-auto">
+      <div ref={wrapperRef} className="relative" style={{ height: "300vh" }}>
+        <div className="sticky top-0 flex h-screen items-start justify-center overflow-hidden">
+      <div ref={panRef} className="w-full" style={{ maxWidth: 1440 }}>
+      <FigmaCanvas
+        width={1440}
+        height={TOP + 929 + BOTTOM}
+        className="mx-auto"
+        // Cap at the design's native 1440px so wide monitors don't upscale the
+        // canvas past the viewport height (which clipped the heading, the card
+        // bottoms, and the CTA). This is the exact Figma frame size, centered.
+        // overflow visible lets the outer cards (Trust/Experience) bleed into
+        // the side margins on wide screens instead of being cut at the canvas
+        // edge; the sticky wrapper still clips at the viewport boundary.
+        style={{ width: "100%", maxWidth: 1440, overflow: "visible" }}
+      >
         <h2
           className="absolute whitespace-nowrap"
           style={{
@@ -123,16 +357,18 @@ function ValuesDesktop() {
           </span>
         </h2>
 
-        {cards.map((card) => (
+        {cards.map((card, i) => (
           <div
             key={card.title}
+            ref={(el) => {
+              cardRefs.current[i] = el;
+            }}
             className="absolute"
             style={{
-              left: card.left,
-              top: TOP + card.top,
+              left: SLOTS[i].left,
+              top: TOP + SLOTS[i].top,
               width: card.width,
               height: card.height,
-              transform: `rotate(${card.rotate}deg)`,
             }}
           >
             <div
@@ -161,17 +397,19 @@ function ValuesDesktop() {
             </div>
 
             <span
+              ref={(el) => {
+                numberRefs.current[i] = el;
+              }}
               className="pointer-events-none absolute z-20 select-none"
               style={{
-                right: -30,
-                top: -90,
+                right: card.number === "4" ? 50 : -30,
+                top: card.number === "4" ? -115 : -90,
                 fontFamily: "var(--font-space-grotesk)",
                 fontSize: 160,
                 fontWeight: 700,
                 letterSpacing: "-3.2px",
                 ...textGradient,
                 opacity: 0.55,
-                transform: `rotate(${-card.rotate}deg)`,
                 transformOrigin: "top right",
                 WebkitMaskImage: "linear-gradient(to bottom, black 45%, transparent 85%)",
                 maskImage: "linear-gradient(to bottom, black 45%, transparent 85%)",
@@ -183,6 +421,7 @@ function ValuesDesktop() {
         ))}
 
         <a
+          ref={ctaRef}
           href="#get-your-card"
           className="absolute flex items-center justify-center rounded-full text-base font-semibold leading-[26px] tracking-[-0.32px] text-white"
           style={{
@@ -197,6 +436,9 @@ function ValuesDesktop() {
           Get your Card
         </a>
       </FigmaCanvas>
+      </div>
+        </div>
+      </div>
     </section>
   );
 }
