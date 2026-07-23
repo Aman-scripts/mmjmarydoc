@@ -110,13 +110,13 @@ function StandardRow({
           {standard.number}
         </span>
         <span
-          className="text-primary"
+          className="flex-1 text-primary"
           style={{ fontFamily: "var(--font-sans)", fontSize: 24, fontWeight: 600, letterSpacing: "-0.48px" }}
         >
           {standard.title}
         </span>
         <span
-          className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300"
+          className="ml-auto flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300"
           style={{ background: "var(--gradient-primary)", transform: open ? "rotate(135deg)" : "rotate(0deg)" }}
         >
           <ArrowUpRight className="h-4 w-4" />
@@ -247,9 +247,9 @@ function StandardsMobile() {
                   >
                     {standard.number}
                   </span>
-                  <span className="text-lg font-semibold text-primary">{standard.title}</span>
+                  <span className="flex-1 text-lg font-semibold text-primary">{standard.title}</span>
                   <span
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300"
+                    className="ml-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300"
                     style={{ background: "var(--gradient-primary)", transform: open ? "rotate(135deg)" : "rotate(0deg)" }}
                   >
                     <ArrowUpRight className="h-4 w-4" />
