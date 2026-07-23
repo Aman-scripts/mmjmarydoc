@@ -35,8 +35,11 @@ function JudgmentDesktop() {
         >
           <ScrollFloat as="span" containerClassName="italic text-accent">
             Seeking relief
-          </ScrollFloat>{" "}
-          <ScrollFloat as="span">should never come with judgment</ScrollFloat>
+          </ScrollFloat>
+          <br />
+          <ScrollFloat as="span">should never come</ScrollFloat>
+          <br />
+          <ScrollFloat as="span">with judgment</ScrollFloat>
         </h2>
 
         <p
@@ -132,8 +135,11 @@ function JudgmentMobile() {
         >
           <ScrollFloat as="span" containerClassName="italic text-accent">
             Seeking relief
-          </ScrollFloat>{" "}
-          <ScrollFloat as="span">should never come with judgment</ScrollFloat>
+          </ScrollFloat>
+          <br />
+          <ScrollFloat as="span">should never come</ScrollFloat>
+          <br />
+          <ScrollFloat as="span">with judgment</ScrollFloat>
         </h2>
 
         <RevealOnView className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[30px]">
