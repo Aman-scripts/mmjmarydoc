@@ -75,7 +75,7 @@ function JudgmentDesktop() {
           style={{ ...IMAGE_LEFT }}
         >
           <Image
-            src="/judgement-section-image1.png"
+            src="/judgement-section-image1.webp"
             alt="MaryDoc patient care"
             fill
             className="object-cover"
@@ -89,7 +89,7 @@ function JudgmentDesktop() {
           style={{ ...IMAGE_RIGHT }}
         >
           <Image
-            src="/judgement-section-image3.png"
+            src="/judgement-section-image3.webp"
             alt="MaryDoc patient care"
             fill
             className="object-cover"
@@ -104,7 +104,7 @@ function JudgmentDesktop() {
           style={{ ...IMAGE_MIDDLE }}
         >
           <Image
-            src="/judgement-section-image2.png"
+            src="/judgement-section-image2.webp"
             alt="MaryDoc patient care"
             fill
             className="object-cover"
@@ -144,7 +144,7 @@ function JudgmentMobile() {
 
         <RevealOnView className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[30px]">
           <Image
-            src="/judgement-section-image2.png"
+            src="/judgement-section-image2.webp"
             alt="MaryDoc patient care"
             fill
             className="object-cover"

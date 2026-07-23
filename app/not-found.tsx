@@ -16,14 +16,14 @@ export default function NotFound() {
       />
       <div className="pointer-events-none absolute -bottom-32 -right-16 h-80 w-80 rounded-full bg-[#F4A261]/30 blur-3xl" />
       <Image
-        src="/small_leaf.svg"
+        src="/small_leaf.webp"
         alt=""
         width={91}
         height={96}
         className="pointer-events-none absolute left-[6%] top-[6%] hidden opacity-60 sm:left-[14%] sm:block"
       />
       <Image
-        src="/small_leaf.svg"
+        src="/small_leaf.webp"
         alt=""
         width={70}
         height={74}

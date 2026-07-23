@@ -188,14 +188,14 @@ function FeaturesDesktop() {
           className="pointer-events-none absolute opacity-50 will-change-transform"
           style={{ ...LEAF_BOTTOM_LEFT }}
         >
-          <Image src="/left-bottom.svg" alt="" fill className="object-contain" />
+          <Image src="/left-bottom.webp" alt="" fill className="object-contain" sizes="468px" />
         </div>
         <div
           ref={leafRightRef}
           className="pointer-events-none absolute opacity-50 will-change-transform"
           style={{ ...LEAF_TOP_RIGHT }}
         >
-          <Image src="/right-top.svg" alt="" fill className="object-contain" />
+          <Image src="/right-top.webp" alt="" fill className="object-contain" sizes="336px" />
         </div>
 
         <div ref={mainParallaxRef} className="absolute will-change-transform" style={{ ...IMAGE_MAIN }}>
@@ -203,7 +203,7 @@ function FeaturesDesktop() {
             ref={mainRevealRef}
             className="relative h-full w-full overflow-hidden rounded-[20px]"
           >
-            <Image src="/image1.png" alt="Cannabis plant" fill className="object-cover" sizes="783px" />
+            <Image src="/image1.webp" alt="Cannabis plant" fill className="object-cover" sizes="783px" />
           </div>
         </div>
 
@@ -213,7 +213,7 @@ function FeaturesDesktop() {
             className="relative h-full w-full overflow-hidden rounded-full shadow-lg"
           >
             <Image
-              src="/Image2.png"
+              src="/Image2.webp"
               alt="Holding tincture bottles"
               fill
               className="object-cover"
@@ -237,7 +237,7 @@ function FeaturesDesktop() {
             className="relative h-full w-full overflow-hidden rounded-[20px]"
           >
             <Image
-              src="/image3.png"
+              src="/image3.webp"
               alt="Doctor consultation supplies"
               fill
               className="object-cover"
@@ -392,14 +392,14 @@ function FeaturesMobile() {
               className="pointer-events-none absolute opacity-50"
               style={{ left: -17, top: 136, width: 147, height: 139 }}
             >
-              <Image src="/left-bottom.svg" alt="" fill className="object-contain" />
+              <Image src="/left-bottom.webp" alt="" fill className="object-contain" sizes="147px" />
             </div>
             <div
               ref={leafRightRef}
               className="pointer-events-none absolute opacity-50"
               style={{ left: 241, top: 24, width: 106, height: 128 }}
             >
-              <Image src="/right-top.svg" alt="" fill className="object-contain" />
+              <Image src="/right-top.webp" alt="" fill className="object-contain" sizes="106px" />
             </div>
 
             <div
@@ -411,7 +411,7 @@ function FeaturesMobile() {
                 ref={mainRevealRef}
                 className="relative h-full w-full overflow-hidden rounded-2xl"
               >
-                <Image src="/image1.png" alt="Cannabis plant" fill className="object-cover" sizes="248px" />
+                <Image src="/image1.webp" alt="Cannabis plant" fill className="object-cover" sizes="248px" />
               </div>
             </div>
             <div
@@ -424,7 +424,7 @@ function FeaturesMobile() {
                 className="relative h-full w-full overflow-hidden rounded-full shadow-lg"
               >
                 <Image
-                  src="/Image2.png"
+                  src="/Image2.webp"
                   alt="Holding tincture bottles"
                   fill
                   className="object-cover"
@@ -442,7 +442,7 @@ function FeaturesMobile() {
                 className="relative h-full w-full overflow-hidden rounded-2xl"
               >
                 <Image
-                  src="/image3.png"
+                  src="/image3.webp"
                   alt="Doctor consultation supplies"
                   fill
                   className="object-cover"

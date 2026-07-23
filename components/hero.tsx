@@ -36,10 +36,6 @@ const textGradient = {
   margin: "-0.3em -0.2em",
 } as const;
 
-// Coordinates below are lifted 1:1 from the Figma frame (62:139 -> Frame 79,
-// 1440x922), each offset relative to the section's own top-left corner.
-// HERO_LIFT pulls the hero block closer to the header without changing
-// internal text/plant spacing from the original Figma layout.
 const HERO_LIFT = 90;
 const HERO_ORIG_TOP = 201;
 const HERO_ROW = { left: 144, top: HERO_ORIG_TOP - HERO_LIFT, width: 1216, height: 613 };
@@ -52,14 +48,9 @@ const DESCRIPTION = { left: 193 - HERO_ROW.left, top: 561 - HERO_ORIG_TOP, width
 const CARE = { left: 695 - HERO_ROW.left, top: 546 - HERO_ORIG_TOP };
 const LEAF = { left: 954 - HERO_ROW.left, top: 565 - HERO_ORIG_TOP, width: 91, height: 96 };
 
-export function Hero() {
+function DesktopHero() {
   return (
-    <>
-      <div className="lg:hidden">
-        <MobileHero />
-      </div>
-
-      <section className="relative hidden lg:block" style={{ background: "#DFF8EC" }}>
+    <section className="relative" style={{ background: "#DFF8EC" }}>
       <FigmaCanvas
         width={1440}
         height={922 - HERO_LIFT}
@@ -67,9 +58,19 @@ export function Hero() {
       >
         <Header />
 
-        <div className="absolute" style={{ left: HERO_ROW.left, top: HERO_ROW.top, width: HERO_ROW.width, height: HERO_ROW.height }}>
+        <div
+          className="absolute"
+          style={{ left: HERO_ROW.left, top: HERO_ROW.top, width: HERO_ROW.width, height: HERO_ROW.height }}
+        >
           <div className="absolute" style={{ ...PLANT }}>
-            <Image src="/hero_section_plant.svg" alt="Marijuana plant" fill className="object-contain" priority />
+            <Image
+              src="/hero_section_plant.webp"
+              alt="Marijuana plant"
+              fill
+              className="object-contain"
+              sizes="427px"
+              priority
+            />
           </div>
 
           <h1
@@ -93,7 +94,14 @@ export function Hero() {
           </h1>
           <h1
             className="absolute whitespace-nowrap italic"
-            style={{ ...WITH_GUIDED, fontWeight: 800, fontSize: 100, lineHeight: "155px", letterSpacing: "-2px", ...textGradient }}
+            style={{
+              ...WITH_GUIDED,
+              fontWeight: 800,
+              fontSize: 100,
+              lineHeight: "155px",
+              letterSpacing: "-2px",
+              ...textGradient,
+            }}
           >
             With Guided
           </h1>
@@ -102,19 +110,25 @@ export function Hero() {
             className="absolute text-right italic text-base leading-[26px] tracking-[-0.32px] text-muted-foreground"
             style={{ ...DESCRIPTION }}
           >
-            MaryDoc connects you with licensed physicians in your state for
-            secure online medical marijuana evaluations, all from the
-            comfort of your home.
+            MaryDoc connects you with licensed physicians in your state for secure online medical
+            marijuana evaluations, all from the comfort of your home.
           </p>
 
           <h1
             className="absolute italic"
-            style={{ ...CARE, fontWeight: 800, fontSize: 100, lineHeight: "120px", letterSpacing: "-2px", ...textGradient }}
+            style={{
+              ...CARE,
+              fontWeight: 800,
+              fontSize: 100,
+              lineHeight: "120px",
+              letterSpacing: "-2px",
+              ...textGradient,
+            }}
           >
             Care.
           </h1>
           <Image
-            src="/small_leaf.svg"
+            src="/small_leaf.webp"
             alt=""
             width={LEAF.width}
             height={LEAF.height}
@@ -123,7 +137,10 @@ export function Hero() {
           />
         </div>
 
-        <div className="absolute hidden flex-col items-center gap-6 lg:flex" style={{ left: 1390, top: 385 - HERO_LIFT, width: 30, height: 256 }}>
+        <div
+          className="absolute hidden flex-col items-center gap-6 lg:flex"
+          style={{ left: 1390, top: 385 - HERO_LIFT, width: 30, height: 256 }}
+        >
           <span className="text-xs italic leading-[18px] tracking-[-0.24px] text-muted-foreground [writing-mode:vertical-lr]">
             Read Our Story
           </span>
@@ -132,7 +149,19 @@ export function Hero() {
           <FacebookIcon className="h-4 w-4 text-muted-foreground" />
         </div>
       </FigmaCanvas>
-      </section>
+    </section>
+  );
+}
+
+export function Hero() {
+  return (
+    <>
+      <div className="lg:hidden">
+        <MobileHero />
+      </div>
+      <div className="hidden lg:block">
+        <DesktopHero />
+      </div>
     </>
   );
 }

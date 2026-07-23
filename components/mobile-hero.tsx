@@ -61,7 +61,14 @@ export function MobileHero() {
         </div>
 
         <div className="absolute" style={{ ...PLANT }}>
-          <Image src="/hero_section_plant.svg" alt="Marijuana plant" fill className="object-contain" priority />
+          <Image
+            src="/hero_section_plant.webp"
+            alt="Marijuana plant"
+            fill
+            className="object-contain"
+            sizes="120px"
+            priority
+          />
         </div>
 
         <h1

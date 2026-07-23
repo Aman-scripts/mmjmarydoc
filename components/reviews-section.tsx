@@ -44,10 +44,10 @@ function PeekCard({
         <Image
           src="/quote.svg"
           alt=""
-          width={quote.size}
+          width={Math.round((quote.size * 140) / 139)}
           height={quote.size}
           className="absolute opacity-80"
-          style={{ left: quote.left, top: quote.top, width: "auto", height: "auto" }}
+          style={{ left: quote.left, top: quote.top }}
         />
       )}
     </div>
@@ -77,14 +77,14 @@ function FrontCard({
       <Image
         src="/quote.svg"
         alt=""
-        width={139}
+        width={140}
         height={139}
         className="absolute"
-        style={{ left: 188, top: 0, width: "auto", height: "auto" }}
+        style={{ left: 188, top: 0 }}
       />
 
       <Image
-        src="/google.svg"
+        src="/google.webp"
         alt="Google"
         width={52}
         height={52}
@@ -275,13 +275,13 @@ function ReviewsMobile() {
               <Image
                 src="/quote.svg"
                 alt=""
-                width={114}
+                width={115}
                 height={114}
                 className="absolute"
-                style={{ left: 145, top: 0, width: "auto", height: "auto" }}
+                style={{ left: 145, top: 0 }}
               />
 
-              <Image src="/google.svg" alt="Google" width={44} height={44} className="mt-8" />
+              <Image src="/google.webp" alt="Google" width={44} height={44} className="mt-8" />
 
               <p className="mt-6 text-muted-foreground" style={{ fontSize: 15, lineHeight: "24px" }}>
                 {review.text}
