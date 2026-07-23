@@ -70,7 +70,7 @@ function FrontCard({
       className="absolute overflow-hidden rounded-[30px] bg-[#DFF8EC] shadow-xl"
       style={{
         ...style,
-        animation: `review-in-from-${direction} 0.35s ease-out`,
+        animation: `review-in-from-${direction} 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), review-stretch-front 0.5s ease-out`,
       }}
     >
       <Image
@@ -187,10 +187,14 @@ function ReviewsDesktop() {
 
         <div className="absolute" style={{ left: 354, top: TOP + 212, width: 732, height: 517 }}>
           <RevealOnView delay={500} animationName="emerge-peek-left">
-            <PeekCard style={{ left: 124, top: -4, width: 420, height: 491 }} />
+            <div key={tick} style={tick > 0 ? { animation: "review-stretch-left 0.5s ease-out" } : undefined}>
+              <PeekCard style={{ left: 124, top: -4, width: 420, height: 491 }} />
+            </div>
           </RevealOnView>
           <RevealOnView delay={500} animationName="emerge-peek-right">
-            <PeekCard style={{ left: 187, top: -4, width: 420, height: 491 }} />
+            <div key={tick} style={tick > 0 ? { animation: "review-stretch-right 0.5s ease-out" } : undefined}>
+              <PeekCard style={{ left: 187, top: -4, width: 420, height: 491 }} />
+            </div>
           </RevealOnView>
           <RevealOnView delay={0}>
             <FrontCard

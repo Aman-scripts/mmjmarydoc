@@ -44,7 +44,7 @@ export const MobileProcessCarousel = forwardRef<HTMLDivElement, Props>(function 
                     width={1}
                     height={40}
                     className="mt-[10px]"
-                    style={{ height: 40, width: "auto" }}
+                    style={{ width: 1, height: 40 }}
                   />
                 </div>
                 <h3

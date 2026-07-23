@@ -8,6 +8,7 @@ import { StandardsSection } from "@/components/standards-section";
 import { ReviewsSection } from "@/components/reviews-section";
 import { FooterSection } from "@/components/footer-section";
 import { JudgmentSection } from "@/components/judgment-section";
+import { ScrollFab } from "@/components/scroll-fab";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <StandardsSection />
       <ReviewsSection />
       <FooterSection />
+      <ScrollFab />
     </div>
   );
 }

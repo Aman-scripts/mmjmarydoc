@@ -45,7 +45,7 @@ const CARE = { left: 182, top: 95, width: 70, height: 34 };
 export function MobileHero() {
   return (
     <section
-      className="relative overflow-hidden pb-12"
+      className="relative overflow-hidden pb-12 pt-24 sm:pt-28"
       style={{ background: "linear-gradient(135deg, #DFF8EC 0%, #E6FFD2 100%)" }}
     >
       <MobileHeader />

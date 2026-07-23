@@ -101,13 +101,19 @@ function MobileProcessSection() {
           onUpdate: (self) => {
             setActive(Math.round(self.progress * (STEP_COUNT - 1)));
           },
+          onToggle: (self) => {
+            document.body.classList.toggle("process-pinned", self.isActive);
+          },
         },
       });
 
       scrollTriggerRef.current = tween.scrollTrigger ?? null;
     }, wrapperRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      document.body.classList.remove("process-pinned");
+    };
   }, []);
 
   function scrollToIndex(index: number) {
@@ -141,13 +147,10 @@ function MobileProcessSection() {
         <div className="relative mt-8">
           {/* Full-width divider (Figma "Line 5") sitting behind the badge's
               connector dot — a plain straight line, not an arc/ring. */}
-          <Image
-            src="/mobile-proces-line.svg"
-            alt=""
-            width={390}
-            height={1}
-            className="pointer-events-none absolute inset-x-0"
-            style={{ top: 91, width: "100%", height: "auto" }}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 h-px bg-white"
+            style={{ top: 91 }}
           />
           <MobileProcessCarousel ref={trackRef} steps={steps} active={active} onDotClick={scrollToIndex} />
         </div>
@@ -196,6 +199,9 @@ function DesktopProcessSection() {
           end: `+=${(STEP_COUNT - 1) * window.innerHeight}`,
           scrub: 1.5,
           pin: pinRef.current,
+          onToggle: (self) => {
+            document.body.classList.toggle("process-pinned", self.isActive);
+          },
         },
         defaults: { ease: "none", duration: 1 },
       });
@@ -259,7 +265,10 @@ function DesktopProcessSection() {
       }
     }, wrapperRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      document.body.classList.remove("process-pinned");
+    };
   }, []);
 
   return (
@@ -347,12 +356,7 @@ function DesktopProcessSection() {
               width={1}
               height={126}
               className="pointer-events-none absolute"
-              style={{
-                left: RING_CENTER.x,
-                top: pointOnRing(0, RING_RADIUS).y + 6 + 42,
-                width: "auto",
-                height: "auto",
-              }}
+              style={{ left: RING_CENTER.x, top: pointOnRing(0, RING_RADIUS).y + 6 + 42 }}
             />
 
             {/* Step badges: laid out at the ring's top point; gsap sweeps each

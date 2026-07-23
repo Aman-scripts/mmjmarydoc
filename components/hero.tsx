@@ -46,7 +46,7 @@ const YOUR = { left: 266 - HERO_ROW.left, top: 263 - HERO_ROW.top, width: 219, h
 const MARIJUANA = { left: 695 - HERO_ROW.left, top: 263 - HERO_ROW.top, width: 633, height: 155 };
 const DESCRIPTION = { left: 193 - HERO_ROW.left, top: 561 - HERO_ROW.top, width: 297, height: 104 };
 const CARE = { left: 695 - HERO_ROW.left, top: 546 - HERO_ROW.top };
-const LEAF = { left: 954 - HERO_ROW.left, top: 565 - HERO_ROW.top, width: 91, height: 95 };
+const LEAF = { left: 954 - HERO_ROW.left, top: 565 - HERO_ROW.top, width: 91, height: 96 };
 
 export function Hero() {
   return (
@@ -115,7 +115,7 @@ export function Hero() {
             width={LEAF.width}
             height={LEAF.height}
             className="absolute"
-            style={{ left: LEAF.left, top: LEAF.top, width: "auto", height: "auto" }}
+            style={{ left: LEAF.left, top: LEAF.top }}
           />
         </div>
 

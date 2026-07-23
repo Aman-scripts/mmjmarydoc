@@ -31,6 +31,7 @@ const navLinks = ["Our Story", "What we stand for", "Our Standards"];
 export function FooterSection() {
   return (
     <footer
+      id="site-footer"
       className="relative w-full rounded-t-[60px] px-5 py-10 sm:px-8 lg:px-16"
       style={{
         background:

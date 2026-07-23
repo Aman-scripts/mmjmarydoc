@@ -10,15 +10,8 @@ const navLinks = [
 export function Header() {
   return (
     <div className="absolute" style={{ left: 79, top: 32, width: 1281, height: 65 }}>
-      <Link href="/" className="absolute flex items-center" style={{ left: 0, top: 10, width: 141, height: 45 }}>
-        <Image
-          src="/logo_marydoc.svg"
-          alt="Marydoc"
-          width={141}
-          height={45}
-          priority
-          style={{ width: "auto", height: "auto" }}
-        />
+      <Link href="/" className="absolute flex items-center" style={{ left: 0, top: 10, width: 141, height: 46 }}>
+        <Image src="/logo_marydoc.svg" alt="Marydoc" width={141} height={46} priority />
       </Link>
 
       <nav className="absolute hidden md:block" style={{ left: 395 - 79, top: 22, width: 422, height: 22 }}>
