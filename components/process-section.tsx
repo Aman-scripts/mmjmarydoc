@@ -8,6 +8,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { MobileProcessCarousel } from "@/components/mobile-process-carousel";
 import { RevealOnView } from "@/components/reveal-on-view";
+import ScrollFloat from "@/components/ScrollFloat";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -130,12 +131,12 @@ function MobileProcessSection() {
           <span className="rounded-full bg-[#DFF8EC] px-4 py-0.5 text-xs font-normal text-primary">
             Process
           </span>
-          <h2
-            className="text-[#FAFAF8]"
+          <ScrollFloat
+            containerClassName="text-[#FAFAF8]"
             style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.75rem, 7vw, 2.5rem)", fontWeight: 700, letterSpacing: "-0.02em" }}
           >
             Three Simple Steps to Apply for Your Medical Marijuana Card
-          </h2>
+          </ScrollFloat>
           <p className="italic text-[#DFF8EC]" style={{ fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: "26px" }}>
             You need to follow a three-step process designed to prioritize your
             convenience and care. Every evaluation is conducted by a
@@ -307,8 +308,8 @@ function DesktopProcessSection() {
               >
                 Process
               </span>
-              <h2
-                className="text-center text-[#FAFAF8]"
+              <ScrollFloat
+                containerClassName="text-center text-[#FAFAF8]"
                 style={{
                   fontFamily: "var(--font-sans)",
                   fontSize: 48,
@@ -319,7 +320,7 @@ function DesktopProcessSection() {
                 }}
               >
                 Three Simple Steps to Apply for Your Medical Marijuana Card
-              </h2>
+              </ScrollFloat>
               <p
                 className="mx-auto text-center italic text-[#DFF8EC]"
                 style={{

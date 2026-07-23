@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FigmaCanvas } from "@/components/figma-canvas";
+import ScrollFloat from "@/components/ScrollFloat";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -161,7 +162,11 @@ function FeaturesDesktop() {
             letterSpacing: "-0.96px",
           }}
         >
-          Making <em className="italic text-accent">Medical Cannabis</em> More Accessible
+          <ScrollFloat as="span">Making</ScrollFloat>{" "}
+          <ScrollFloat as="span" containerClassName="italic text-accent">
+            Medical Cannabis
+          </ScrollFloat>{" "}
+          <ScrollFloat as="span">More Accessible</ScrollFloat>
         </h2>
 
         <p
@@ -367,7 +372,17 @@ function FeaturesMobile() {
             letterSpacing: "-0.02em",
           }}
         >
-          Making <em className="italic text-accent">Medical Cannabis</em> More Accessible
+          <ScrollFloat as="span">Making</ScrollFloat>{" "}
+          <ScrollFloat as="span" containerClassName="italic text-accent">
+            Medical
+          </ScrollFloat>
+          <br />
+          <ScrollFloat as="span" containerClassName="italic text-accent">
+            Cannabis
+          </ScrollFloat>{" "}
+          <ScrollFloat as="span">More</ScrollFloat>
+          <br />
+          <ScrollFloat as="span">Accessible</ScrollFloat>
         </h2>
 
         <div ref={collageRef} className="relative mt-4">

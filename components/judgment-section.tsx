@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { RevealOnView } from "@/components/reveal-on-view";
+import ScrollFloat from "@/components/ScrollFloat";
 
 // Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 97, 95:1155),
 // each offset relative to this section's own top-left corner (4899, 4705).
@@ -32,7 +33,10 @@ function JudgmentDesktop() {
             letterSpacing: "-0.96px",
           }}
         >
-          <span className="italic text-accent">Seeking relief</span> should never come with judgment
+          <ScrollFloat as="span" containerClassName="italic text-accent">
+            Seeking relief
+          </ScrollFloat>{" "}
+          <ScrollFloat as="span">should never come with judgment</ScrollFloat>
         </h2>
 
         <p
@@ -126,7 +130,10 @@ function JudgmentMobile() {
             letterSpacing: "-0.02em",
           }}
         >
-          <span className="italic text-accent">Seeking relief</span> should never come with judgment
+          <ScrollFloat as="span" containerClassName="italic text-accent">
+            Seeking relief
+          </ScrollFloat>{" "}
+          <ScrollFloat as="span">should never come with judgment</ScrollFloat>
         </h2>
 
         <RevealOnView className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[30px]">

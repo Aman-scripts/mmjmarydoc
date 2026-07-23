@@ -1,0 +1,15 @@
+.scroll-float {
+  overflow: hidden;
+}
+
+.scroll-float-text {
+  display: inline-block;
+  /* Each char is its own inline-block box, so without this the browser can
+     wrap mid-word between two adjacent chars — keep every ScrollFloat
+     instance's text together as one atomic unit, same as normal text. */
+  white-space: nowrap;
+}
+
+.char {
+  display: inline-block;
+}

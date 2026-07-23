@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { RefreshCw, Check } from "lucide-react";
+import ScrollFloat from "@/components/ScrollFloat";
 
 function NewEvaluationIcon({ className }: { className?: string }) {
   return <Image src="/newevaluation.svg" alt="" width={16} height={16} className={className} />;
@@ -92,7 +93,10 @@ function PricingDesktop() {
             letterSpacing: "-0.96px",
           }}
         >
-          Get Started in Just a <span className="italic text-accent">Few Clicks</span>
+          <ScrollFloat as="span">Get Started in Just a</ScrollFloat>{" "}
+          <ScrollFloat as="span" containerClassName="italic text-accent">
+            Few Clicks
+          </ScrollFloat>
         </h2>
 
         <p
@@ -203,7 +207,10 @@ function PricingMobile() {
             letterSpacing: "-0.02em",
           }}
         >
-          Get Started in Just a <span className="italic text-accent">Few Clicks</span>
+          <ScrollFloat as="span">Get Started in Just a</ScrollFloat>{" "}
+          <ScrollFloat as="span" containerClassName="italic text-accent">
+            Few Clicks
+          </ScrollFloat>
         </h2>
         <p className="text-base italic text-muted-foreground">
           Select your evaluation type and connect with a licensed provider to

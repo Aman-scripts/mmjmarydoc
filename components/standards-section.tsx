@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { FigmaCanvas } from "@/components/figma-canvas";
+import ScrollFloat from "@/components/ScrollFloat";
 
 const textGradient = {
   display: "inline-block",
@@ -170,10 +171,16 @@ function StandardsDesktop() {
           className="absolute whitespace-nowrap text-center"
           style={{ left: 289, top: TOP + 57, width: 862, fontWeight: 800, fontSize: 100, lineHeight: "155px", letterSpacing: "-2px" }}
         >
-          <span className="italic text-primary">Our</span>{" "}
-          <span className="text-accent opacity-50" style={{ fontSize: 110, letterSpacing: "-2.2px" }}>
+          <ScrollFloat as="span" containerClassName="italic text-primary">
+            Our
+          </ScrollFloat>{" "}
+          <ScrollFloat
+            as="span"
+            containerClassName="text-accent opacity-50"
+            style={{ fontSize: 110, letterSpacing: "-2.2px" }}
+          >
             STANDARDS
-          </span>
+          </ScrollFloat>
         </h2>
 
         <div className="absolute" style={{ left: 80, top: TOP + 255, width: 1280 }}>
@@ -208,8 +215,12 @@ function StandardsMobile() {
             className="text-center"
             style={{ fontWeight: 800, fontSize: "clamp(1.75rem, 8vw, 2.75rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}
           >
-            <span className="italic text-primary">Our</span>{" "}
-            <span className="text-accent opacity-50">STANDARDS</span>
+            <ScrollFloat as="span" containerClassName="italic text-primary">
+              Our
+            </ScrollFloat>{" "}
+            <ScrollFloat as="span" containerClassName="text-accent opacity-50">
+              STANDARDS
+            </ScrollFloat>
           </h2>
           <Image src="/faq-section-top.svg" alt="" width={38} height={27} className="shrink-0 -scale-x-100" />
         </div>

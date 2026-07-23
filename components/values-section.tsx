@@ -7,6 +7,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { ShieldCheck, Globe, Heart, Award } from "lucide-react";
+import ScrollFloat from "@/components/ScrollFloat";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
@@ -353,10 +354,16 @@ function ValuesDesktop() {
             letterSpacing: "-2px",
           }}
         >
-          <span className="italic text-primary">Four things</span>{" "}
-          <span className="text-accent opacity-50" style={{ fontSize: 110, letterSpacing: "-2.2px" }}>
+          <ScrollFloat as="span" containerClassName="italic text-primary">
+            Four things
+          </ScrollFloat>{" "}
+          <ScrollFloat
+            as="span"
+            containerClassName="text-accent opacity-50"
+            style={{ fontSize: 110, letterSpacing: "-2.2px" }}
+          >
             WE NEVER
-          </span>
+          </ScrollFloat>
         </h2>
         <h2
           className="absolute whitespace-nowrap"
@@ -370,10 +377,12 @@ function ValuesDesktop() {
             letterSpacing: "-2.2px",
           }}
         >
-          <span className="text-accent opacity-50">COMPROMISE</span>{" "}
-          <span className="italic" style={{ fontSize: 100, ...textGradient }}>
+          <ScrollFloat as="span" containerClassName="text-accent opacity-50">
+            COMPROMISE
+          </ScrollFloat>{" "}
+          <ScrollFloat as="span" containerClassName="italic" style={{ fontSize: 100, ...textGradient }}>
             On
-          </span>
+          </ScrollFloat>
         </h2>
 
         {cards.map((card, i) => (
@@ -518,11 +527,15 @@ function ValuesMobile() {
               letterSpacing: "-0.02em",
             }}
           >
-            <span className="italic text-primary">Four things</span>{" "}
-            <span className="text-accent opacity-50">WE NEVER COMPROMISE</span>{" "}
-            <span className="italic" style={textGradient}>
+            <ScrollFloat as="span" containerClassName="italic text-primary">
+              Four things
+            </ScrollFloat>{" "}
+            <ScrollFloat as="span" containerClassName="text-accent opacity-50">
+              WE NEVER COMPROMISE
+            </ScrollFloat>{" "}
+            <ScrollFloat as="span" containerClassName="italic" style={textGradient}>
               On
-            </span>
+            </ScrollFloat>
           </h2>
         </div>
       </div>

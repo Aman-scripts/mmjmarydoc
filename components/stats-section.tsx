@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FigmaCanvas } from "@/components/figma-canvas";
+import ScrollFloat from "@/components/ScrollFloat";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -200,7 +201,10 @@ export function StatsSection() {
                   opacity: headingOpacity,
                 }}
               >
-                Find Care in <span className="italic text-accent">your state</span>
+                <ScrollFloat as="span">Find Care in</ScrollFloat>{" "}
+                <ScrollFloat as="span" containerClassName="italic text-accent">
+                  your state
+                </ScrollFloat>
               </h2>
 
               {MOBILE_STATS.map((stat, i) => (
@@ -273,7 +277,10 @@ export function StatsSection() {
                   opacity: headingOpacity,
                 }}
               >
-                Find Care in <span className="italic text-accent">your state</span>
+                <ScrollFloat as="span">Find Care in</ScrollFloat>{" "}
+                <ScrollFloat as="span" containerClassName="italic text-accent">
+                  your state
+                </ScrollFloat>
               </h2>
 
               <div

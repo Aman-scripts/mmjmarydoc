@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { RevealOnView } from "@/components/reveal-on-view";
+import ScrollFloat from "@/components/ScrollFloat";
 
 const TOP = 100;
 const BOTTOM = 40;
@@ -175,7 +176,10 @@ function ReviewsDesktop() {
             letterSpacing: "-0.96px",
           }}
         >
-          Hear From <span className="italic text-accent">Our Patients</span>
+          <ScrollFloat as="span">Hear From</ScrollFloat>{" "}
+          <ScrollFloat as="span" containerClassName="italic text-accent">
+            Our Patients
+          </ScrollFloat>
         </h2>
 
         <p
@@ -246,7 +250,10 @@ function ReviewsMobile() {
             letterSpacing: "-0.02em",
           }}
         >
-          Hear From <span className="italic text-accent">Our Patients</span>
+          <ScrollFloat as="span">Hear From</ScrollFloat>{" "}
+          <ScrollFloat as="span" containerClassName="italic text-accent">
+            Our Patients
+          </ScrollFloat>
         </h2>
         <p className="text-base italic text-muted-foreground">
           Real experiences shared by patients who chose MaryDoc for compassionate, physician-led care
