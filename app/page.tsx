@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/hero";
-import { ScrollFab } from "@/components/scroll-fab";
 import { LazyMount } from "@/components/lazy-mount";
+import { ScrollFab } from "@/components/scroll-fab";
 
 const StatsSection = dynamic(() =>
   import("@/components/stats-section").then((m) => ({ default: m.StatsSection }))
@@ -35,31 +35,31 @@ export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
       <Hero />
-      <LazyMount rootMargin="320px 0px" minHeight={520}>
+      <LazyMount rootMargin="80px 0px" minHeight={480}>
         <StatsSection />
       </LazyMount>
-      <LazyMount rootMargin="280px 0px" minHeight={700}>
+      <LazyMount rootMargin="80px 0px" minHeight={640}>
         <ProcessSection />
       </LazyMount>
-      <LazyMount rootMargin="280px 0px" minHeight={900}>
+      <LazyMount rootMargin="80px 0px" minHeight={800}>
         <FeaturesSection />
       </LazyMount>
-      <LazyMount rootMargin="240px 0px" minHeight={900}>
+      <LazyMount rootMargin="80px 0px" minHeight={800}>
         <ValuesSection />
       </LazyMount>
-      <LazyMount rootMargin="240px 0px" minHeight={700}>
+      <LazyMount rootMargin="80px 0px" minHeight={640}>
         <JudgmentSection />
       </LazyMount>
-      <LazyMount rootMargin="240px 0px" minHeight={700}>
+      <LazyMount rootMargin="80px 0px" minHeight={640}>
         <PricingSection />
       </LazyMount>
-      <LazyMount rootMargin="200px 0px" minHeight={800}>
+      <LazyMount rootMargin="80px 0px" minHeight={720}>
         <StandardsSection />
       </LazyMount>
-      <LazyMount rootMargin="200px 0px" minHeight={700}>
+      <LazyMount rootMargin="80px 0px" minHeight={640}>
         <ReviewsSection />
       </LazyMount>
-      <LazyMount rootMargin="160px 0px" minHeight={320}>
+      <LazyMount rootMargin="80px 0px" minHeight={280}>
         <FooterSection />
       </LazyMount>
       <ScrollFab />

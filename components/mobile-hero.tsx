@@ -62,7 +62,7 @@ export function MobileHero() {
 
         <div className="absolute" style={{ ...PLANT }}>
           <Image
-            src="/hero_section_plant.webp"
+            src="/hero_section_plant-mobile.webp"
             alt="Marijuana plant"
             fill
             className="object-contain"

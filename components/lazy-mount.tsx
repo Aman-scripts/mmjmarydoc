@@ -3,23 +3,56 @@
 import { useEffect, useState, type ReactNode } from "react";
 
 /**
- * Mounts children only when near the viewport so below-fold GSAP/sections
- * don't pay JS cost on initial load. SSR still renders a lightweight shell.
+ * Mounts children only after the user scrolls/touches (or after a long idle
+ * fallback). Prevents below-fold GSAP sections from blocking mobile TBT when
+ * empty placeholders sit in the first viewport.
  */
 export function LazyMount({
   children,
-  rootMargin = "200px 0px",
+  rootMargin = "120px 0px",
   minHeight,
 }: {
   children: ReactNode;
   rootMargin?: string;
   minHeight?: number | string;
 }) {
+  const [armed, setArmed] = useState(false);
   const [show, setShow] = useState(false);
   const [node, setNode] = useState<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!node || show) return;
+    let armedOnce = false;
+    const arm = () => {
+      if (armedOnce) return;
+      armedOnce = true;
+      setArmed(true);
+    };
+
+    const onInteract = () => arm();
+    window.addEventListener("scroll", onInteract, { passive: true, once: true });
+    window.addEventListener("touchstart", onInteract, { passive: true, once: true });
+    window.addEventListener("pointerdown", onInteract, { passive: true, once: true });
+
+    // Crawlers / non-interactive sessions still get content eventually.
+    const idleId =
+      "requestIdleCallback" in window
+        ? window.requestIdleCallback(() => arm(), { timeout: 6000 })
+        : null;
+    const timeoutId = window.setTimeout(arm, 8000);
+
+    return () => {
+      window.removeEventListener("scroll", onInteract);
+      window.removeEventListener("touchstart", onInteract);
+      window.removeEventListener("pointerdown", onInteract);
+      if (idleId != null && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(idleId);
+      }
+      window.clearTimeout(timeoutId);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!armed || !node || show) return;
     if (typeof IntersectionObserver === "undefined") {
       setShow(true);
       return;
@@ -31,11 +64,11 @@ export function LazyMount({
           io.disconnect();
         }
       },
-      { rootMargin }
+      { rootMargin, threshold: 0.01 }
     );
     io.observe(node);
     return () => io.disconnect();
-  }, [node, show, rootMargin]);
+  }, [armed, node, show, rootMargin]);
 
   return (
     <div ref={setNode} style={minHeight && !show ? { minHeight } : undefined}>

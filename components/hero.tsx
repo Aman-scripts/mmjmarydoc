@@ -110,8 +110,9 @@ function DesktopHero() {
             className="absolute text-right italic text-base leading-[26px] tracking-[-0.32px] text-muted-foreground"
             style={{ ...DESCRIPTION }}
           >
-            MaryDoc connects you with licensed physicians in your state for secure online medical
-            marijuana evaluations, all from the comfort of your home.
+            MaryDoc connects you with licensed physicians in your state for
+            secure online medical marijuana evaluations, all from the
+            comfort of your home.
           </p>
 
           <h1

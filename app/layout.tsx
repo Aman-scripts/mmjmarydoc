@@ -8,13 +8,15 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-sans",
   display: "swap",
   preload: true,
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
-  display: "swap",
+  display: "optional",
   preload: false,
+  weight: ["700"],
 });
 
 export const metadata: Metadata = {

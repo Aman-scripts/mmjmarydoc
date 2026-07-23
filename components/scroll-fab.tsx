@@ -14,9 +14,23 @@ export function ScrollFab({
   const [expanded, setExpanded] = useState(false);
   const [bounce, setBounce] = useState(false);
   const [hiddenByFooter, setHiddenByFooter] = useState(false);
+  const [ready, setReady] = useState(false);
   const hasExpandedOnce = useRef(false);
 
   useEffect(() => {
+    const enable = () => setReady(true);
+    window.addEventListener("scroll", enable, { passive: true, once: true });
+    window.addEventListener("touchstart", enable, { passive: true, once: true });
+    const timeoutId = window.setTimeout(enable, 3500);
+    return () => {
+      window.removeEventListener("scroll", enable);
+      window.removeEventListener("touchstart", enable);
+      window.clearTimeout(timeoutId);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!ready) return;
     const onScroll = () => {
       const shouldExpand = window.scrollY > 72;
       setExpanded((prev) => {
@@ -33,9 +47,10 @@ export function ScrollFab({
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [ready]);
 
   useEffect(() => {
+    if (!ready) return;
     const footer = document.getElementById("site-footer");
     if (!footer) return;
     const observer = new IntersectionObserver(
@@ -44,7 +59,9 @@ export function ScrollFab({
     );
     observer.observe(footer);
     return () => observer.disconnect();
-  }, []);
+  }, [ready]);
+
+  if (!ready) return null;
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (!expanded) {
