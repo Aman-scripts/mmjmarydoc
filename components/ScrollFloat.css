@@ -3,10 +3,19 @@
 }
 
 .scroll-float-text {
+  display: inline;
+}
+
+/* Each word is its own nowrap unit (chars inside it are individual inline-block
+   boxes and would otherwise be free to wrap apart) — the space between
+   word-wrap spans is a plain breakable text node, so a long heading still
+   wraps normally at word boundaries on narrow screens. */
+.word-wrap {
+  display: inline;
+}
+
+.word {
   display: inline-block;
-  /* Each char is its own inline-block box, so without this the browser can
-     wrap mid-word between two adjacent chars — keep every ScrollFloat
-     instance's text together as one atomic unit, same as normal text. */
   white-space: nowrap;
 }
 

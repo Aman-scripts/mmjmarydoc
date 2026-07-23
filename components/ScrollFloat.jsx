@@ -24,11 +24,23 @@ const ScrollFloat = ({
 }) => {
   const containerRef = useRef(null);
 
+  // Split by word first (each word its own nowrap unit so chars inside it
+  // can't line-break apart), joined by ordinary breakable spaces \u2014 so a long
+  // heading still wraps normally between words on narrow screens instead of
+  // being forced onto one line or breaking mid-word.
   const splitText = useMemo(() => {
     const text = typeof children === 'string' ? children : '';
-    return text.split('').map((char, index) => (
-      <span className="char" key={index}>
-        {char === ' ' ? '\u00A0' : char}
+    const words = text.split(' ');
+    return words.map((word, wordIndex) => (
+      <span className="word-wrap" key={wordIndex}>
+        <span className="word">
+          {word.split('').map((char, charIndex) => (
+            <span className="char" key={charIndex}>
+              {char}
+            </span>
+          ))}
+        </span>
+        {wordIndex < words.length - 1 ? ' ' : ''}
       </span>
     ));
   }, [children]);
