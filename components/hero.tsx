@@ -38,15 +38,19 @@ const textGradient = {
 
 // Coordinates below are lifted 1:1 from the Figma frame (62:139 -> Frame 79,
 // 1440x922), each offset relative to the section's own top-left corner.
-const HERO_ROW = { left: 144, top: 201, width: 1216, height: 613 };
+// HERO_LIFT pulls the hero block closer to the header without changing
+// internal text/plant spacing from the original Figma layout.
+const HERO_LIFT = 90;
+const HERO_ORIG_TOP = 201;
+const HERO_ROW = { left: 144, top: HERO_ORIG_TOP - HERO_LIFT, width: 1216, height: 613 };
 const PLANT = { left: 403 - HERO_ROW.left, top: 0, width: 427, height: 613 };
-const CARD = { left: 176 - HERO_ROW.left, top: 402 - HERO_ROW.top, width: 314, height: 155 };
-const WITH_GUIDED = { left: 694 - HERO_ROW.left, top: 402 - HERO_ROW.top };
-const YOUR = { left: 266 - HERO_ROW.left, top: 263 - HERO_ROW.top, width: 219, height: 155 };
-const MARIJUANA = { left: 695 - HERO_ROW.left, top: 263 - HERO_ROW.top, width: 633, height: 155 };
-const DESCRIPTION = { left: 193 - HERO_ROW.left, top: 561 - HERO_ROW.top, width: 297, height: 104 };
-const CARE = { left: 695 - HERO_ROW.left, top: 546 - HERO_ROW.top };
-const LEAF = { left: 954 - HERO_ROW.left, top: 565 - HERO_ROW.top, width: 91, height: 96 };
+const CARD = { left: 176 - HERO_ROW.left, top: 402 - HERO_ORIG_TOP, width: 314, height: 155 };
+const WITH_GUIDED = { left: 694 - HERO_ROW.left, top: 402 - HERO_ORIG_TOP };
+const YOUR = { left: 266 - HERO_ROW.left, top: 263 - HERO_ORIG_TOP, width: 219, height: 155 };
+const MARIJUANA = { left: 695 - HERO_ROW.left, top: 263 - HERO_ORIG_TOP, width: 633, height: 155 };
+const DESCRIPTION = { left: 193 - HERO_ROW.left, top: 561 - HERO_ORIG_TOP, width: 297, height: 104 };
+const CARE = { left: 695 - HERO_ROW.left, top: 546 - HERO_ORIG_TOP };
+const LEAF = { left: 954 - HERO_ROW.left, top: 565 - HERO_ORIG_TOP, width: 91, height: 96 };
 
 export function Hero() {
   return (
@@ -58,7 +62,7 @@ export function Hero() {
       <section className="relative hidden lg:block" style={{ background: "#DFF8EC" }}>
       <FigmaCanvas
         width={1440}
-        height={922}
+        height={922 - HERO_LIFT}
         style={{ background: "linear-gradient(135deg, #DFF8EC 0%, #E6FFD2 100%)" }}
       >
         <Header />
@@ -119,7 +123,7 @@ export function Hero() {
           />
         </div>
 
-        <div className="absolute hidden flex-col items-center gap-6 lg:flex" style={{ left: 1390, top: 385, width: 30, height: 256 }}>
+        <div className="absolute hidden flex-col items-center gap-6 lg:flex" style={{ left: 1390, top: 385 - HERO_LIFT, width: 30, height: 256 }}>
           <span className="text-xs italic leading-[18px] tracking-[-0.24px] text-muted-foreground [writing-mode:vertical-lr]">
             Read Our Story
           </span>
