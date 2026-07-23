@@ -223,10 +223,9 @@ function ValuesDesktop() {
             z: parked.z,
             rotate: parkedRotate,
             opacity: 0,
-            force3D: true,
             willChange: "transform, opacity",
           });
-          gsap.set(numberEls[j], { rotate: -parkedRotate, force3D: true });
+          gsap.set(numberEls[j], { rotate: -parkedRotate });
         });
 
         const tl = gsap.timeline({
@@ -237,7 +236,7 @@ function ValuesDesktop() {
             scrub: 1.5,
             invalidateOnRefresh: true,
           },
-          defaults: { ease: "none", duration: 1, force3D: true },
+          defaults: { ease: "none", duration: 1 },
         });
 
         for (let q = 1; q <= 4; q++) {

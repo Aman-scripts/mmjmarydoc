@@ -115,7 +115,7 @@ export function Hero() {
             width={LEAF.width}
             height={LEAF.height}
             className="absolute"
-            style={{ left: LEAF.left, top: LEAF.top }}
+            style={{ left: LEAF.left, top: LEAF.top, width: "auto", height: "auto" }}
           />
         </div>
 

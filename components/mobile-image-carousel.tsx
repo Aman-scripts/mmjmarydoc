@@ -41,7 +41,13 @@ export function MobileImageCarousel({
         {slides.map((slide) => (
           <div key={slide.src} className="w-full shrink-0 snap-center px-1">
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[20px]">
-              <Image src={slide.src} alt={slide.alt} fill className="object-cover" />
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 640px"
+              />
             </div>
           </div>
         ))}

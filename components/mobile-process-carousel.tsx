@@ -38,7 +38,14 @@ export const MobileProcessCarousel = forwardRef<HTMLDivElement, Props>(function 
                     </span>
                   </div>
                   <Image src="/point.svg" alt="" width={12} height={12} className="mt-[15px]" />
-                  <Image src="/line.svg" alt="" width={1} height={40} className="mt-[10px]" style={{ height: 40 }} />
+                  <Image
+                    src="/line.svg"
+                    alt=""
+                    width={1}
+                    height={40}
+                    className="mt-[10px]"
+                    style={{ height: 40, width: "auto" }}
+                  />
                 </div>
                 <h3
                   className="text-[#FAFAF8]"

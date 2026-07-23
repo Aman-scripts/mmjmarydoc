@@ -67,7 +67,13 @@ function JudgmentDesktop() {
           className="absolute overflow-hidden rounded-[30px]"
           style={{ ...IMAGE_LEFT }}
         >
-          <Image src="/judgement-section-image1.png" alt="MaryDoc patient care" fill className="object-cover" />
+          <Image
+            src="/judgement-section-image1.png"
+            alt="MaryDoc patient care"
+            fill
+            className="object-cover"
+            sizes="367px"
+          />
         </RevealOnView>
         <RevealOnView
           delay={500}
@@ -75,7 +81,13 @@ function JudgmentDesktop() {
           className="absolute overflow-hidden rounded-[30px]"
           style={{ ...IMAGE_RIGHT }}
         >
-          <Image src="/judgement-section-image3.png" alt="MaryDoc patient care" fill className="object-cover" />
+          <Image
+            src="/judgement-section-image3.png"
+            alt="MaryDoc patient care"
+            fill
+            className="object-cover"
+            sizes="367px"
+          />
         </RevealOnView>
 
         {/* Main card appears first, on top of the other two */}
@@ -84,7 +96,13 @@ function JudgmentDesktop() {
           className="absolute overflow-hidden rounded-[30px] shadow-lg"
           style={{ ...IMAGE_MIDDLE }}
         >
-          <Image src="/judgement-section-image2.png" alt="MaryDoc patient care" fill className="object-cover" />
+          <Image
+            src="/judgement-section-image2.png"
+            alt="MaryDoc patient care"
+            fill
+            className="object-cover"
+            sizes="317px"
+          />
         </RevealOnView>
       </FigmaCanvas>
     </section>
@@ -112,7 +130,13 @@ function JudgmentMobile() {
         </h2>
 
         <RevealOnView className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[30px]">
-          <Image src="/judgement-section-image2.png" alt="MaryDoc patient care" fill className="object-cover" />
+          <Image
+            src="/judgement-section-image2.png"
+            alt="MaryDoc patient care"
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 384px"
+          />
         </RevealOnView>
 
         <p className="italic text-muted-foreground" style={{ fontSize: 16, lineHeight: "30px" }}>

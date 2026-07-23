@@ -68,7 +68,14 @@ export function MobileHeader() {
     <div className="relative z-10 px-5 py-4 sm:px-8">
       <div className="flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <Image src="/logo_marydoc.svg" alt="Marydoc" width={120} height={38} priority />
+          <Image
+            src="/logo_marydoc.svg"
+            alt="Marydoc"
+            width={120}
+            height={38}
+            priority
+            style={{ width: "auto", height: "auto" }}
+          />
         </Link>
 
         <button
@@ -103,6 +110,7 @@ export function MobileHeader() {
               height={38}
               className="brightness-0 invert"
               priority
+              style={{ width: "auto", height: "auto" }}
             />
           </Link>
 

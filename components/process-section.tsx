@@ -146,7 +146,7 @@ function MobileProcessSection() {
             alt=""
             width={390}
             height={1}
-            className="pointer-events-none absolute inset-x-0 w-full"
+            className="pointer-events-none absolute inset-x-0"
             style={{ top: 91, width: "100%", height: "auto" }}
           />
           <MobileProcessCarousel ref={trackRef} steps={steps} active={active} onDotClick={scrollToIndex} />
@@ -197,7 +197,7 @@ function DesktopProcessSection() {
           scrub: 1.5,
           pin: pinRef.current,
         },
-        defaults: { ease: "none", duration: 1, force3D: true },
+        defaults: { ease: "none", duration: 1 },
       });
 
       // Connector line grows in at the very start, then re-grows from 0 each
@@ -347,7 +347,12 @@ function DesktopProcessSection() {
               width={1}
               height={126}
               className="pointer-events-none absolute"
-              style={{ left: RING_CENTER.x, top: pointOnRing(0, RING_RADIUS).y + 6 + 42 }}
+              style={{
+                left: RING_CENTER.x,
+                top: pointOnRing(0, RING_RADIUS).y + 6 + 42,
+                width: "auto",
+                height: "auto",
+              }}
             />
 
             {/* Step badges: laid out at the ring's top point; gsap sweeps each
