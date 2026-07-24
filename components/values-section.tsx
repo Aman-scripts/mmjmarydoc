@@ -30,9 +30,9 @@ const textGradient = {
 
 // Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 100, 95:1340).
 const TOP = 60;
-const BOTTOM = 48;
+const BOTTOM = 24;
 const DESIGN_W = 1440;
-const DESIGN_H = TOP + 929 + BOTTOM;
+const DESIGN_H = TOP + 900 + BOTTOM;
 
 /** Scaled poster height for the current viewport width. */
 function displayCanvasHeight() {
@@ -102,16 +102,15 @@ const cards = [
 // Fixed final slots (0 = leftmost/most counter-rotated, 3 = rightmost/most clockwise),
 // lifted from Figma's reveal prototype (Frame 96 -> 97 -> 99 -> 98 -> 100): each new
 // card always lands in slot 3, and previously placed cards shift one slot left.
-// Figma arc is already centered on the CTA (left: 634) — no extra x/y nudge,
-// or the fan drifts left and the button looks off-center.
 const SLOTS = cards.map((card) => ({ left: card.left, top: card.top, rotate: card.rotate }));
 
 // Final resting translate3d — applied only on the last reveal (all 4 cards shown).
+// X nudge that used to center the fan on the CTA is removed with the button.
 const FINAL_TRANSFORM = [
-  { x: -160, y: 0, z: 10 }, // Trust
-  { x: -160, y: -20, z: 10 }, // Access
-  { x: -160, y: -40, z: 10 }, // Compassion
-  { x: -160, y: -60, z: 10 }, // Experience
+  { x: 0, y: 0, z: 10 }, // Trust
+  { x: 0, y: -20, z: 10 }, // Access
+  { x: 0, y: -40, z: 10 }, // Compassion
+  { x: 0, y: -60, z: 10 }, // Experience
 ] as const;
 
 function slotPose(cardIndex: number, slotIndex: number, withFinal = false) {
@@ -197,7 +196,6 @@ function ValuesDesktop() {
   const panRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const numberRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const ctaRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     let ctx: gsap.Context | undefined;
@@ -287,13 +285,8 @@ function ValuesDesktop() {
           }
         }
 
-        if (ctaRef.current) {
-          gsap.set(ctaRef.current, { opacity: 0 });
-          tl.to(ctaRef.current, { opacity: 1, duration: 0.3 }, 3.7);
-        }
-
         // 1024+ fix: never force a full-screen sticky when the poster is shorter
-        // than the viewport — that left a huge empty band under the CTA. Only pan
+        // than the viewport — that left a huge empty band under the cards. Only pan
         // when the scaled canvas is actually taller than the screen.
         const pan = panRef.current;
         const sticky = stickyRef.current;
@@ -447,22 +440,6 @@ function ValuesDesktop() {
             </span>
           </div>
         ))}
-
-        <a
-          ref={ctaRef}
-          href="#get-your-card"
-          className="absolute flex items-center justify-center rounded-full text-base font-semibold leading-[26px] tracking-[-0.32px] text-white"
-          style={{
-            left: 634,
-            top: TOP + 794,
-            width: 174,
-            height: 42,
-            background:
-              "linear-gradient(265.32deg, #4C8C1A 2.23%, #166047 40.81%, #0E5A4D 69.11%, #0B3832 97.77%)",
-          }}
-        >
-          Get your Card
-        </a>
       </FigmaCanvas>
       </div>
         </div>
@@ -540,9 +517,8 @@ function ValuesMobile() {
         </div>
       </div>
 
-      {/* Only the card track + dots are pinned — the heading above and the CTA
-          below stay in normal flow so the pinned viewport has room to show a
-          full card instead of the heading eating the frame. */}
+      {/* Only the card track + dots are pinned — the heading above stays in
+          normal flow so the pinned viewport has room to show a full card. */}
       <div ref={wrapperRef} className="relative w-full">
         <div ref={pinRef} className="w-full bg-background px-5 py-10 sm:px-8">
           <div className="mx-auto flex max-w-xl flex-col items-center gap-10">
@@ -595,21 +571,6 @@ function ValuesMobile() {
               ))}
             </div>
           </div>
-        </div>
-      </div>
-
-      <div className="px-5 pb-16 sm:px-8">
-        <div className="mx-auto flex max-w-xl flex-col items-center text-center">
-          <a
-            href="#get-your-card"
-            className="rounded-full px-9 py-3 text-base font-semibold text-white"
-            style={{
-              background:
-                "linear-gradient(265.32deg, #4C8C1A 2.23%, #166047 40.81%, #0E5A4D 69.11%, #0B3832 97.77%)",
-            }}
-          >
-            Get your Card
-          </a>
         </div>
       </div>
     </section>

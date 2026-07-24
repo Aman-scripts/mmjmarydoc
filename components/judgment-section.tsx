@@ -7,7 +7,6 @@ import ScrollFloat from "@/components/ScrollFloat";
 // each offset relative to this section's own top-left corner (4899, 4705).
 const HEADING = { left: 83, top: 78, width: 445 };
 const PARAGRAPH = { left: 83, top: 276, width: 405 };
-const BUTTON = { left: 83, top: 450, width: 203, height: 42 };
 const IMAGE_LEFT = { left: 603, top: 103, width: 367, height: 406 };
 const IMAGE_RIGHT = { left: 992, top: 102, width: 367, height: 406 };
 const IMAGE_MIDDLE = { left: 830, top: 60, width: 317, height: 421 };
@@ -54,18 +53,6 @@ function JudgmentDesktop() {
         >
           {paragraphText}
         </p>
-
-        <a
-          href="#care-in-your-state"
-          className="absolute flex items-center justify-center rounded-full text-base font-semibold leading-[26px] tracking-[-0.32px] text-white"
-          style={{
-            ...BUTTON,
-            background:
-              "linear-gradient(265.32deg, #4C8C1A 2.23%, #166047 40.81%, #0E5A4D 69.11%, #0B3832 97.77%)",
-          }}
-        >
-          Care in your State
-        </a>
 
         {/* Side images emerge from behind the main card after it appears */}
         <RevealOnView
@@ -155,17 +142,6 @@ function JudgmentMobile() {
         <p className="italic text-muted-foreground" style={{ fontSize: 16, lineHeight: "30px" }}>
           {paragraphText}
         </p>
-
-        <a
-          href="#care-in-your-state"
-          className="rounded-full px-9 py-3 text-base font-semibold text-white"
-          style={{
-            background:
-              "linear-gradient(265.32deg, #4C8C1A 2.23%, #166047 40.81%, #0E5A4D 69.11%, #0B3832 97.77%)",
-          }}
-        >
-          Care in your State
-        </a>
       </div>
     </section>
   );

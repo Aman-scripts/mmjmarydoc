@@ -14,15 +14,15 @@ if (typeof window !== "undefined") {
 // Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 88, 86:724),
 // each offset relative to this section's own top-left corner (4899, 2504).
 const TOP = 100;
-const BOTTOM = 100;
+const BOTTOM = 40;
 const HEADING = { left: 169, top: TOP + 0, width: 357 };
 const PARAGRAPH = { left: 712, top: TOP + 0, width: 555 };
 const IMAGE_OVAL = { left: 171, top: TOP + 245, width: 284, height: 391 };
 const IMAGE_MAIN = { left: 355, top: TOP + 421, width: 783, height: 434 };
 const IMAGE_SMALL = { left: 999, top: TOP + 774, width: 282, height: 188 };
-const BUTTON = { left: 633, top: TOP + 774, width: 174, height: 42 };
 const LEAF_BOTTOM_LEFT = { left: 115, top: TOP + 618, width: 468, height: 454 };
 const LEAF_TOP_RIGHT = { left: 936, top: TOP + 311, width: 336, height: 351 };
+const CANVAS_H = TOP + 1072 + BOTTOM;
 
 const COPY = `For years, getting a medical marijuana card meant navigating confusing websites or impersonal clinics. Many patients living with chronic pain, anxiety, PTSD, and other qualifying conditions were left feeling judged while searching for safe, legitimate care.\n\nMaryDoc was created to change that. We connect patients with licensed physicians for secure online evaluations, making access to medical cannabis simple, trusted, and compassionate. Our mission is to provide a seamless, transparent experience that puts patients first—making quality care more accessible across 30+ states.`;
 
@@ -45,7 +45,6 @@ function FeaturesDesktop() {
   const mainParallaxRef = useRef<HTMLDivElement>(null);
   const smallRevealRef = useRef<HTMLDivElement>(null);
   const smallParallaxRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -62,7 +61,6 @@ function FeaturesDesktop() {
       const mainParallax = mainParallaxRef.current;
       const smallReveal = smallRevealRef.current;
       const smallParallax = smallParallaxRef.current;
-      const cta = ctaRef.current;
       if (
         !heading ||
         !paragraph ||
@@ -73,15 +71,14 @@ function FeaturesDesktop() {
         !mainReveal ||
         !mainParallax ||
         !smallReveal ||
-        !smallParallax ||
-        !cta
+        !smallParallax
       ) {
         return;
       }
 
       if (prefersReducedMotion()) {
         gsap.set(
-          [heading, paragraph, leafLeft, leafRight, ovalReveal, mainReveal, smallReveal, cta],
+          [heading, paragraph, leafLeft, leafRight, ovalReveal, mainReveal, smallReveal],
           { opacity: 1, clearProps: "transform" }
         );
         return;
@@ -94,7 +91,6 @@ function FeaturesDesktop() {
       gsap.set(ovalReveal, { opacity: 0, x: -56, scale: 0.92, transformOrigin: "center" });
       gsap.set(mainReveal, { opacity: 0, y: 64, scale: 0.94, transformOrigin: "center top" });
       gsap.set(smallReveal, { opacity: 0, x: 48, y: 24, scale: 0.92, transformOrigin: "center" });
-      gsap.set(cta, { opacity: 0, y: 16, scale: 0.92 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -111,8 +107,7 @@ function FeaturesDesktop() {
         .to(leafRight, { opacity: 0.5, x: 0, rotate: 0, duration: 1.1 }, 0.22)
         .to(ovalReveal, { opacity: 1, x: 0, scale: 1, duration: 0.95 }, 0.28)
         .to(mainReveal, { opacity: 1, y: 0, scale: 1, duration: 1.05 }, 0.38)
-        .to(smallReveal, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.9 }, 0.55)
-        .to(cta, { opacity: 1, y: 0, scale: 1, duration: 0.7 }, 0.68);
+        .to(smallReveal, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.9 }, 0.55);
 
       const scrubBase = { trigger: section, start: "top bottom", end: "bottom top" } as const;
       gsap.to(ovalParallax, {
@@ -149,7 +144,7 @@ function FeaturesDesktop() {
 
   return (
     <section ref={sectionRef} className="relative hidden bg-background lg:block">
-      <FigmaCanvas width={1440} height={TOP + 1072 + BOTTOM} className="mx-auto">
+      <FigmaCanvas width={1440} height={CANVAS_H} className="mx-auto">
         <h2
           ref={headingRef}
           className="absolute text-primary"
@@ -221,15 +216,6 @@ function FeaturesDesktop() {
             />
           </div>
         </div>
-
-        <a
-          ref={ctaRef}
-          href="#get-your-card"
-          className="absolute flex items-center justify-center rounded-full bg-[#DFF8EC] text-base font-semibold leading-[26px] tracking-[-0.32px] text-primary transition-transform duration-300 hover:scale-[1.04] active:scale-[0.98]"
-          style={{ ...BUTTON }}
-        >
-          Get your Card
-        </a>
 
         <div ref={smallParallaxRef} className="absolute will-change-transform" style={{ ...IMAGE_SMALL }}>
           <div
