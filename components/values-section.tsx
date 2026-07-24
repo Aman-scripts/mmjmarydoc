@@ -102,15 +102,15 @@ const cards = [
 // Fixed final slots (0 = leftmost/most counter-rotated, 3 = rightmost/most clockwise),
 // lifted from Figma's reveal prototype (Frame 96 -> 97 -> 99 -> 98 -> 100): each new
 // card always lands in slot 3, and previously placed cards shift one slot left.
+// Figma arc is already centered — no extra x/y nudge, or the fan drifts left.
 const SLOTS = cards.map((card) => ({ left: card.left, top: card.top, rotate: card.rotate }));
 
 // Final resting translate3d — applied only on the last reveal (all 4 cards shown).
-// X nudge that used to center the fan on the CTA is removed with the button.
 const FINAL_TRANSFORM = [
-  { x: 0, y: 0, z: 10 }, // Trust
-  { x: 0, y: -20, z: 10 }, // Access
-  { x: 0, y: -40, z: 10 }, // Compassion
-  { x: 0, y: -60, z: 10 }, // Experience
+  { x: -160, y: 0, z: 10 }, // Trust
+  { x: -160, y: -20, z: 10 }, // Access
+  { x: -160, y: -40, z: 10 }, // Compassion
+  { x: -160, y: -60, z: 10 }, // Experience
 ] as const;
 
 function slotPose(cardIndex: number, slotIndex: number, withFinal = false) {
