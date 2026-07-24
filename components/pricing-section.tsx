@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { FigmaCanvas } from "@/components/figma-canvas";
+import { TextSequence, SeqChars, SeqFade, SeqLines } from "@/components/text-sequence";
 import { RefreshCw, Check } from "lucide-react";
-import ScrollFloat from "@/components/ScrollFloat";
 
 function NewEvaluationIcon({ className }: { className?: string }) {
   return <Image src="/newevaluation.svg" alt="" width={16} height={16} className={className} />;
@@ -73,47 +73,47 @@ function PricingDesktop() {
         height={TOP + 536 + BOTTOM + EXPAND_ALLOWANCE}
         className="absolute inset-0 mx-auto"
       >
-        <span
-          className="absolute flex items-center justify-center rounded-full bg-[#DFF8EC] text-xs font-normal leading-[18px] tracking-[-0.24px] text-primary"
-          style={{ left: 685, top: TOP + 0, width: 70, height: 22 }}
-        >
-          Pricing
-        </span>
+        <TextSequence className="absolute left-0 top-0 w-full" style={{ height: TOP + 180 }}>
+          <SeqFade
+            className="absolute flex items-center justify-center rounded-full bg-[#DFF8EC] text-xs font-normal leading-[18px] tracking-[-0.24px] text-primary"
+            style={{ left: 685, top: TOP + 0, width: 70, height: 22 }}
+          >
+            Pricing
+          </SeqFade>
 
-        <h2
-          className="absolute text-center text-primary"
-          style={{
-            left: 0,
-            top: TOP + 38,
-            width: 1439,
-            fontFamily: "var(--font-sans)",
-            fontSize: 48,
-            fontWeight: 700,
-            lineHeight: "58px",
-            letterSpacing: "-0.96px",
-          }}
-        >
-          <ScrollFloat as="span">Get Started in Just a</ScrollFloat>{" "}
-          <ScrollFloat as="span" containerClassName="italic text-accent">
-            Few Clicks
-          </ScrollFloat>
-        </h2>
+          <h2
+            className="absolute text-center text-primary"
+            style={{
+              left: 0,
+              top: TOP + 38,
+              width: 1439,
+              fontFamily: "var(--font-sans)",
+              fontSize: 48,
+              fontWeight: 700,
+              lineHeight: "58px",
+              letterSpacing: "-0.96px",
+            }}
+          >
+            <SeqChars>Get Started in Just a</SeqChars>{" "}
+            <SeqChars containerClassName="italic text-accent">Few Clicks</SeqChars>
+          </h2>
 
-        <p
-          className="absolute text-center italic text-muted-foreground"
-          style={{
-            left: 411,
-            top: TOP + 112,
-            width: 618,
-            fontSize: 16,
-            fontWeight: 400,
-            lineHeight: "26px",
-            letterSpacing: "-0.32px",
-          }}
-        >
-          Select your evaluation type and connect with a licensed provider to
-          begin your medical cannabis journey online.
-        </p>
+          <SeqLines
+            className="absolute text-center italic text-muted-foreground"
+            style={{
+              left: 411,
+              top: TOP + 112,
+              width: 618,
+              fontSize: 16,
+              fontWeight: 400,
+              lineHeight: "26px",
+              letterSpacing: "-0.32px",
+            }}
+            lines={[
+              "Select your evaluation type and connect with a licensed provider to begin your medical cannabis journey online.",
+            ]}
+          />
+        </TextSequence>
 
         {plans.map((plan) => (
           <div
@@ -194,28 +194,30 @@ function PricingMobile() {
   return (
     <section className="relative overflow-hidden bg-background px-5 py-16 sm:px-8 lg:hidden">
       <div className="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
-        <span className="rounded-full bg-[#DFF8EC] px-4 py-0.5 text-xs font-normal text-primary">
-          Pricing
-        </span>
-        <h2
-          className="text-primary"
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: "clamp(1.75rem, 6vw, 2.5rem)",
-            fontWeight: 700,
-            lineHeight: 1.2,
-            letterSpacing: "-0.02em",
-          }}
-        >
-          <ScrollFloat as="span">Get Started in Just a</ScrollFloat>{" "}
-          <ScrollFloat as="span" containerClassName="italic text-accent">
-            Few Clicks
-          </ScrollFloat>
-        </h2>
-        <p className="text-base italic text-muted-foreground">
-          Select your evaluation type and connect with a licensed provider to
-          begin your medical cannabis journey online.
-        </p>
+        <TextSequence className="flex flex-col items-center gap-4">
+          <SeqFade className="rounded-full bg-[#DFF8EC] px-4 py-0.5 text-xs font-normal text-primary">
+            Pricing
+          </SeqFade>
+          <h2
+            className="text-primary"
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "clamp(1.75rem, 6vw, 2.5rem)",
+              fontWeight: 700,
+              lineHeight: 1.2,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            <SeqChars>Get Started in Just a</SeqChars>{" "}
+            <SeqChars containerClassName="italic text-accent">Few Clicks</SeqChars>
+          </h2>
+          <SeqLines
+            className="text-base italic text-muted-foreground"
+            lines={[
+              "Select your evaluation type and connect with a licensed provider to begin your medical cannabis journey online.",
+            ]}
+          />
+        </TextSequence>
 
         <div className="mt-6 flex w-full flex-col gap-6">
           {plans.map((plan) => (

@@ -1,7 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { RevealOnView } from "@/components/reveal-on-view";
-import ScrollFloat from "@/components/ScrollFloat";
+import { TextSequence, SeqChars, SeqLines } from "@/components/text-sequence";
 
 export function CtaSection() {
   return (
@@ -32,31 +34,33 @@ export function CtaSection() {
           />
 
           <div className="relative z-10 flex max-w-xl flex-col items-start gap-5 sm:gap-6">
-            <h2
-              className="text-white"
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontWeight: 700,
-                fontSize: "clamp(1.75rem, 4vw, 2.75rem)",
-                lineHeight: 1.15,
-                letterSpacing: "-0.02em",
-              }}
-            >
-              <ScrollFloat as="span">Ready when you are</ScrollFloat>
-            </h2>
+            <TextSequence className="flex flex-col items-start gap-5 sm:gap-6">
+              <h2
+                className="text-white"
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontWeight: 700,
+                  fontSize: "clamp(1.75rem, 4vw, 2.75rem)",
+                  lineHeight: 1.15,
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                <SeqChars>Ready when you are</SeqChars>
+              </h2>
 
-            <p
-              className="max-w-md italic text-white/90"
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "clamp(0.95rem, 2vw, 1.05rem)",
-                lineHeight: 1.6,
-                letterSpacing: "-0.01em",
-              }}
-            >
-              Your first conversation with a provider is free, with no pressure and no
-              obligation to start treatment.
-            </p>
+              <SeqLines
+                className="max-w-md italic text-white/90"
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontSize: "clamp(0.95rem, 2vw, 1.05rem)",
+                  lineHeight: 1.6,
+                  letterSpacing: "-0.01em",
+                }}
+                lines={[
+                  "Your first conversation with a provider is free, with no pressure and no obligation to start treatment.",
+                ]}
+              />
+            </TextSequence>
 
             <a
               href="#pricing"

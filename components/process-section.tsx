@@ -7,8 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { MobileProcessCarousel } from "@/components/mobile-process-carousel";
-import { RevealOnView } from "@/components/reveal-on-view";
-import ScrollFloat from "@/components/ScrollFloat";
+import { TextSequence, SeqChars, SeqFade, SeqLines } from "@/components/text-sequence";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -127,26 +126,26 @@ function MobileProcessSection() {
   return (
     <section className="relative w-full overflow-hidden lg:hidden" ref={wrapperRef}>
       <div ref={pinRef} className="w-full px-5 py-16 sm:px-8" style={mobileGradient}>
-        <RevealOnView className="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
-          <span className="rounded-full bg-[#DFF8EC] px-4 py-0.5 text-xs font-normal text-primary">
+        <TextSequence className="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
+          <SeqFade className="rounded-full bg-[#DFF8EC] px-4 py-0.5 text-xs font-normal text-primary">
             Process
-          </span>
+          </SeqFade>
           <h2
             className="text-[#FAFAF8]"
             style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.75rem, 7vw, 2.5rem)", fontWeight: 700, letterSpacing: "-0.02em" }}
           >
-            <ScrollFloat as="span">Three Simple Steps to Apply for Your</ScrollFloat>{" "}
-            <ScrollFloat as="span" containerClassName="italic">
-              Medical Marijuana Card
-            </ScrollFloat>
+            <SeqChars>Three Simple Steps to Apply for Your</SeqChars>{" "}
+            <SeqChars containerClassName="italic">Medical Marijuana Card</SeqChars>
           </h2>
-          <p className="italic text-[#DFF8EC]" style={{ fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: "26px" }}>
-            You need to follow a three-step process designed to prioritize your
-            convenience and care. Every evaluation is conducted by a
-            state-licensed MMJ doctor, giving you a reliable way to obtain your
-            medical marijuana recommendation
-          </p>
-        </RevealOnView>
+          <SeqLines
+            className="italic text-[#DFF8EC]"
+            style={{ fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: "26px" }}
+            lines={[
+              "You need to follow a three-step process designed to prioritize your convenience and care.",
+              "Every evaluation is conducted by a state-licensed MMJ doctor, giving you a reliable way to obtain your medical marijuana recommendation.",
+            ]}
+          />
+        </TextSequence>
 
         <div className="relative mt-8">
           {/* Full-width divider (Figma "Line 5") sitting behind the badge's
@@ -304,14 +303,15 @@ function DesktopProcessSection() {
             />
 
             {/* Header: process tag + heading + subcopy */}
-            <div className="absolute" style={{ left: 228, top: TOP + 70, width: 984 }}>
-              <span
+            <TextSequence className="absolute" style={{ left: 228, top: TOP + 70, width: 984 }}>
+              <SeqFade
                 className="mx-auto block w-fit rounded-full bg-[#DFF8EC] px-4 py-0.5 text-xs font-normal leading-[18px] tracking-[-0.24px] text-primary"
                 style={{ marginBottom: 16 }}
               >
                 Process
-              </span>
-              <ScrollFloat
+              </SeqFade>
+              <SeqChars
+                as="h2"
                 containerClassName="text-center text-[#FAFAF8]"
                 style={{
                   fontFamily: "var(--font-sans)",
@@ -323,8 +323,8 @@ function DesktopProcessSection() {
                 }}
               >
                 Three Simple Steps to Apply for Your Medical Marijuana Card
-              </ScrollFloat>
-              <p
+              </SeqChars>
+              <SeqLines
                 className="mx-auto text-center italic text-[#DFF8EC]"
                 style={{
                   fontFamily: "var(--font-sans)",
@@ -335,13 +335,12 @@ function DesktopProcessSection() {
                   marginTop: 16,
                   maxWidth: 984,
                 }}
-              >
-                You need to follow a three-step process designed to prioritize your
-                convenience and care. Every evaluation is conducted by a
-                state-licensed MMJ doctor, giving you a reliable way to obtain your
-                medical marijuana recommendation
-              </p>
-            </div>
+                lines={[
+                  "You need to follow a three-step process designed to prioritize your convenience and care.",
+                  "Every evaluation is conducted by a state-licensed MMJ doctor, giving you a reliable way to obtain your medical marijuana recommendation.",
+                ]}
+              />
+            </TextSequence>
 
             {/* Connector dot + line beneath whichever badge is centered — the
                 dot sits exactly on the ring (angle 0, RING_RADIUS). */}

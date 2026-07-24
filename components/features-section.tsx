@@ -5,7 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FigmaCanvas } from "@/components/figma-canvas";
-import ScrollFloat from "@/components/ScrollFloat";
+import { TextSequence, SeqChars, SeqLines } from "@/components/text-sequence";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -24,7 +24,10 @@ const LEAF_BOTTOM_LEFT = { left: 115, top: TOP + 618, width: 468, height: 454 };
 const LEAF_TOP_RIGHT = { left: 936, top: TOP + 311, width: 336, height: 351 };
 const CANVAS_H = TOP + 1072 + BOTTOM;
 
-const COPY = `For years, getting a medical marijuana card meant navigating confusing websites or impersonal clinics. Many patients living with chronic pain, anxiety, PTSD, and other qualifying conditions were left feeling judged while searching for safe, legitimate care.\n\nMaryDoc was created to change that. We connect patients with licensed physicians for secure online evaluations, making access to medical cannabis simple, trusted, and compassionate. Our mission is to provide a seamless, transparent experience that puts patients first—making quality care more accessible across 30+ states.`;
+const COPY_LINES = [
+  "For years, getting a medical marijuana card meant navigating confusing websites or impersonal clinics. Many patients living with chronic pain, anxiety, PTSD, and other qualifying conditions were left feeling judged while searching for safe, legitimate care.",
+  "MaryDoc was created to change that. We connect patients with licensed physicians for secure online evaluations, making access to medical cannabis simple, trusted, and compassionate. Our mission is to provide a seamless, transparent experience that puts patients first—making quality care more accessible across 30+ states.",
+];
 
 function prefersReducedMotion() {
   return (
@@ -35,8 +38,6 @@ function prefersReducedMotion() {
 
 function FeaturesDesktop() {
   const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const paragraphRef = useRef<HTMLParagraphElement>(null);
   const leafLeftRef = useRef<HTMLDivElement>(null);
   const leafRightRef = useRef<HTMLDivElement>(null);
   const ovalRevealRef = useRef<HTMLDivElement>(null);
@@ -51,8 +52,6 @@ function FeaturesDesktop() {
     if (!section) return;
 
     const ctx = gsap.context(() => {
-      const heading = headingRef.current;
-      const paragraph = paragraphRef.current;
       const leafLeft = leafLeftRef.current;
       const leafRight = leafRightRef.current;
       const ovalReveal = ovalRevealRef.current;
@@ -62,8 +61,6 @@ function FeaturesDesktop() {
       const smallReveal = smallRevealRef.current;
       const smallParallax = smallParallaxRef.current;
       if (
-        !heading ||
-        !paragraph ||
         !leafLeft ||
         !leafRight ||
         !ovalReveal ||
@@ -77,15 +74,13 @@ function FeaturesDesktop() {
       }
 
       if (prefersReducedMotion()) {
-        gsap.set(
-          [heading, paragraph, leafLeft, leafRight, ovalReveal, mainReveal, smallReveal],
-          { opacity: 1, clearProps: "transform" }
-        );
+        gsap.set([leafLeft, leafRight, ovalReveal, mainReveal, smallReveal], {
+          opacity: 1,
+          clearProps: "transform",
+        });
         return;
       }
 
-      gsap.set(heading, { opacity: 0, y: 36 });
-      gsap.set(paragraph, { opacity: 0, y: 28 });
       gsap.set(leafLeft, { opacity: 0, x: -40, rotate: -8, transformOrigin: "center" });
       gsap.set(leafRight, { opacity: 0, x: 40, rotate: 8, transformOrigin: "center" });
       gsap.set(ovalReveal, { opacity: 0, x: -56, scale: 0.92, transformOrigin: "center" });
@@ -101,9 +96,7 @@ function FeaturesDesktop() {
         defaults: { ease: "power3.out" },
       });
 
-      tl.to(heading, { opacity: 1, y: 0, duration: 0.85 }, 0)
-        .to(paragraph, { opacity: 1, y: 0, duration: 0.85 }, 0.12)
-        .to(leafLeft, { opacity: 0.5, x: 0, rotate: 0, duration: 1.1 }, 0.18)
+      tl.to(leafLeft, { opacity: 0.5, x: 0, rotate: 0, duration: 1.1 }, 0.18)
         .to(leafRight, { opacity: 0.5, x: 0, rotate: 0, duration: 1.1 }, 0.22)
         .to(ovalReveal, { opacity: 1, x: 0, scale: 1, duration: 0.95 }, 0.28)
         .to(mainReveal, { opacity: 1, y: 0, scale: 1, duration: 1.05 }, 0.38)
@@ -145,38 +138,36 @@ function FeaturesDesktop() {
   return (
     <section ref={sectionRef} className="relative hidden bg-background lg:block">
       <FigmaCanvas width={1440} height={CANVAS_H} className="mx-auto">
-        <h2
-          ref={headingRef}
-          className="absolute text-primary"
-          style={{
-            ...HEADING,
-            fontFamily: "var(--font-sans)",
-            fontSize: 48,
-            fontWeight: 700,
-            lineHeight: "58px",
-            letterSpacing: "-0.96px",
-          }}
-        >
-          <ScrollFloat as="span">Making</ScrollFloat>{" "}
-          <ScrollFloat as="span" containerClassName="italic text-accent">
-            Medical Cannabis
-          </ScrollFloat>{" "}
-          <ScrollFloat as="span">More Accessible</ScrollFloat>
-        </h2>
-
-        <p
-          ref={paragraphRef}
-          className="absolute whitespace-pre-line italic text-muted-foreground"
-          style={{
-            ...PARAGRAPH,
-            fontSize: 18,
-            fontWeight: 400,
-            lineHeight: "28px",
-            letterSpacing: "-0.36px",
-          }}
-        >
-          {COPY}
-        </p>
+        <TextSequence className="absolute" style={{ left: HEADING.left, top: HEADING.top, width: 1098 }}>
+          <h2
+            className="text-primary"
+            style={{
+              width: HEADING.width,
+              fontFamily: "var(--font-sans)",
+              fontSize: 48,
+              fontWeight: 700,
+              lineHeight: "58px",
+              letterSpacing: "-0.96px",
+            }}
+          >
+            <SeqChars>Making</SeqChars>{" "}
+            <SeqChars containerClassName="italic text-accent">Medical Cannabis</SeqChars>{" "}
+            <SeqChars>More Accessible</SeqChars>
+          </h2>
+          <SeqLines
+            className="absolute italic text-muted-foreground"
+            style={{
+              left: PARAGRAPH.left - HEADING.left,
+              top: 0,
+              width: PARAGRAPH.width,
+              fontSize: 18,
+              fontWeight: 400,
+              lineHeight: "28px",
+              letterSpacing: "-0.36px",
+            }}
+            lines={COPY_LINES}
+          />
+        </TextSequence>
 
         <div
           ref={leafLeftRef}
@@ -238,9 +229,7 @@ function FeaturesDesktop() {
 
 function FeaturesMobile() {
   const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
   const collageRef = useRef<HTMLDivElement>(null);
-  const copyRef = useRef<HTMLDivElement>(null);
   const ovalRevealRef = useRef<HTMLDivElement>(null);
   const ovalParallaxRef = useRef<HTMLDivElement>(null);
   const mainRevealRef = useRef<HTMLDivElement>(null);
@@ -256,9 +245,7 @@ function FeaturesMobile() {
     if (!section) return;
 
     const ctx = gsap.context(() => {
-      const heading = headingRef.current;
       const collage = collageRef.current;
-      const copy = copyRef.current;
       const ovalReveal = ovalRevealRef.current;
       const ovalParallax = ovalParallaxRef.current;
       const mainReveal = mainRevealRef.current;
@@ -269,9 +256,7 @@ function FeaturesMobile() {
       const leafRight = leafRightRef.current;
       const chip = chipRef.current;
       if (
-        !heading ||
         !collage ||
-        !copy ||
         !ovalReveal ||
         !ovalParallax ||
         !mainReveal ||
@@ -286,15 +271,13 @@ function FeaturesMobile() {
       }
 
       if (prefersReducedMotion()) {
-        gsap.set(
-          [heading, copy, ovalReveal, mainReveal, smallReveal, leafLeft, leafRight, chip],
-          { opacity: 1, clearProps: "transform" }
-        );
+        gsap.set([ovalReveal, mainReveal, smallReveal, leafLeft, leafRight, chip], {
+          opacity: 1,
+          clearProps: "transform",
+        });
         return;
       }
 
-      gsap.set(heading, { opacity: 0, y: 28 });
-      gsap.set(copy, { opacity: 0, y: 24 });
       gsap.set(leafLeft, { opacity: 0, x: -20, rotate: -6 });
       gsap.set(leafRight, { opacity: 0, x: 20, rotate: 6 });
       gsap.set(ovalReveal, { opacity: 0, x: -28, scale: 0.9 });
@@ -311,14 +294,12 @@ function FeaturesMobile() {
         defaults: { ease: "power3.out" },
       });
 
-      tl.to(heading, { opacity: 1, y: 0, duration: 0.7 }, 0)
-        .to(leafLeft, { opacity: 0.5, x: 0, rotate: 0, duration: 0.85 }, 0.08)
+      tl.to(leafLeft, { opacity: 0.5, x: 0, rotate: 0, duration: 0.85 }, 0.08)
         .to(leafRight, { opacity: 0.5, x: 0, rotate: 0, duration: 0.85 }, 0.12)
         .to(ovalReveal, { opacity: 1, x: 0, scale: 1, duration: 0.75 }, 0.16)
         .to(mainReveal, { opacity: 1, y: 0, scale: 1, duration: 0.85 }, 0.24)
         .to(smallReveal, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.7 }, 0.36)
-        .to(chip, { opacity: 1, scale: 1, duration: 0.55 }, 0.42)
-        .to(copy, { opacity: 1, y: 0, duration: 0.75 }, 0.4);
+        .to(chip, { opacity: 1, scale: 1, duration: 0.55 }, 0.42);
 
       const scrubBase = { trigger: collage, start: "top bottom", end: "bottom top" } as const;
       gsap.to(ovalParallax, {
@@ -347,29 +328,26 @@ function FeaturesMobile() {
       className="relative overflow-hidden bg-background px-5 py-16 sm:px-8 lg:hidden"
     >
       <div className="mx-auto flex max-w-xl flex-col gap-8">
-        <h2
-          ref={headingRef}
-          className="text-primary"
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: "clamp(1.75rem, 6vw, 2.5rem)",
-            fontWeight: 700,
-            lineHeight: 1.2,
-            letterSpacing: "-0.02em",
-          }}
-        >
-          <ScrollFloat as="span">Making</ScrollFloat>{" "}
-          <ScrollFloat as="span" containerClassName="italic text-accent">
-            Medical
-          </ScrollFloat>
-          <br />
-          <ScrollFloat as="span" containerClassName="italic text-accent">
-            Cannabis
-          </ScrollFloat>{" "}
-          <ScrollFloat as="span">More</ScrollFloat>
-          <br />
-          <ScrollFloat as="span">Accessible</ScrollFloat>
-        </h2>
+        <TextSequence>
+          <h2
+            className="text-primary"
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "clamp(1.75rem, 6vw, 2.5rem)",
+              fontWeight: 700,
+              lineHeight: 1.2,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            <SeqChars>Making</SeqChars>{" "}
+            <SeqChars containerClassName="italic text-accent">Medical</SeqChars>
+            <br />
+            <SeqChars containerClassName="italic text-accent">Cannabis</SeqChars>{" "}
+            <SeqChars>More</SeqChars>
+            <br />
+            <SeqChars>Accessible</SeqChars>
+          </h2>
+        </TextSequence>
 
         <div ref={collageRef} className="relative mt-4">
           <FigmaCanvas width={350} height={262} style={{ overflow: "visible" }}>
@@ -446,13 +424,13 @@ function FeaturesMobile() {
           </FigmaCanvas>
         </div>
 
-        <div
-          ref={copyRef}
-          className="flex flex-col gap-4 whitespace-pre-line italic text-muted-foreground"
-          style={{ fontSize: 16, lineHeight: "26px" }}
-        >
-          {COPY}
-        </div>
+        <TextSequence>
+          <SeqLines
+            className="italic text-muted-foreground"
+            style={{ fontSize: 16, lineHeight: "26px" }}
+            lines={COPY_LINES}
+          />
+        </TextSequence>
       </div>
     </section>
   );

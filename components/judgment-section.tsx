@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { RevealOnView } from "@/components/reveal-on-view";
-import ScrollFloat from "@/components/ScrollFloat";
+import { TextSequence, SeqChars, SeqLines } from "@/components/text-sequence";
 
 // Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 97, 95:1155),
 // each offset relative to this section's own top-left corner (4899, 4705).
@@ -10,9 +10,13 @@ const PARAGRAPH = { left: 83, top: 276, width: 405 };
 const IMAGE_LEFT = { left: 603, top: 103, width: 367, height: 406 };
 const IMAGE_RIGHT = { left: 992, top: 102, width: 367, height: 406 };
 const IMAGE_MIDDLE = { left: 830, top: 60, width: 317, height: 421 };
+// Images bottom out near ~509 — give the section breathing room below.
+const CANVAS_H = 520 + 48;
 
-const paragraphText =
-  "Behind every medical cannabis evaluation is a person looking for answers, not judgment. At MaryDoc, we believe healthcare begins with listening, respecting each patient’s journey, and providing thoughtful guidance from licensed physicians.";
+const paragraphLines = [
+  "Behind every medical cannabis evaluation is a person looking for answers, not judgment.",
+  "At MaryDoc, we believe healthcare begins with listening, respecting each patient’s journey, and providing thoughtful guidance from licensed physicians.",
+];
 
 function JudgmentDesktop() {
   return (
@@ -20,41 +24,38 @@ function JudgmentDesktop() {
       className="relative hidden lg:block"
       style={{ background: "linear-gradient(135deg, #DFF8EC 0%, #E6FFD2 100%)" }}
     >
-      <FigmaCanvas width={1440} height={570} className="mx-auto">
-        <h2
-          className="absolute text-primary"
-          style={{
-            ...HEADING,
-            fontFamily: "var(--font-sans)",
-            fontSize: 48,
-            fontWeight: 700,
-            lineHeight: "58px",
-            letterSpacing: "-0.96px",
-          }}
-        >
-          <ScrollFloat as="span" containerClassName="italic text-accent">
-            Seeking relief
-          </ScrollFloat>
-          <br />
-          <ScrollFloat as="span">should never come</ScrollFloat>
-          <br />
-          <ScrollFloat as="span">with judgment</ScrollFloat>
-        </h2>
+      <FigmaCanvas width={1440} height={CANVAS_H} className="mx-auto">
+        <TextSequence className="absolute" style={{ left: HEADING.left, top: HEADING.top, width: HEADING.width }}>
+          <h2
+            className="text-primary"
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 48,
+              fontWeight: 700,
+              lineHeight: "58px",
+              letterSpacing: "-0.96px",
+            }}
+          >
+            <SeqChars containerClassName="italic text-accent">Seeking relief</SeqChars>
+            <br />
+            <SeqChars>should never come</SeqChars>
+            <br />
+            <SeqChars>with judgment</SeqChars>
+          </h2>
+          <SeqLines
+            className="italic text-muted-foreground"
+            style={{
+              marginTop: PARAGRAPH.top - HEADING.top - 174,
+              width: PARAGRAPH.width,
+              fontSize: 16,
+              fontWeight: 400,
+              lineHeight: "30px",
+              letterSpacing: "-0.32px",
+            }}
+            lines={paragraphLines}
+          />
+        </TextSequence>
 
-        <p
-          className="absolute italic text-muted-foreground"
-          style={{
-            ...PARAGRAPH,
-            fontSize: 16,
-            fontWeight: 400,
-            lineHeight: "30px",
-            letterSpacing: "-0.32px",
-          }}
-        >
-          {paragraphText}
-        </p>
-
-        {/* Side images emerge from behind the main card after it appears */}
         <RevealOnView
           delay={500}
           animationName="emerge-from-behind-left"
@@ -84,7 +85,6 @@ function JudgmentDesktop() {
           />
         </RevealOnView>
 
-        {/* Main card appears first, on top of the other two */}
         <RevealOnView
           delay={0}
           className="absolute overflow-hidden rounded-[30px] shadow-lg"
@@ -106,28 +106,28 @@ function JudgmentDesktop() {
 function JudgmentMobile() {
   return (
     <section
-      className="relative overflow-hidden px-5 py-16 sm:px-8 lg:hidden"
+      className="relative overflow-hidden px-5 py-16 pb-20 sm:px-8 lg:hidden"
       style={{ background: "linear-gradient(135deg, #DFF8EC 0%, #E6FFD2 100%)" }}
     >
       <div className="mx-auto flex max-w-xl flex-col items-center gap-6 text-center">
-        <h2
-          className="text-primary"
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: "clamp(1.75rem, 6vw, 2.5rem)",
-            fontWeight: 700,
-            lineHeight: 1.2,
-            letterSpacing: "-0.02em",
-          }}
-        >
-          <ScrollFloat as="span" containerClassName="italic text-accent">
-            Seeking relief
-          </ScrollFloat>
-          <br />
-          <ScrollFloat as="span">should never come</ScrollFloat>
-          <br />
-          <ScrollFloat as="span">with judgment</ScrollFloat>
-        </h2>
+        <TextSequence>
+          <h2
+            className="text-primary"
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "clamp(1.75rem, 6vw, 2.5rem)",
+              fontWeight: 700,
+              lineHeight: 1.2,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            <SeqChars containerClassName="italic text-accent">Seeking relief</SeqChars>
+            <br />
+            <SeqChars>should never come</SeqChars>
+            <br />
+            <SeqChars>with judgment</SeqChars>
+          </h2>
+        </TextSequence>
 
         <RevealOnView className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[30px]">
           <Image
@@ -139,9 +139,13 @@ function JudgmentMobile() {
           />
         </RevealOnView>
 
-        <p className="italic text-muted-foreground" style={{ fontSize: 16, lineHeight: "30px" }}>
-          {paragraphText}
-        </p>
+        <TextSequence>
+          <SeqLines
+            className="italic text-muted-foreground"
+            style={{ fontSize: 16, lineHeight: "30px" }}
+            lines={paragraphLines}
+          />
+        </TextSequence>
       </div>
     </section>
   );

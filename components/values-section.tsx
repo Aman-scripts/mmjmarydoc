@@ -7,7 +7,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { ShieldCheck, Globe, Heart, Award } from "lucide-react";
-import ScrollFloat from "@/components/ScrollFloat";
+import { TextSequence, SeqChars } from "@/components/text-sequence";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
@@ -107,10 +107,10 @@ const SLOTS = cards.map((card) => ({ left: card.left, top: card.top, rotate: car
 
 // Final resting translate3d — applied only on the last reveal (all 4 cards shown).
 const FINAL_TRANSFORM = [
-  { x: -160, y: 0, z: 10 }, // Trust
-  { x: -160, y: -20, z: 10 }, // Access
-  { x: -160, y: -40, z: 10 }, // Compassion
-  { x: -160, y: -60, z: 10 }, // Experience
+  { x: -160, y: 0, z: 10 },
+  { x: -160, y: -20, z: 10 }, 
+  { x: -160, y: -40, z: 10 }, 
+  { x: -160, y: -60, z: 10 }, 
 ] as const;
 
 function slotPose(cardIndex: number, slotIndex: number, withFinal = false) {
@@ -335,48 +335,48 @@ function ValuesDesktop() {
               className="mx-auto"
               style={{ width: "100%", maxWidth: DESIGN_W, overflow: "visible" }}
             >
-        <h2
-          className="absolute whitespace-nowrap"
-          style={{
-            left: 173,
-            top: TOP + 0,
-            fontFamily: "var(--font-sans)",
-            fontWeight: 800,
-            fontSize: 100,
-            lineHeight: "155px",
-            letterSpacing: "-2px",
-          }}
+        <TextSequence
+          className="pointer-events-none absolute left-0 top-0 w-full"
+          style={{ height: TOP + 320 }}
         >
-          <ScrollFloat as="span" containerClassName="italic text-primary">
-            Four things
-          </ScrollFloat>{" "}
-          <ScrollFloat
-            as="span"
-            containerClassName="text-accent opacity-50"
-            style={{ fontSize: 110, letterSpacing: "-2.2px" }}
+          <h2
+            className="absolute whitespace-nowrap"
+            style={{
+              left: 173,
+              top: TOP + 0,
+              fontFamily: "var(--font-sans)",
+              fontWeight: 800,
+              fontSize: 100,
+              lineHeight: "155px",
+              letterSpacing: "-2px",
+            }}
           >
-            WE NEVER
-          </ScrollFloat>
-        </h2>
-        <h2
-          className="absolute whitespace-nowrap"
-          style={{
-            left: 247,
-            top: TOP + 155,
-            fontWeight: 800,
-            fontFamily: "var(--font-sans)",
-            fontSize: 110,
-            lineHeight: "155px",
-            letterSpacing: "-2.2px",
-          }}
-        >
-          <ScrollFloat as="span" containerClassName="text-accent opacity-50">
-            COMPROMISE
-          </ScrollFloat>{" "}
-          <ScrollFloat as="span" containerClassName="italic" style={{ fontSize: 100, ...textGradient }}>
-            On
-          </ScrollFloat>
-        </h2>
+            <SeqChars containerClassName="italic text-primary">Four things</SeqChars>{" "}
+            <SeqChars
+              containerClassName="text-accent opacity-50"
+              style={{ fontSize: 110, letterSpacing: "-2.2px" }}
+            >
+              WE NEVER
+            </SeqChars>
+          </h2>
+          <h2
+            className="absolute whitespace-nowrap"
+            style={{
+              left: 247,
+              top: TOP + 155,
+              fontWeight: 800,
+              fontFamily: "var(--font-sans)",
+              fontSize: 110,
+              lineHeight: "155px",
+              letterSpacing: "-2.2px",
+            }}
+          >
+            <SeqChars containerClassName="text-accent opacity-50">COMPROMISE</SeqChars>{" "}
+            <SeqChars containerClassName="italic" style={{ fontSize: 100, ...textGradient }}>
+              On
+            </SeqChars>
+          </h2>
+        </TextSequence>
 
         {cards.map((card, i) => (
           <div
@@ -495,25 +495,23 @@ function ValuesMobile() {
     <section className="relative overflow-hidden bg-background lg:hidden">
       <div className="px-5 pt-16 sm:px-8">
         <div className="mx-auto flex max-w-xl flex-col items-center text-center">
-          <h2
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontWeight: 800,
-              fontSize: "clamp(1.75rem, 8vw, 2.75rem)",
-              lineHeight: 1.15,
-              letterSpacing: "-0.02em",
-            }}
-          >
-            <ScrollFloat as="span" containerClassName="italic text-primary">
-              Four things
-            </ScrollFloat>{" "}
-            <ScrollFloat as="span" containerClassName="text-accent opacity-50">
-              WE NEVER COMPROMISE
-            </ScrollFloat>{" "}
-            <ScrollFloat as="span" containerClassName="italic" style={textGradient}>
-              On
-            </ScrollFloat>
-          </h2>
+          <TextSequence>
+            <h2
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontWeight: 800,
+                fontSize: "clamp(1.75rem, 8vw, 2.75rem)",
+                lineHeight: 1.15,
+                letterSpacing: "-0.02em",
+              }}
+            >
+              <SeqChars containerClassName="italic text-primary">Four things</SeqChars>{" "}
+              <SeqChars containerClassName="text-accent opacity-50">WE NEVER COMPROMISE</SeqChars>{" "}
+              <SeqChars containerClassName="italic" style={textGradient}>
+                On
+              </SeqChars>
+            </h2>
+          </TextSequence>
         </div>
       </div>
 

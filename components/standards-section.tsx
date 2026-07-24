@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { FigmaCanvas } from "@/components/figma-canvas";
-import ScrollFloat from "@/components/ScrollFloat";
+import { TextSequence, SeqChars } from "@/components/text-sequence";
 
 const textGradient = {
   display: "inline-block",
@@ -167,21 +167,23 @@ function StandardsDesktop() {
           <Image src="/faq-section-top.webp" alt="" fill className="object-contain" sizes="150px" />
         </div>
 
-        <h2
-          className="absolute whitespace-nowrap text-center"
-          style={{ left: 289, top: TOP + 57, width: 862, fontWeight: 800, fontSize: 100, lineHeight: "155px", letterSpacing: "-2px" }}
+        <TextSequence
+          className="absolute"
+          style={{ left: 289, top: TOP + 57, width: 862 }}
         >
-          <ScrollFloat as="span" containerClassName="italic text-primary">
-            Our
-          </ScrollFloat>{" "}
-          <ScrollFloat
-            as="span"
-            containerClassName="text-accent opacity-50"
-            style={{ fontSize: 110, letterSpacing: "-2.2px" }}
+          <h2
+            className="whitespace-nowrap text-center"
+            style={{ fontWeight: 800, fontSize: 100, lineHeight: "155px", letterSpacing: "-2px" }}
           >
-            STANDARDS
-          </ScrollFloat>
-        </h2>
+            <SeqChars containerClassName="italic text-primary">Our</SeqChars>{" "}
+            <SeqChars
+              containerClassName="text-accent opacity-50"
+              style={{ fontSize: 110, letterSpacing: "-2.2px" }}
+            >
+              STANDARDS
+            </SeqChars>
+          </h2>
+        </TextSequence>
 
         <div className="absolute" style={{ left: 80, top: TOP + 255, width: 1280 }}>
           {[0, 1].map((col) => (
@@ -211,17 +213,15 @@ function StandardsMobile() {
       <div className="mx-auto flex max-w-xl flex-col items-center gap-10">
         <div className="flex items-center gap-3">
           <Image src="/faq-section-top.webp" alt="" width={38} height={27} className="shrink-0" />
-          <h2
-            className="text-center"
-            style={{ fontWeight: 800, fontSize: "clamp(1.75rem, 8vw, 2.75rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}
-          >
-            <ScrollFloat as="span" containerClassName="italic text-primary">
-              Our
-            </ScrollFloat>{" "}
-            <ScrollFloat as="span" containerClassName="text-accent opacity-50">
-              STANDARDS
-            </ScrollFloat>
-          </h2>
+          <TextSequence>
+            <h2
+              className="text-center"
+              style={{ fontWeight: 800, fontSize: "clamp(1.75rem, 8vw, 2.75rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}
+            >
+              <SeqChars containerClassName="italic text-primary">Our</SeqChars>{" "}
+              <SeqChars containerClassName="text-accent opacity-50">STANDARDS</SeqChars>
+            </h2>
+          </TextSequence>
           <Image src="/faq-section-top.webp" alt="" width={38} height={27} className="shrink-0 -scale-x-100" />
         </div>
 
