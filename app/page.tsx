@@ -27,6 +27,9 @@ const StandardsSection = dynamic(() =>
 const ReviewsSection = dynamic(() =>
   import("@/components/reviews-section").then((m) => ({ default: m.ReviewsSection }))
 );
+const CtaSection = dynamic(() =>
+  import("@/components/cta-section").then((m) => ({ default: m.CtaSection }))
+);
 const FooterSection = dynamic(() =>
   import("@/components/footer-section").then((m) => ({ default: m.FooterSection }))
 );
@@ -58,6 +61,9 @@ export default function Home() {
       </LazyMount>
       <LazyMount rootMargin="80px 0px" minHeight={640}>
         <ReviewsSection />
+      </LazyMount>
+      <LazyMount rootMargin="80px 0px" minHeight={320}>
+        <CtaSection />
       </LazyMount>
       <LazyMount rootMargin="80px 0px" minHeight={280}>
         <FooterSection />
