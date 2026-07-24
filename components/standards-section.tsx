@@ -185,7 +185,7 @@ function StandardsDesktop() {
 
         <div className="absolute" style={{ left: 80, top: TOP + 255, width: 1280 }}>
           {[0, 1].map((col) => (
-            <div key={col} className="absolute top-0" style={{ left: col * 652, width: 628 }}>
+            <div key={col} className="absolute top-0" style={{ left: col * 660, width: 560 }}>
               {standards.slice(col * 4, col * 4 + 4).map((standard, i) => (
                 <StandardRow
                   key={standard.number}
