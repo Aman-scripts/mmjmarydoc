@@ -51,14 +51,38 @@ export function ScrollFab({
 
   useEffect(() => {
     if (!ready) return;
-    const footer = document.getElementById("site-footer");
-    if (!footer) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setHiddenByFooter(entry.isIntersecting),
-      { rootMargin: "0px 0px -10% 0px" }
-    );
-    observer.observe(footer);
-    return () => observer.disconnect();
+
+    let retryId = 0;
+
+    const updateFooterVisibility = () => {
+      const footer = document.getElementById("site-footer");
+      if (!footer) {
+        setHiddenByFooter(false);
+        return;
+      }
+      if (retryId) {
+        window.clearInterval(retryId);
+        retryId = 0;
+      }
+
+      const rect = footer.getBoundingClientRect();
+      // FAB sits ~32px from the bottom; hide as soon as the footer reaches that band.
+      const fabTop = window.innerHeight - 120;
+      const overlapsFab = rect.top < window.innerHeight && rect.bottom > fabTop;
+      setHiddenByFooter(overlapsFab);
+    };
+
+    updateFooterVisibility();
+    window.addEventListener("scroll", updateFooterVisibility, { passive: true });
+    window.addEventListener("resize", updateFooterVisibility);
+    // Footer is lazy-mounted — poll until #site-footer exists, then rely on scroll.
+    retryId = window.setInterval(updateFooterVisibility, 400);
+
+    return () => {
+      window.removeEventListener("scroll", updateFooterVisibility);
+      window.removeEventListener("resize", updateFooterVisibility);
+      if (retryId) window.clearInterval(retryId);
+    };
   }, [ready]);
 
   if (!ready) return null;
@@ -77,6 +101,8 @@ export function ScrollFab({
       onAnimationEnd={() => setBounce(false)}
       className={cn("scrollFab", expanded && "expanded", bounce && "bounce", hiddenByFooter && "fabHidden")}
       aria-label={label}
+      aria-hidden={hiddenByFooter}
+      tabIndex={hiddenByFooter ? -1 : undefined}
     >
       <span className="shell">
         <span className="core">
