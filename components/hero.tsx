@@ -47,7 +47,8 @@ const YOUR = { left: 266 - HERO_ROW.left, top: 263 - HERO_ORIG_TOP, width: 219, 
 const MARIJUANA = { left: 695 - HERO_ROW.left, top: 263 - HERO_ORIG_TOP, width: 633, height: 155 };
 const DESCRIPTION = { left: 133 - HERO_ROW.left, top: 561 - HERO_ORIG_TOP, width: 297 };
 const CARE = { left: 746 - HERO_ROW.left, top: 546 - HERO_ORIG_TOP };
-const LEAF = { left: 954 - HERO_ROW.left, top: 565 - HERO_ORIG_TOP, width: 91, height: 96 };
+// Keep leaf just after "Care." (same offset as original Figma: leaf − care = 259).
+const LEAF = { left: 1005 - HERO_ROW.left, top: 565 - HERO_ORIG_TOP, width: 91, height: 96 };
 
 function DesktopHero() {
   return (
@@ -151,8 +152,9 @@ function DesktopHero() {
             alt=""
             width={LEAF.width}
             height={LEAF.height}
-            className="absolute"
+            className="pointer-events-none absolute"
             style={{ left: LEAF.left, top: LEAF.top }}
+            aria-hidden
           />
         </div>
 
