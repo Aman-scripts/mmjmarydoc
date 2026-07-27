@@ -53,13 +53,35 @@ const LEAF = { left: 1005 - HERO_ROW.left, top: 565 - HERO_ORIG_TOP, width: 91, 
 
 function DesktopHero() {
   return (
-    <section className="relative" style={{ background: "#DFF8EC" }}>
+    // Soil-toned section background: the FigmaCanvas is scaled by a fractional
+    // factor, so its last row can round short — anything showing behind it at
+    // the bottom edge must be soil, not mint, or a light line appears above
+    // the stats section.
+    <section className="relative" style={{ background: "#926A36" }}>
       <FigmaCanvas
         width={1440}
         height={SOIL.top + SOIL.height}
         style={{ background: "linear-gradient(135deg, #DFF8EC 0%, #E6FFD2 100%)" }}
       >
         <Header />
+
+        {/*
+          The soil PNG's bottom few rows are transparent, which would leave a
+          sliver of hero gradient between it and the soil background of the
+          stats section below. Back the band with its own lower tone (#926A36)
+          so the two meet seamlessly.
+        */}
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            left: SOIL.left,
+            top: SOIL.top + SOIL.height - 14,
+            width: SOIL.width,
+            height: 14,
+            background: "#926A36",
+          }}
+          aria-hidden
+        />
 
         <Image
           src="/hero-soil.png"

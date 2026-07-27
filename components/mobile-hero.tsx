@@ -79,6 +79,19 @@ export function MobileHero() {
       </div>
 
       <FigmaCanvas width={390} height={CANVAS_HEIGHT} className="mx-auto mt-4">
+        {/* Backs the soil PNG's transparent bottom rows — see hero.tsx. */}
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            left: SOIL.left,
+            top: SOIL.top + SOIL.height - 10,
+            width: SOIL.width,
+            height: 10,
+            background: "#926A36",
+          }}
+          aria-hidden
+        />
+
         <Image
           src="/hero-soil.png"
           alt=""
@@ -102,6 +115,17 @@ export function MobileHero() {
           />
         </div>
       </FigmaCanvas>
+
+      {/*
+        The canvas is scaled by a fractional factor, so its last row can round
+        short. Cap the section in the soil's own tone so no mint line shows
+        above the stats section's soil background.
+      */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-1"
+        style={{ background: "#926A36" }}
+      />
     </section>
   );
 }

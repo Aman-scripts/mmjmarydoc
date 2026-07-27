@@ -15,6 +15,31 @@ const TOP = 0;
 const BOTTOM = 0;
 const CONTAINER = { left: 185, width: 1069 };
 
+/**
+ * The hero's soil strip (public/hero-soil.png) is a flat two-tone band —
+ * #AE8A48 on top, #926A36 below. This section picks up exactly where that
+ * lower tone ends and carries the earth down through the whole scroll track,
+ * darkening with depth like a soil cross-section. It stays soil all the way
+ * to the bottom — no fade to the page background, which read as a white wash.
+ */
+const SOIL_BG =
+  "linear-gradient(180deg, #926A36 0%, #825C2C 20%, #6F4D23 45%, #5E401C 70%, #513617 88%, #452D13 100%)";
+
+/** Cheap speckle overlay so the flat gradient reads as grainy earth. */
+const SOIL_GRAIN = [
+  "radial-gradient(circle at 18% 24%, rgba(255,241,214,0.30) 0 1.6px, transparent 2.2px)",
+  "radial-gradient(circle at 67% 58%, rgba(28,16,4,0.36) 0 2px, transparent 2.6px)",
+  "radial-gradient(circle at 41% 83%, rgba(28,16,4,0.28) 0 1.2px, transparent 1.8px)",
+  "radial-gradient(circle at 86% 13%, rgba(255,241,214,0.22) 0 1.1px, transparent 1.6px)",
+  "radial-gradient(circle at 8% 71%, rgba(28,16,4,0.24) 0 1.4px, transparent 2px)",
+].join(", ");
+
+/** Foreground palette for content sitting on the soil. */
+const ON_SOIL_TEXT = "#F6EFDF";
+const ON_SOIL_ACCENT = "#BFE887";
+const ON_SOIL_UNDERLINE =
+  "linear-gradient(265.32deg, #BFE887 2.23%, #8FD9A6 40.81%, #6FCDB2 69.11%, #57B9A2 97.77%)";
+
 /** Original Figma glyph paths from public/100%.svg and public/30+.svg */
 const STAT_GLYPHS = {
   "100%": {
@@ -77,7 +102,8 @@ const clamp = (n: number) => Math.max(0, Math.min(1, n));
 
 /**
  * Stroke-draws the original Figma glyph path, then settles into the solid
- * filled look (fill #4C8C1A @ 50% opacity, no outline) — matching the SVG assets.
+ * filled look (no outline). Tinted for the soil backdrop rather than the
+ * original #4C8C1A, which all but disappears against brown.
  */
 function GlyphDraw({
   number,
@@ -112,10 +138,10 @@ function GlyphDraw({
       <path
         ref={pathRef}
         d={glyph.d}
-        fill={done ? "#4C8C1A" : "none"}
-        fillOpacity={done ? 0.5 : 0}
-        stroke="#4C8C1A"
-        strokeOpacity={done ? 0 : 0.85}
+        fill={done ? ON_SOIL_ACCENT : "none"}
+        fillOpacity={done ? 0.72 : 0}
+        stroke={ON_SOIL_ACCENT}
+        strokeOpacity={done ? 0 : 0.9}
         strokeWidth={done ? 0 : 2.25}
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -162,17 +188,26 @@ export function StatsSection() {
   const underlineP = [clamp((p - 0.4) / 0.1), clamp((p - 0.84) / 0.1)];
 
   return (
-    <div ref={wrapperRef} style={{ height: "150vh" }}>
+    // -1px pulls the track over the hero's fractional (scaled-canvas) bottom
+    // row, so no page background can show through at the seam.
+    <div ref={wrapperRef} className="relative" style={{ height: "150vh", marginTop: -1 }}>
+      <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: SOIL_BG }} />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-60"
+        style={{ backgroundImage: SOIL_GRAIN, backgroundSize: "160px 160px" }}
+      />
       <section className="sticky top-[var(--mobile-header-offset)] flex items-start justify-center overflow-hidden py-6 lg:top-0 lg:py-16">
         <div className="w-full">
           <div className="px-5 sm:px-8 lg:hidden">
             <FigmaCanvas width={358} height={417} className="mx-auto">
               <h2
-                className="absolute text-left text-primary"
+                className="absolute text-left"
                 style={{
                   left: 0,
                   top: 0,
                   width: 358,
+                  color: ON_SOIL_TEXT,
                   fontFamily: "var(--font-sans)",
                   fontSize: 32,
                   fontWeight: 700,
@@ -189,9 +224,10 @@ export function StatsSection() {
                 <div key={stat.number}>
                   <GlyphDraw number={stat.number} box={stat.numberBox} progress={numProgress[i]} />
                   <p
-                    className="absolute text-primary"
+                    className="absolute"
                     style={{
                       ...stat.labelBox,
+                      color: ON_SOIL_TEXT,
                       fontFamily: "var(--font-sans)",
                       fontSize: 20,
                       fontWeight: 700,
@@ -207,7 +243,7 @@ export function StatsSection() {
                     ))}
                     <span className="block whitespace-nowrap">
                       {stat.lastLinePrefix}
-                      <span className="text-accent">{stat.lastWord}</span>
+                      <span style={{ color: ON_SOIL_ACCENT }}>{stat.lastWord}</span>
                     </span>
                   </p>
                   <span
@@ -218,7 +254,7 @@ export function StatsSection() {
                       width: 77,
                       height: 4,
                       background:
-                        "linear-gradient(265.32deg, #4C8C1A 2.23%, #166047 40.81%, #0E5A4D 69.11%, #0B3832 97.77%)",
+                        ON_SOIL_UNDERLINE,
                       opacity: underlineP[i] > 0 ? 1 : 0,
                       transform: `scaleX(${underlineP[i]})`,
                       transformOrigin: "left center",
@@ -232,8 +268,9 @@ export function StatsSection() {
           <div className="hidden lg:block">
             <FigmaCanvas width={1440} height={TOP + 345 + BOTTOM} className="mx-auto">
               <h2
-                className="absolute text-center text-primary"
+                className="absolute text-center"
                 style={{
+                  color: ON_SOIL_TEXT,
                   left: CONTAINER.left,
                   top: TOP,
                   width: CONTAINER.width,
@@ -267,8 +304,9 @@ export function StatsSection() {
                         progress={numProgress[i]}
                       />
                       <p
-                        className="absolute text-primary"
+                        className="absolute"
                         style={{
+                          color: ON_SOIL_TEXT,
                           left: stat.labelLeft,
                           top: 141,
                           fontFamily: "var(--font-sans)",
@@ -286,7 +324,7 @@ export function StatsSection() {
                         ))}
                         <span className="block whitespace-nowrap">
                           {stat.lastLinePrefix}
-                          <span className="text-accent">{stat.lastWord}</span>
+                          <span style={{ color: ON_SOIL_ACCENT }}>{stat.lastWord}</span>
                         </span>
                       </p>
                       <span
@@ -297,7 +335,7 @@ export function StatsSection() {
                           width: 77,
                           height: 4,
                           background:
-                            "linear-gradient(265.32deg, #4C8C1A 2.23%, #166047 40.81%, #0E5A4D 69.11%, #0B3832 97.77%)",
+                            ON_SOIL_UNDERLINE,
                           opacity: underlineP[i] > 0 ? 1 : 0,
                           transform: `scaleX(${underlineP[i]})`,
                           transformOrigin: "left center",
