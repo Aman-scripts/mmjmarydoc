@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Header } from "@/components/header";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { MobileHero } from "@/components/mobile-hero";
+import { MagneticHeroPlant } from "@/components/magnetic-hero-plant";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -75,38 +76,31 @@ function DesktopHero() {
           className="absolute"
           style={{ left: HERO_ROW.left, top: HERO_ROW.top, width: HERO_ROW.width, height: HERO_ROW.height }}
         >
-          <div className="absolute" style={{ ...PLANT }}>
-            <Image
-              src="/hero-plant-desktop.svg"
-              alt="Marijuana plant growing in soil"
-              fill
-              className="object-contain"
-              sizes="307px"
-              priority
-            />
+          <div className="absolute z-20" style={{ ...PLANT }}>
+            <MagneticHeroPlant className="h-full w-full" />
           </div>
 
           <h1
-            className="absolute text-right text-primary"
+            className="pointer-events-none absolute text-right text-primary"
             style={{ ...YOUR, fontWeight: 800, fontSize: 100, lineHeight: "155px", letterSpacing: "-2px" }}
           >
             Your
           </h1>
           <h1
-            className="absolute whitespace-nowrap text-accent opacity-50"
+            className="pointer-events-none absolute whitespace-nowrap text-accent opacity-50"
             style={{ ...MARIJUANA, fontWeight: 800, fontSize: 110, lineHeight: "155px", letterSpacing: "-2.2px" }}
           >
             MARIJUANA
           </h1>
 
           <h1
-            className="absolute text-right text-accent opacity-50"
+            className="pointer-events-none absolute text-right text-accent opacity-50"
             style={{ ...CARD, fontWeight: 800, fontSize: 110, lineHeight: "155px", letterSpacing: "-2.2px" }}
           >
             CARD
           </h1>
           <h1
-            className="absolute whitespace-nowrap"
+            className="pointer-events-none absolute whitespace-nowrap"
             style={{
               ...WITH_GUIDED,
               fontWeight: 800,
@@ -120,7 +114,7 @@ function DesktopHero() {
           </h1>
 
           <p
-            className="absolute text-right text-muted-foreground"
+            className="pointer-events-none absolute text-right text-muted-foreground"
             style={{
               ...DESCRIPTION,
               fontSize: 18,
@@ -135,7 +129,7 @@ function DesktopHero() {
           </p>
 
           <h1
-            className="absolute"
+            className="pointer-events-none absolute"
             style={{
               ...CARE,
               fontWeight: 800,
