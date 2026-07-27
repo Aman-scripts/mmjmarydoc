@@ -8,6 +8,7 @@ import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { ShieldCheck, Globe, Heart, Award } from "lucide-react";
 import { TextSequence, SeqChars } from "@/components/text-sequence";
+import { scrollStartBelowMobileHeader } from "@/lib/utils";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
@@ -29,10 +30,12 @@ const textGradient = {
 } as const;
 
 // Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 100, 95:1340).
+// Cards nudged up after the heading went from a tall 2-line block to a single line.
 const TOP = 60;
 const BOTTOM = 24;
 const DESIGN_W = 1440;
-const DESIGN_H = TOP + 900 + BOTTOM;
+const CARDS_Y_SHIFT = 220;
+const DESIGN_H = TOP + 700 + BOTTOM;
 
 /** Scaled poster height for the current viewport width. */
 function displayCanvasHeight() {
@@ -47,7 +50,7 @@ const cards = [
     description:
       "Every evaluation is conducted by a state-licensed physician. No shortcuts and no exceptions, just real medical care you can rely on.",
     left: -138,
-    top: 517,
+    top: 517 - CARDS_Y_SHIFT,
     width: 375,
     height: 314,
     number: "1",
@@ -61,7 +64,7 @@ const cards = [
     description:
       "Care should not depend on where you live. Our services are designed to be accessible online, so you can connect with a physician from anywhere.",
     left: 304,
-    top: 423,
+    top: 423 - CARDS_Y_SHIFT,
     width: 375,
     height: 314,
     number: "2",
@@ -75,7 +78,7 @@ const cards = [
     description:
       "No one should feel judged for managing their health. All patients are treated with respect, privacy, and care from the very first step.",
     left: 735,
-    top: 429,
+    top: 429 - CARDS_Y_SHIFT,
     width: 375,
     height: 314,
     number: "3",
@@ -89,7 +92,7 @@ const cards = [
     description:
       "Behind every consultation is a team with years of experience across multiple states, focused on making the entire process clear and stress-free.",
     left: 1164,
-    top: 531,
+    top: 531 - CARDS_Y_SHIFT,
     width: 375,
     height: 314,
     number: "4",
@@ -337,44 +340,24 @@ function ValuesDesktop() {
             >
         <TextSequence
           className="pointer-events-none absolute left-0 top-0 w-full"
-          style={{ height: TOP + 320 }}
+          style={{ height: TOP + 120 }}
         >
           <h2
-            className="absolute whitespace-nowrap"
+            className="absolute whitespace-nowrap text-center"
             style={{
-              left: 173,
+              left: 0,
               top: TOP + 0,
+              width: DESIGN_W,
               fontFamily: "var(--font-sans)",
               fontWeight: 800,
-              fontSize: 100,
-              lineHeight: "155px",
-              letterSpacing: "-2px",
+              fontSize: 72,
+              lineHeight: "88px",
+              letterSpacing: "-1.44px",
             }}
           >
-            <SeqChars containerClassName="italic text-primary">Four things</SeqChars>{" "}
-            <SeqChars
-              containerClassName="text-accent opacity-50"
-              style={{ fontSize: 110, letterSpacing: "-2.2px" }}
-            >
-              WE NEVER
-            </SeqChars>
-          </h2>
-          <h2
-            className="absolute whitespace-nowrap"
-            style={{
-              left: 247,
-              top: TOP + 155,
-              fontWeight: 800,
-              fontFamily: "var(--font-sans)",
-              fontSize: 110,
-              lineHeight: "155px",
-              letterSpacing: "-2.2px",
-            }}
-          >
-            <SeqChars containerClassName="text-accent opacity-50">COMPROMISE</SeqChars>{" "}
-            <SeqChars containerClassName="italic" style={{ fontSize: 100, ...textGradient }}>
-              On
-            </SeqChars>
+            <SeqChars containerClassName="text-primary">Four things</SeqChars>{" "}
+            <SeqChars containerClassName="text-accent opacity-50">WE NEVER COMPROMISE</SeqChars>{" "}
+            <SeqChars style={textGradient}>On</SeqChars>
           </h2>
         </TextSequence>
 
@@ -467,11 +450,14 @@ function ValuesMobile() {
         ease: "none",
         scrollTrigger: {
           trigger: wrapperRef.current,
-          start: "top top",
+          // Pin just under the fixed mobile header so heading + cards
+          // match the resting screenshot position while scrubbing.
+          start: () => scrollStartBelowMobileHeader(),
           end: `+=${(CARD_COUNT - 1) * window.innerHeight}`,
           scrub: true,
           pin: pinRef.current,
           anticipatePin: 1,
+          invalidateOnRefresh: true,
           onUpdate: (self) => {
             setActive(Math.round(self.progress * (CARD_COUNT - 1)));
           },
@@ -493,33 +479,28 @@ function ValuesMobile() {
 
   return (
     <section className="relative overflow-hidden bg-background lg:hidden">
-      <div className="px-5 pt-16 sm:px-8">
-        <div className="mx-auto flex max-w-xl flex-col items-center text-center">
-          <TextSequence>
-            <h2
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontWeight: 800,
-                fontSize: "clamp(1.75rem, 8vw, 2.75rem)",
-                lineHeight: 1.15,
-                letterSpacing: "-0.02em",
-              }}
-            >
-              <SeqChars containerClassName="italic text-primary">Four things</SeqChars>{" "}
-              <SeqChars containerClassName="text-accent opacity-50">WE NEVER COMPROMISE</SeqChars>{" "}
-              <SeqChars containerClassName="italic" style={textGradient}>
-                On
-              </SeqChars>
-            </h2>
-          </TextSequence>
-        </div>
-      </div>
-
-      {/* Only the card track + dots are pinned — the heading above stays in
-          normal flow so the pinned viewport has room to show a full card. */}
       <div ref={wrapperRef} className="relative w-full">
-        <div ref={pinRef} className="w-full bg-background px-5 py-10 sm:px-8">
-          <div className="mx-auto flex max-w-xl flex-col items-center gap-10">
+        <div
+          ref={pinRef}
+          className="w-full bg-background px-5 pb-10 pt-4 sm:px-8"
+        >
+          <div className="mx-auto flex max-w-xl flex-col items-center gap-8">
+            <TextSequence className="w-full text-center">
+              <h2
+                style={{
+                  fontFamily: "var(--font-sans)",
+                  fontWeight: 800,
+                  fontSize: "clamp(2rem, 7vw, 2.75rem)",
+                  lineHeight: 1.15,
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                <SeqChars containerClassName="text-primary">Four things</SeqChars>{" "}
+                <SeqChars containerClassName="text-accent opacity-50">WE NEVER COMPROMISE</SeqChars>{" "}
+                <SeqChars style={textGradient}>On</SeqChars>
+              </h2>
+            </TextSequence>
+
             <div className="relative w-full overflow-hidden">
               <div ref={trackRef} className="flex" style={{ width: `${CARD_COUNT * 100}%` }}>
                 {cards.map((card) => (
@@ -547,7 +528,7 @@ function ValuesMobile() {
                           </div>
                           <span className="text-2xl font-semibold text-primary">{card.title}</span>
                         </div>
-                        <p className="text-base leading-relaxed text-muted-foreground">{card.description}</p>
+                        <p className="text-lg leading-relaxed text-muted-foreground">{card.description}</p>
                       </div>
                     </div>
                   </div>

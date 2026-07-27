@@ -36,18 +36,18 @@ function JudgmentDesktop() {
               letterSpacing: "-0.96px",
             }}
           >
-            <SeqChars containerClassName="italic text-accent">Seeking relief</SeqChars>
+            <SeqChars containerClassName="text-accent">Seeking relief</SeqChars>
             <br />
             <SeqChars>should never come</SeqChars>
             <br />
             <SeqChars>with judgment</SeqChars>
           </h2>
           <SeqLines
-            className="italic text-muted-foreground"
+            className="text-muted-foreground"
             style={{
               marginTop: PARAGRAPH.top - HEADING.top - 174,
               width: PARAGRAPH.width,
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: 400,
               lineHeight: "30px",
               letterSpacing: "-0.32px",
@@ -121,7 +121,7 @@ function JudgmentMobile() {
               letterSpacing: "-0.02em",
             }}
           >
-            <SeqChars containerClassName="italic text-accent">Seeking relief</SeqChars>
+            <SeqChars containerClassName="text-accent">Seeking relief</SeqChars>
             <br />
             <SeqChars>should never come</SeqChars>
             <br />
@@ -141,8 +141,8 @@ function JudgmentMobile() {
 
         <TextSequence>
           <SeqLines
-            className="italic text-muted-foreground"
-            style={{ fontSize: 16, lineHeight: "30px" }}
+            className="text-muted-foreground"
+            style={{ fontSize: 18, lineHeight: "30px" }}
             lines={paragraphLines}
           />
         </TextSequence>

@@ -93,7 +93,10 @@ function MobileProcessSection() {
         ease: "none",
         scrollTrigger: {
           trigger: wrapperRef.current,
-          start: "top+=250px",
+          // Start once this section's top is 60% down the viewport, so it
+          // kicks in while the previous section is still finishing instead
+          // of waiting for a full scroll-to-top.
+          start: "top -50%",
           end: `+=${(STEP_COUNT - 1) * window.innerHeight}`,
           scrub: true,
           pin: pinRef.current,
@@ -135,11 +138,11 @@ function MobileProcessSection() {
             style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.75rem, 7vw, 2.5rem)", fontWeight: 700, letterSpacing: "-0.02em" }}
           >
             <SeqChars>Three Simple Steps to Apply for Your</SeqChars>{" "}
-            <SeqChars containerClassName="italic">Medical Marijuana Card</SeqChars>
+            <SeqChars>Medical Marijuana Card</SeqChars>
           </h2>
           <SeqLines
-            className="italic text-[#DFF8EC]"
-            style={{ fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: "26px" }}
+            className="text-[#DFF8EC]"
+            style={{ fontFamily: "var(--font-sans)", fontSize: 18, lineHeight: "28px" }}
             lines={[
               "You need to follow a three-step process designed to prioritize your convenience and care.",
               "Every evaluation is conducted by a state-licensed MMJ doctor, giving you a reliable way to obtain your medical marijuana recommendation.",
@@ -325,12 +328,12 @@ function DesktopProcessSection() {
                 Three Simple Steps to Apply for Your Medical Marijuana Card
               </SeqChars>
               <SeqLines
-                className="mx-auto text-center italic text-[#DFF8EC]"
+                className="mx-auto text-center text-[#DFF8EC]"
                 style={{
                   fontFamily: "var(--font-sans)",
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: 400,
-                  lineHeight: "26px",
+                  lineHeight: "28px",
                   letterSpacing: "-0.32px",
                   marginTop: 16,
                   maxWidth: 984,
@@ -408,12 +411,12 @@ function DesktopProcessSection() {
                     {step.title}
                   </h3>
                   <p
-                    className="italic text-[#DFF8EC]"
+                    className="text-[#DFF8EC]"
                     style={{
                       fontFamily: "var(--font-sans)",
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: 400,
-                      lineHeight: "26px",
+                      lineHeight: "28px",
                       letterSpacing: "-0.32px",
                       maxWidth: 528,
                     }}

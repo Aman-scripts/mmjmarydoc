@@ -53,7 +53,7 @@ export const MobileProcessCarousel = forwardRef<HTMLDivElement, Props>(function 
                 >
                   {step.title}
                 </h3>
-                <p className="italic text-[#DFF8EC]" style={{ fontFamily: "var(--font-sans)", fontSize: 16, lineHeight: "26px" }}>
+                <p className="text-[#DFF8EC]" style={{ fontFamily: "var(--font-sans)", fontSize: 18, lineHeight: "28px" }}>
                   {step.description}
                 </p>
                 <a

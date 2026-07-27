@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import ScrollFloat from "@/components/ScrollFloat";
+import { mobileHeaderOffsetPx, scrollStartBelowMobileHeader } from "@/lib/utils";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -136,7 +137,15 @@ export function StatsSection() {
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: wrapperRef.current,
-        start: "top top",
+        // Start once the hero above is ~50% scrolled through, instead of
+        // waiting for it to fully clear the viewport first.
+        start: () => {
+          const el = wrapperRef.current;
+          if (!el) return scrollStartBelowMobileHeader();
+          const heroHeight = el.getBoundingClientRect().top + window.scrollY;
+          const earlyBy = heroHeight * 0.5 - mobileHeaderOffsetPx();
+          return `top top+=${earlyBy}`;
+        },
         end: "bottom bottom",
         scrub: true,
         invalidateOnRefresh: true,
@@ -153,8 +162,8 @@ export function StatsSection() {
   const underlineP = [clamp((p - 0.4) / 0.1), clamp((p - 0.84) / 0.1)];
 
   return (
-    <div ref={wrapperRef} style={{ height: "240vh" }}>
-      <section className="sticky top-0 flex items-start justify-center overflow-hidden py-10 lg:py-16">
+    <div ref={wrapperRef} style={{ height: "150vh" }}>
+      <section className="sticky top-[var(--mobile-header-offset)] flex items-start justify-center overflow-hidden py-6 lg:top-0 lg:py-16">
         <div className="w-full">
           <div className="px-5 sm:px-8 lg:hidden">
             <FigmaCanvas width={358} height={417} className="mx-auto">
@@ -173,7 +182,7 @@ export function StatsSection() {
                 }}
               >
                 <ScrollFloat as="span">Find Care in</ScrollFloat>{" "}
-                <ScrollFloat as="span" containerClassName="italic text-accent">
+                <ScrollFloat as="span" containerClassName="text-accent">
                   your state
                 </ScrollFloat>
               </h2>
@@ -239,7 +248,7 @@ export function StatsSection() {
                 }}
               >
                 <ScrollFloat as="span">Find Care in</ScrollFloat>{" "}
-                <ScrollFloat as="span" containerClassName="italic text-accent">
+                <ScrollFloat as="span" containerClassName="text-accent">
                   your state
                 </ScrollFloat>
               </h2>

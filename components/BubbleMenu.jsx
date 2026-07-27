@@ -57,6 +57,7 @@ export default function BubbleMenu({
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   const overlayRef = useRef(null);
   const bubblesRef = useRef([]);
@@ -64,9 +65,22 @@ export default function BubbleMenu({
   const gsapRef = useRef(null);
 
   const menuItems = items?.length ? items : DEFAULT_ITEMS;
-  const containerClassName = ["bubble-menu", useFixedPosition ? "fixed" : "absolute", className]
+  const containerClassName = [
+    "bubble-menu",
+    useFixedPosition ? "fixed" : "absolute",
+    scrolled ? "scrolled" : "",
+    className,
+  ]
     .filter(Boolean)
     .join(" ");
+
+  useEffect(() => {
+    if (!useFixedPosition) return;
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [useFixedPosition]);
 
   const loadGsap = async () => {
     if (gsapRef.current) return gsapRef.current;
@@ -193,7 +207,7 @@ export default function BubbleMenu({
   return (
     <>
       <nav className={containerClassName} style={style} aria-label="Main navigation">
-        <div className="bubble logo-bubble" aria-label="Logo" style={{ background: menuBg }}>
+        <div className="logo-bubble" aria-label="Logo">
           <span className="logo-content">
             {typeof logo === "string" ? <img src={logo} alt="Logo" className="bubble-logo" /> : logo}
           </span>
@@ -205,7 +219,7 @@ export default function BubbleMenu({
           onClick={handleToggle}
           aria-label={menuAriaLabel}
           aria-pressed={isMenuOpen}
-          style={{ background: menuBg }}
+          style={scrolled ? undefined : { background: menuBg }}
         >
           <span className="menu-line" style={{ background: menuContentColor }} />
           <span className="menu-line" style={{ background: menuContentColor }} />

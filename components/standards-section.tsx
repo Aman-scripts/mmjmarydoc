@@ -128,7 +128,7 @@ function StandardRow({
         style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
       >
         <div className="overflow-hidden">
-          <p className="pb-6 pl-[104px] pr-16 text-base leading-relaxed text-muted-foreground">
+          <p className="pb-6 pl-[104px] pr-16 text-lg leading-relaxed text-muted-foreground">
             {standard.answer}
           </p>
         </div>
@@ -175,7 +175,7 @@ function StandardsDesktop() {
             className="whitespace-nowrap text-center"
             style={{ fontWeight: 800, fontSize: 100, lineHeight: "155px", letterSpacing: "-2px" }}
           >
-            <SeqChars containerClassName="italic text-primary">Our</SeqChars>{" "}
+            <SeqChars containerClassName="text-primary">Our</SeqChars>{" "}
             <SeqChars
               containerClassName="text-accent opacity-50"
               style={{ fontSize: 110, letterSpacing: "-2.2px" }}
@@ -218,7 +218,7 @@ function StandardsMobile() {
               className="text-center"
               style={{ fontWeight: 800, fontSize: "clamp(1.75rem, 8vw, 2.75rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}
             >
-              <SeqChars containerClassName="italic text-primary">Our</SeqChars>{" "}
+              <SeqChars containerClassName="text-primary">Our</SeqChars>{" "}
               <SeqChars containerClassName="text-accent opacity-50">STANDARDS</SeqChars>
             </h2>
           </TextSequence>
@@ -261,7 +261,7 @@ function StandardsMobile() {
                   style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
                 >
                   <div className="overflow-hidden">
-                    <p className="pb-5 pr-14 text-sm leading-relaxed text-muted-foreground">{standard.answer}</p>
+                    <p className="pb-5 pr-14 text-lg leading-relaxed text-muted-foreground">{standard.answer}</p>
                   </div>
                 </div>
 

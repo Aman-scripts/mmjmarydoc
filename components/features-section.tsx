@@ -151,11 +151,11 @@ function FeaturesDesktop() {
             }}
           >
             <SeqChars>Making</SeqChars>{" "}
-            <SeqChars containerClassName="italic text-accent">Medical Cannabis</SeqChars>{" "}
+            <SeqChars containerClassName="text-accent">Medical Cannabis</SeqChars>{" "}
             <SeqChars>More Accessible</SeqChars>
           </h2>
           <SeqLines
-            className="absolute italic text-muted-foreground"
+            className="absolute text-muted-foreground"
             style={{
               left: PARAGRAPH.left - HEADING.left,
               top: 0,
@@ -330,7 +330,7 @@ function FeaturesMobile() {
       <div className="mx-auto flex max-w-xl flex-col gap-8">
         <TextSequence>
           <h2
-            className="text-primary"
+            className="text-center text-primary"
             style={{
               fontFamily: "var(--font-sans)",
               fontSize: "clamp(1.75rem, 6vw, 2.5rem)",
@@ -340,12 +340,9 @@ function FeaturesMobile() {
             }}
           >
             <SeqChars>Making</SeqChars>{" "}
-            <SeqChars containerClassName="italic text-accent">Medical</SeqChars>
+            <SeqChars containerClassName="text-accent">Medical Cannabis</SeqChars>
             <br />
-            <SeqChars containerClassName="italic text-accent">Cannabis</SeqChars>{" "}
-            <SeqChars>More</SeqChars>
-            <br />
-            <SeqChars>Accessible</SeqChars>
+            <SeqChars>More Accessible</SeqChars>
           </h2>
         </TextSequence>
 
@@ -426,8 +423,8 @@ function FeaturesMobile() {
 
         <TextSequence>
           <SeqLines
-            className="italic text-muted-foreground"
-            style={{ fontSize: 16, lineHeight: "26px" }}
+            className="text-muted-foreground"
+            style={{ fontSize: 18, lineHeight: "28px" }}
             lines={COPY_LINES}
           />
         </TextSequence>

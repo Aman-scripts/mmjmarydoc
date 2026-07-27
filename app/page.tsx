@@ -3,8 +3,9 @@ import { Hero } from "@/components/hero";
 import { LazyMount } from "@/components/lazy-mount";
 import { ScrollFab } from "@/components/scroll-fab";
 
-const StatsSection = dynamic(() =>
-  import("@/components/stats-section").then((m) => ({ default: m.StatsSection }))
+const StatsSection = dynamic(
+  () => import("@/components/stats-section").then((m) => ({ default: m.StatsSection })),
+  { ssr: true }
 );
 const ProcessSection = dynamic(() =>
   import("@/components/process-section").then((m) => ({ default: m.ProcessSection }))
@@ -38,16 +39,14 @@ export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
       <Hero />
-      <LazyMount rootMargin="80px 0px" minHeight={480}>
-        <StatsSection />
-      </LazyMount>
-      <LazyMount rootMargin="80px 0px" minHeight={640}>
+      <StatsSection />
+      <LazyMount rootMargin="500px 0px" minHeight="220vh">
         <ProcessSection />
       </LazyMount>
       <LazyMount rootMargin="80px 0px" minHeight={800}>
         <FeaturesSection />
       </LazyMount>
-      <LazyMount rootMargin="80px 0px" minHeight={800}>
+      <LazyMount rootMargin="300px 0px" minHeight="300vh">
         <ValuesSection />
       </LazyMount>
       <LazyMount rootMargin="80px 0px" minHeight={640}>

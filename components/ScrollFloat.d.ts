@@ -12,7 +12,6 @@ export interface ScrollFloatProps {
   scrollStart?: string;
   scrollEnd?: string;
   scrub?: boolean;
-  stagger?: number;
 }
 
 declare const ScrollFloat: (props: ScrollFloatProps) => JSX.Element;

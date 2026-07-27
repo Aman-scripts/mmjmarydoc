@@ -36,16 +36,17 @@ const textGradient = {
   margin: "-0.3em -0.2em",
 } as const;
 
-const HERO_LIFT = 90;
+const HERO_LIFT = 120;
 const HERO_ORIG_TOP = 201;
 const HERO_ROW = { left: 144, top: HERO_ORIG_TOP - HERO_LIFT, width: 1216, height: 613 };
-const PLANT = { left: 403 - HERO_ROW.left, top: 0, width: 427, height: 613 };
-const CARD = { left: 176 - HERO_ROW.left, top: 402 - HERO_ORIG_TOP, width: 314, height: 155 };
-const WITH_GUIDED = { left: 694 - HERO_ROW.left, top: 402 - HERO_ORIG_TOP };
+const PLANT = { left: 435 - HERO_ROW.left, top: 279 - HERO_ORIG_TOP, width: 307, height: 596 };
+const SOIL = { left: 0, top: HERO_ROW.top + PLANT.top + PLANT.height - 90, width: 1440, height: 125 };
+const CARD = { left: 148 - HERO_ROW.left, top: 402 - HERO_ORIG_TOP, width: 314, height: 155 };
+const WITH_GUIDED = { left: 744 - HERO_ROW.left, top: 402 - HERO_ORIG_TOP };
 const YOUR = { left: 266 - HERO_ROW.left, top: 263 - HERO_ORIG_TOP, width: 219, height: 155 };
 const MARIJUANA = { left: 695 - HERO_ROW.left, top: 263 - HERO_ORIG_TOP, width: 633, height: 155 };
-const DESCRIPTION = { left: 193 - HERO_ROW.left, top: 561 - HERO_ORIG_TOP, width: 297, height: 104 };
-const CARE = { left: 695 - HERO_ROW.left, top: 546 - HERO_ORIG_TOP };
+const DESCRIPTION = { left: 133 - HERO_ROW.left, top: 561 - HERO_ORIG_TOP, width: 297 };
+const CARE = { left: 746 - HERO_ROW.left, top: 546 - HERO_ORIG_TOP };
 const LEAF = { left: 954 - HERO_ROW.left, top: 565 - HERO_ORIG_TOP, width: 91, height: 96 };
 
 function DesktopHero() {
@@ -53,10 +54,21 @@ function DesktopHero() {
     <section className="relative" style={{ background: "#DFF8EC" }}>
       <FigmaCanvas
         width={1440}
-        height={922 - HERO_LIFT}
+        height={SOIL.top + SOIL.height}
         style={{ background: "linear-gradient(135deg, #DFF8EC 0%, #E6FFD2 100%)" }}
       >
         <Header />
+
+        <Image
+          src="/hero-soil.png"
+          alt=""
+          width={SOIL.width}
+          height={SOIL.height}
+          className="absolute select-none object-cover"
+          style={{ left: SOIL.left, top: SOIL.top, width: SOIL.width, height: SOIL.height }}
+          data-hero-soil
+          aria-hidden
+        />
 
         <div
           className="absolute"
@@ -64,17 +76,17 @@ function DesktopHero() {
         >
           <div className="absolute" style={{ ...PLANT }}>
             <Image
-              src="/hero_section_plant.webp"
-              alt="Marijuana plant"
+              src="/hero-plant-desktop.svg"
+              alt="Marijuana plant growing in soil"
               fill
               className="object-contain"
-              sizes="427px"
+              sizes="307px"
               priority
             />
           </div>
 
           <h1
-            className="absolute text-right italic text-primary"
+            className="absolute text-right text-primary"
             style={{ ...YOUR, fontWeight: 800, fontSize: 100, lineHeight: "155px", letterSpacing: "-2px" }}
           >
             Your
@@ -93,7 +105,7 @@ function DesktopHero() {
             CARD
           </h1>
           <h1
-            className="absolute whitespace-nowrap italic"
+            className="absolute whitespace-nowrap"
             style={{
               ...WITH_GUIDED,
               fontWeight: 800,
@@ -107,16 +119,22 @@ function DesktopHero() {
           </h1>
 
           <p
-            className="absolute text-right italic text-base leading-[26px] tracking-[-0.32px] text-muted-foreground"
-            style={{ ...DESCRIPTION }}
+            className="absolute text-right text-muted-foreground"
+            style={{
+              ...DESCRIPTION,
+              fontSize: 18,
+              fontWeight: 400,
+              lineHeight: "26px",
+              letterSpacing: "-0.18px",
+            }}
           >
             MaryDoc connects you with licensed physicians in your state for
-            secure online medical marijuana evaluations, all from the
-            comfort of your home.
+            secure online medical marijuana evaluations, all from the comfort
+            of your home.
           </p>
 
           <h1
-            className="absolute italic"
+            className="absolute"
             style={{
               ...CARE,
               fontWeight: 800,
@@ -142,7 +160,7 @@ function DesktopHero() {
           className="absolute hidden flex-col items-center gap-6 lg:flex"
           style={{ left: 1390, top: 385 - HERO_LIFT, width: 30, height: 256 }}
         >
-          <span className="text-xs italic leading-[18px] tracking-[-0.24px] text-muted-foreground [writing-mode:vertical-lr]">
+          <span className="text-xs leading-[18px] tracking-[-0.24px] text-muted-foreground [writing-mode:vertical-lr]">
             Read Our Story
           </span>
           <span className="h-16 w-px bg-[#716f6d]" />

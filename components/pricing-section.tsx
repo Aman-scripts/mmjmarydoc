@@ -95,18 +95,18 @@ function PricingDesktop() {
             }}
           >
             <SeqChars>Get Started in Just a</SeqChars>{" "}
-            <SeqChars containerClassName="italic text-accent">Few Clicks</SeqChars>
+            <SeqChars containerClassName="text-accent">Few Clicks</SeqChars>
           </h2>
 
           <SeqLines
-            className="absolute text-center italic text-muted-foreground"
+            className="absolute text-center text-muted-foreground"
             style={{
               left: 411,
               top: TOP + 112,
               width: 618,
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: 400,
-              lineHeight: "26px",
+              lineHeight: "28px",
               letterSpacing: "-0.32px",
             }}
             lines={[
@@ -142,7 +142,7 @@ function PricingDesktop() {
               >
                 {plan.title}
               </h3>
-              <p className="text-sm font-medium text-muted-foreground" style={{ letterSpacing: "-0.28px" }}>
+              <p className="text-lg font-medium text-muted-foreground" style={{ letterSpacing: "-0.28px" }}>
                 {plan.description}
               </p>
             </div>
@@ -190,10 +190,64 @@ function PricingDesktop() {
   );
 }
 
+function PricingCard({ plan }: { plan: (typeof plans)[number] }) {
+  return (
+    <div className="flex h-full flex-col rounded-[24px] bg-[#DFF8EC] p-5 text-left shadow-sm sm:rounded-[30px] sm:p-6">
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex h-9 w-12 shrink-0 items-center justify-center rounded-full border border-primary/30 bg-transparent sm:w-14">
+          <plan.Icon className="h-4 w-4 text-primary" />
+        </div>
+        <span
+          className="rounded-full px-3 py-0.5 text-[11px] font-normal text-white sm:px-4 sm:text-xs"
+          style={{ background: "var(--gradient-primary)" }}
+        >
+          {plan.badge}
+        </span>
+      </div>
+
+      <div className="mt-5 flex flex-col gap-1">
+        <h3 className="text-lg font-semibold text-accent sm:text-xl">{plan.title}</h3>
+        <p className="text-sm font-medium text-muted-foreground sm:text-base">{plan.description}</p>
+      </div>
+
+      <p
+        className="mt-4 text-primary"
+        style={{
+          fontFamily: "var(--font-space-grotesk)",
+          fontSize: "clamp(2rem, 8vw, 2.5rem)",
+          fontWeight: 700,
+        }}
+      >
+        {plan.price}
+      </p>
+
+      <div className="mt-4 flex flex-1 flex-col gap-2.5 rounded-[20px] bg-white p-4 sm:mt-5 sm:gap-3 sm:rounded-[24px] sm:p-5">
+        {plan.checklist.map((item) => (
+          <div key={item} className="flex items-start gap-2.5 sm:items-center sm:gap-3">
+            <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#DFF8EC] sm:mt-0 sm:h-6 sm:w-6">
+              <Check className="h-3 w-3 text-primary" />
+            </span>
+            <span className="text-left text-[11px] leading-snug text-muted-foreground sm:text-xs">
+              {item}
+            </span>
+          </div>
+        ))}
+        <a
+          href="#start-evaluation"
+          className="mt-2 flex w-full items-center justify-center rounded-full py-2.5 text-sm font-semibold text-white sm:py-3 sm:text-base"
+          style={{ background: "var(--gradient-primary)" }}
+        >
+          {plan.cta}
+        </a>
+      </div>
+    </div>
+  );
+}
+
 function PricingMobile() {
   return (
-    <section className="relative overflow-hidden bg-background px-5 py-16 sm:px-8 lg:hidden">
-      <div className="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
+    <section className="relative bg-background px-5 py-14 sm:px-8 sm:py-16 lg:hidden">
+      <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-4 text-center">
         <TextSequence className="flex flex-col items-center gap-4">
           <SeqFade className="rounded-full bg-[#DFF8EC] px-4 py-0.5 text-xs font-normal text-primary">
             Pricing
@@ -209,10 +263,10 @@ function PricingMobile() {
             }}
           >
             <SeqChars>Get Started in Just a</SeqChars>{" "}
-            <SeqChars containerClassName="italic text-accent">Few Clicks</SeqChars>
+            <SeqChars containerClassName="text-accent">Few Clicks</SeqChars>
           </h2>
           <SeqLines
-            className="text-base italic text-muted-foreground"
+            className="text-base text-muted-foreground sm:text-lg"
             lines={[
               "Select your evaluation type and connect with a licensed provider to begin your medical cannabis journey online.",
             ]}
@@ -221,39 +275,7 @@ function PricingMobile() {
 
         <div className="mt-6 flex w-full flex-col gap-6">
           {plans.map((plan) => (
-            <div key={plan.title} className="flex flex-col gap-6 rounded-[30px] bg-[#DFF8EC] px-8 py-8 text-left">
-              <div className="flex items-center justify-between">
-                <div className="flex h-9 w-14 items-center justify-center rounded-full border border-primary/30 bg-transparent">
-                  <plan.Icon className="h-4 w-4 text-primary" />
-                </div>
-                <span
-                  className="rounded-full px-4 py-0.5 text-xs font-normal text-white"
-                  style={{ background: "var(--gradient-primary)" }}
-                >
-                  {plan.badge}
-                </span>
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <h3 className="text-xl font-semibold text-accent">{plan.title}</h3>
-                <p className="text-sm font-medium text-muted-foreground">{plan.description}</p>
-              </div>
-
-              <p
-                className="text-primary"
-                style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 40, fontWeight: 700 }}
-              >
-                {plan.price}
-              </p>
-
-              <a
-                href="#start-evaluation"
-                className="w-full rounded-full py-3 text-center text-base font-semibold text-white"
-                style={{ background: "var(--gradient-primary)" }}
-              >
-                {plan.cta}
-              </a>
-            </div>
+            <PricingCard key={plan.title} plan={plan} />
           ))}
         </div>
       </div>
