@@ -173,12 +173,18 @@ function StandardsDesktop() {
         >
           <h2
             className="whitespace-nowrap text-center"
-            style={{ fontWeight: 800, fontSize: 100, lineHeight: "155px", letterSpacing: "-2px" }}
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontWeight: 800,
+              fontSize: 88,
+              lineHeight: "110px",
+              letterSpacing: "-1.76px",
+            }}
           >
             <SeqChars containerClassName="text-primary">Our</SeqChars>{" "}
             <SeqChars
               containerClassName="text-accent opacity-50"
-              style={{ fontSize: 110, letterSpacing: "-2.2px" }}
+              style={{ fontSize: 96, letterSpacing: "-1.92px" }}
             >
               STANDARDS
             </SeqChars>
@@ -216,7 +222,13 @@ function StandardsMobile() {
           <TextSequence>
             <h2
               className="text-center"
-              style={{ fontWeight: 800, fontSize: "clamp(1.75rem, 8vw, 2.75rem)", lineHeight: 1.15, letterSpacing: "-0.02em" }}
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontWeight: 800,
+                fontSize: "clamp(2rem, 7vw, 2.75rem)",
+                lineHeight: 1.15,
+                letterSpacing: "-0.02em",
+              }}
             >
               <SeqChars containerClassName="text-primary">Our</SeqChars>{" "}
               <SeqChars containerClassName="text-accent opacity-50">STANDARDS</SeqChars>
