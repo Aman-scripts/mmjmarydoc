@@ -55,7 +55,7 @@ export function TextSequence({
         },
       });
 
-      items.forEach((item) => {
+      items.forEach((item, i) => {
         // Preserve CSS opacity (e.g. opacity-50) as the fade target instead of forcing 1.
         const targetOpacity = parseFloat(window.getComputedStyle(item).opacity);
         const endOpacity = Number.isFinite(targetOpacity) ? targetOpacity : 1;
@@ -64,11 +64,11 @@ export function TextSequence({
           item,
           {
             opacity: endOpacity,
-            duration: 0.45,
+            duration: 0.22,
             ease: "power2.out",
             clearProps: "opacity",
           },
-          ">"
+          i === 0 ? 0 : "-=0.08"
         );
       });
     }, root);

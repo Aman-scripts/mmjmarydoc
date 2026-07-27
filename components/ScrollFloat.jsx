@@ -13,7 +13,7 @@ const ScrollFloat = ({
   scrollContainerRef,
   containerClassName = '',
   textClassName = '',
-  animationDuration = 0.45,
+  animationDuration = 0.22,
   ease = 'power2.out',
   scrollStart = 'top 88%',
   scrollEnd,
