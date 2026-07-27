@@ -36,7 +36,7 @@ function JudgmentDesktop() {
               letterSpacing: "-0.96px",
             }}
           >
-            <SeqChars containerClassName="text-accent">Seeking relief</SeqChars>
+            <SeqChars>Seeking relief</SeqChars>
             <br />
             <SeqChars>should never come</SeqChars>
             <br />
@@ -121,7 +121,7 @@ function JudgmentMobile() {
               letterSpacing: "-0.02em",
             }}
           >
-            <SeqChars containerClassName="text-accent">Seeking relief</SeqChars>
+            <SeqChars>Seeking relief</SeqChars>
             <br />
             <SeqChars>should never come</SeqChars>
             <br />

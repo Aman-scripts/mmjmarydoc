@@ -151,7 +151,7 @@ function FeaturesDesktop() {
             }}
           >
             <SeqChars>Making</SeqChars>{" "}
-            <SeqChars containerClassName="text-accent">Medical Cannabis</SeqChars>{" "}
+            <SeqChars>Medical Cannabis</SeqChars>{" "}
             <SeqChars>More Accessible</SeqChars>
           </h2>
           <SeqLines
@@ -238,7 +238,6 @@ function FeaturesMobile() {
   const smallParallaxRef = useRef<HTMLDivElement>(null);
   const leafLeftRef = useRef<HTMLDivElement>(null);
   const leafRightRef = useRef<HTMLDivElement>(null);
-  const chipRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -254,7 +253,6 @@ function FeaturesMobile() {
       const smallParallax = smallParallaxRef.current;
       const leafLeft = leafLeftRef.current;
       const leafRight = leafRightRef.current;
-      const chip = chipRef.current;
       if (
         !collage ||
         !ovalReveal ||
@@ -264,14 +262,13 @@ function FeaturesMobile() {
         !smallReveal ||
         !smallParallax ||
         !leafLeft ||
-        !leafRight ||
-        !chip
+        !leafRight
       ) {
         return;
       }
 
       if (prefersReducedMotion()) {
-        gsap.set([ovalReveal, mainReveal, smallReveal, leafLeft, leafRight, chip], {
+        gsap.set([ovalReveal, mainReveal, smallReveal, leafLeft, leafRight], {
           opacity: 1,
           clearProps: "transform",
         });
@@ -283,7 +280,6 @@ function FeaturesMobile() {
       gsap.set(ovalReveal, { opacity: 0, x: -28, scale: 0.9 });
       gsap.set(mainReveal, { opacity: 0, y: 36, scale: 0.94 });
       gsap.set(smallReveal, { opacity: 0, x: 24, y: 16, scale: 0.9 });
-      gsap.set(chip, { opacity: 0, scale: 0.85 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -298,8 +294,7 @@ function FeaturesMobile() {
         .to(leafRight, { opacity: 0.5, x: 0, rotate: 0, duration: 0.85 }, 0.12)
         .to(ovalReveal, { opacity: 1, x: 0, scale: 1, duration: 0.75 }, 0.16)
         .to(mainReveal, { opacity: 1, y: 0, scale: 1, duration: 0.85 }, 0.24)
-        .to(smallReveal, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.7 }, 0.36)
-        .to(chip, { opacity: 1, scale: 1, duration: 0.55 }, 0.42);
+        .to(smallReveal, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.7 }, 0.36);
 
       const scrubBase = { trigger: collage, start: "top bottom", end: "bottom top" } as const;
       gsap.to(ovalParallax, {
@@ -340,7 +335,7 @@ function FeaturesMobile() {
             }}
           >
             <SeqChars>Making</SeqChars>{" "}
-            <SeqChars containerClassName="text-accent">Medical Cannabis</SeqChars>
+            <SeqChars>Medical Cannabis</SeqChars>
             <br />
             <SeqChars>More Accessible</SeqChars>
           </h2>
@@ -411,13 +406,6 @@ function FeaturesMobile() {
                 />
               </div>
             </div>
-            <span
-              ref={chipRef}
-              className="absolute flex items-center justify-center rounded-full bg-[#DFF8EC] text-xs font-semibold text-primary shadow-sm"
-              style={{ left: 133, top: 156, width: 101, height: 27 }}
-            >
-              Select State
-            </span>
           </FigmaCanvas>
         </div>
 

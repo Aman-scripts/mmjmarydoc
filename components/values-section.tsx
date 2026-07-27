@@ -343,7 +343,7 @@ function ValuesDesktop() {
           style={{ height: TOP + 120 }}
         >
           <h2
-            className="absolute whitespace-nowrap text-center"
+            className="absolute whitespace-nowrap text-center text-primary"
             style={{
               left: 0,
               top: TOP + 0,
@@ -355,9 +355,9 @@ function ValuesDesktop() {
               letterSpacing: "-1.44px",
             }}
           >
-            <SeqChars containerClassName="text-primary">Four things</SeqChars>{" "}
-            <SeqChars containerClassName="text-accent opacity-50">WE NEVER COMPROMISE</SeqChars>{" "}
-            <SeqChars style={textGradient}>On</SeqChars>
+            <SeqChars>Four things</SeqChars>{" "}
+            <SeqChars>WE NEVER COMPROMISE</SeqChars>{" "}
+            <SeqChars>On</SeqChars>
           </h2>
         </TextSequence>
 
@@ -487,6 +487,7 @@ function ValuesMobile() {
           <div className="mx-auto flex max-w-xl flex-col items-center gap-8">
             <TextSequence className="w-full text-center">
               <h2
+                className="text-primary"
                 style={{
                   fontFamily: "var(--font-sans)",
                   fontWeight: 800,
@@ -495,9 +496,9 @@ function ValuesMobile() {
                   letterSpacing: "-0.02em",
                 }}
               >
-                <SeqChars containerClassName="text-primary">Four things</SeqChars>{" "}
-                <SeqChars containerClassName="text-accent opacity-50">WE NEVER COMPROMISE</SeqChars>{" "}
-                <SeqChars style={textGradient}>On</SeqChars>
+                <SeqChars>Four things</SeqChars>{" "}
+                <SeqChars>WE NEVER COMPROMISE</SeqChars>{" "}
+                <SeqChars>On</SeqChars>
               </h2>
             </TextSequence>
 

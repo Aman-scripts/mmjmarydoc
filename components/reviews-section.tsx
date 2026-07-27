@@ -426,7 +426,7 @@ function ReviewsDesktop() {
             }}
           >
             <SeqChars>Hear From</SeqChars>{" "}
-            <SeqChars containerClassName="text-accent">Our Patients</SeqChars>
+            <SeqChars>Our Patients</SeqChars>
           </h2>
           <SeqLines
             className="absolute text-center text-muted-foreground"
@@ -716,7 +716,7 @@ function ReviewsMobile() {
             }}
           >
             <SeqChars>Hear From</SeqChars>{" "}
-            <SeqChars containerClassName="text-accent">Our Patients</SeqChars>
+            <SeqChars>Our Patients</SeqChars>
           </h2>
           <SeqLines
             className="text-lg text-muted-foreground"

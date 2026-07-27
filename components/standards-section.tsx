@@ -172,7 +172,7 @@ function StandardsDesktop() {
           style={{ left: 289, top: TOP + 57, width: 862 }}
         >
           <h2
-            className="whitespace-nowrap text-center"
+            className="whitespace-nowrap text-center text-primary"
             style={{
               fontFamily: "var(--font-sans)",
               fontWeight: 800,
@@ -181,13 +181,8 @@ function StandardsDesktop() {
               letterSpacing: "-1.76px",
             }}
           >
-            <SeqChars containerClassName="text-primary">Our</SeqChars>{" "}
-            <SeqChars
-              containerClassName="text-accent opacity-50"
-              style={{ fontSize: 96, letterSpacing: "-1.92px" }}
-            >
-              STANDARDS
-            </SeqChars>
+            <SeqChars>Our</SeqChars>{" "}
+            <SeqChars style={{ fontSize: 96, letterSpacing: "-1.92px" }}>STANDARDS</SeqChars>
           </h2>
         </TextSequence>
 
@@ -221,7 +216,7 @@ function StandardsMobile() {
           <Image src="/faq-section-top.webp" alt="" width={38} height={27} className="shrink-0" />
           <TextSequence>
             <h2
-              className="text-center"
+              className="text-center text-primary"
               style={{
                 fontFamily: "var(--font-sans)",
                 fontWeight: 800,
@@ -230,8 +225,8 @@ function StandardsMobile() {
                 letterSpacing: "-0.02em",
               }}
             >
-              <SeqChars containerClassName="text-primary">Our</SeqChars>{" "}
-              <SeqChars containerClassName="text-accent opacity-50">STANDARDS</SeqChars>
+              <SeqChars>Our</SeqChars>{" "}
+              <SeqChars>STANDARDS</SeqChars>
             </h2>
           </TextSequence>
           <Image src="/faq-section-top.webp" alt="" width={38} height={27} className="shrink-0 -scale-x-100" />

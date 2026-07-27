@@ -182,9 +182,7 @@ export function StatsSection() {
                 }}
               >
                 <ScrollFloat as="span">Find Care in</ScrollFloat>{" "}
-                <ScrollFloat as="span" containerClassName="text-accent">
-                  your state
-                </ScrollFloat>
+                <ScrollFloat as="span">your state</ScrollFloat>
               </h2>
 
               {MOBILE_STATS.map((stat, i) => (
@@ -248,9 +246,7 @@ export function StatsSection() {
                 }}
               >
                 <ScrollFloat as="span">Find Care in</ScrollFloat>{" "}
-                <ScrollFloat as="span" containerClassName="text-accent">
-                  your state
-                </ScrollFloat>
+                <ScrollFloat as="span">your state</ScrollFloat>
               </h2>
 
               <div

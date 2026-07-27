@@ -95,7 +95,7 @@ function PricingDesktop() {
             }}
           >
             <SeqChars>Get Started in Just a</SeqChars>{" "}
-            <SeqChars containerClassName="text-accent">Few Clicks</SeqChars>
+            <SeqChars>Few Clicks</SeqChars>
           </h2>
 
           <SeqLines
@@ -263,7 +263,7 @@ function PricingMobile() {
             }}
           >
             <SeqChars>Get Started in Just a</SeqChars>{" "}
-            <SeqChars containerClassName="text-accent">Few Clicks</SeqChars>
+            <SeqChars>Few Clicks</SeqChars>
           </h2>
           <SeqLines
             className="text-base text-muted-foreground sm:text-lg"
