@@ -100,6 +100,7 @@ export function MobileHero() {
           alt=""
           width={SOIL.width}
           height={SOIL.height}
+          unoptimized
           className="absolute select-none object-fill"
           style={{ left: SOIL.left, top: SOIL.top, width: SOIL.width, height: SOIL.height }}
           data-hero-soil
