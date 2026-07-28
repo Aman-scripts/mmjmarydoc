@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FigmaCanvas } from "@/components/figma-canvas";
+import { generatePebbleField, pebbleImage } from "@/components/soil-pebbles";
 import ScrollFloat from "@/components/ScrollFloat";
 import { mobileHeaderOffsetPx, scrollStartBelowMobileHeader } from "@/lib/utils";
 
@@ -25,14 +26,16 @@ const CONTAINER = { left: 185, width: 1069 };
 const SOIL_BG =
   "linear-gradient(180deg, #926A36 0%, #825C2C 20%, #6F4D23 45%, #5E401C 70%, #513617 88%, #452D13 100%)";
 
-/** Cheap speckle overlay so the flat gradient reads as grainy earth. */
-const SOIL_GRAIN = [
-  "radial-gradient(circle at 18% 24%, rgba(255,241,214,0.30) 0 1.6px, transparent 2.2px)",
-  "radial-gradient(circle at 67% 58%, rgba(28,16,4,0.36) 0 2px, transparent 2.6px)",
-  "radial-gradient(circle at 41% 83%, rgba(28,16,4,0.28) 0 1.2px, transparent 1.8px)",
-  "radial-gradient(circle at 86% 13%, rgba(255,241,214,0.22) 0 1.1px, transparent 1.6px)",
-  "radial-gradient(circle at 8% 71%, rgba(28,16,4,0.24) 0 1.4px, transparent 2px)",
-].join(", ");
+/**
+ * Small pebbles scattered across the whole soil track (not tiled — this
+ * section is 150vh tall, and repeating even an irregular swatch that many
+ * times still stamps a visible grid). One non-repeating random field, sized
+ * to the full track, so no periodicity shows. Flat, hard-edged dots — same
+ * language as the pebbles baked into public/hero-soil.png (see
+ * soil-pebbles.tsx) — just lightly transparent since this track's
+ * background tone keeps shifting with depth.
+ */
+const SOIL_GRAIN = pebbleImage(generatePebbleField(110, 1337));
 
 /** Foreground palette for content sitting on the soil. */
 const ON_SOIL_TEXT = "#F6EFDF";
@@ -195,7 +198,7 @@ export function StatsSection() {
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-60"
-        style={{ backgroundImage: SOIL_GRAIN, backgroundSize: "160px 160px" }}
+        style={{ backgroundImage: SOIL_GRAIN, backgroundSize: "100% 100%", backgroundRepeat: "no-repeat" }}
       />
       <section className="sticky top-[var(--mobile-header-offset)] flex items-start justify-center overflow-hidden py-6 lg:top-0 lg:py-16">
         <div className="w-full">

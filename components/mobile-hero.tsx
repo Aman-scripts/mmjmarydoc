@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { MobileHeader } from "@/components/mobile-header";
 import { FigmaCanvas } from "@/components/figma-canvas";
+import { SoilPebbles } from "@/components/soil-pebbles";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -103,6 +104,8 @@ export function MobileHero() {
           aria-hidden
           priority
         />
+
+        <SoilPebbles style={{ left: SOIL.left, top: SOIL.top, width: SOIL.width, height: SOIL.height }} />
 
         <div className="absolute" style={{ ...PLANT }}>
           <Image

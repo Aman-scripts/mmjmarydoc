@@ -3,6 +3,7 @@ import { Header } from "@/components/header";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { MobileHero } from "@/components/mobile-hero";
 import { MagneticHeroPlant } from "@/components/magnetic-hero-plant";
+import { SoilPebbles } from "@/components/soil-pebbles";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -93,6 +94,8 @@ function DesktopHero() {
           data-hero-soil
           aria-hidden
         />
+
+        <SoilPebbles style={{ left: SOIL.left, top: SOIL.top, width: SOIL.width, height: SOIL.height }} />
 
         <div
           className="absolute"
