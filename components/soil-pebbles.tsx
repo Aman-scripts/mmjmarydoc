@@ -64,12 +64,12 @@ function mulberry32(seed: number) {
  * grit — mirroring the mostly-tiny, occasionally-bigger dots already in
  * public/hero-soil.png.
  */
-export function generatePebbleField(count: number, seed: number): Pebble[] {
+export function generatePebbleField(count: number, seed: number, minY: number = 2): Pebble[] {
   const rand = mulberry32(seed);
   const pebbles: Pebble[] = [];
   for (let i = 0; i < count; i++) {
     const x = Number((2 + rand() * 96).toFixed(1));
-    const y = Number((2 + rand() * 96).toFixed(1));
+    const y = Number((minY + rand() * (98 - minY)).toFixed(1));
     const r = Number((1.6 + Math.pow(rand(), 2.2) * 7.5).toFixed(1));
     const light = rand() > 0.5;
     const alpha = 0.16 + rand() * 0.2;

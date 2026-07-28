@@ -5,7 +5,7 @@ import { SoilPebbles, generatePebbleField } from "@/components/soil-pebbles";
 import { SOIL_COLOR } from "@/lib/soil";
 
 /** Dense, non-repeating pebble field for the mobile hero soil strip. */
-const HERO_PEBBLES = generatePebbleField(45, 2024);
+const HERO_PEBBLES = generatePebbleField(45, 2024, 22);
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
