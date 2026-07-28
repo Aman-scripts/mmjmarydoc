@@ -4,8 +4,11 @@ import { Header } from "@/components/header";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { MobileHero } from "@/components/mobile-hero";
 import { MagneticHeroPlant } from "@/components/magnetic-hero-plant";
-import { SoilPebbles } from "@/components/soil-pebbles";
+import { SoilPebbles, generatePebbleField } from "@/components/soil-pebbles";
 import { SOIL_COLOR } from "@/lib/soil";
+
+/** Dense, non-repeating pebble field for the hero soil strip. */
+const HERO_PEBBLES = generatePebbleField(70, 2024);
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -105,7 +108,10 @@ function DesktopHero() {
           priority
         />
 
-        <SoilPebbles style={{ left: SOIL.left, top: SOIL.top, width: SOIL.width, height: SOIL.height }} />
+        <SoilPebbles
+          pebbles={HERO_PEBBLES}
+          style={{ left: SOIL.left, top: SOIL.top, width: SOIL.width, height: SOIL.height }}
+        />
 
         <div
           className="absolute"

@@ -8,24 +8,24 @@ export type Pebble = { x: number; y: number; r: number; color?: string };
  * grit next to bigger stones), so it doesn't read as a grid of dots.
  */
 const DEFAULT_PEBBLES: Pebble[] = [
-  { x: 2, y: 70, r: 2.2 },
-  { x: 5.5, y: 85, r: 4.6 },
-  { x: 11, y: 62, r: 1.2 },
-  { x: 17, y: 91, r: 2.8 },
-  { x: 23, y: 68, r: 1.5 },
-  { x: 25, y: 80, r: 3.6 },
-  { x: 33, y: 60, r: 1.3 },
-  { x: 40, y: 88, r: 5.2 },
-  { x: 42, y: 71, r: 1.7 },
-  { x: 53, y: 63, r: 2.4 },
-  { x: 58, y: 84, r: 1.3 },
-  { x: 64, y: 92, r: 3.2 },
-  { x: 65, y: 66, r: 1.6 },
-  { x: 74, y: 78, r: 4 },
-  { x: 83, y: 61, r: 1.4 },
-  { x: 85, y: 74, r: 2.6 },
-  { x: 90, y: 89, r: 1.8 },
-  { x: 96, y: 68, r: 3.4 },
+  { x: 2, y: 70, r: 3.5 },
+  { x: 5.5, y: 85, r: 7.4 },
+  { x: 11, y: 62, r: 1.9 },
+  { x: 17, y: 91, r: 4.5 },
+  { x: 23, y: 68, r: 2.4 },
+  { x: 25, y: 80, r: 5.8 },
+  { x: 33, y: 60, r: 2.1 },
+  { x: 40, y: 88, r: 8.3 },
+  { x: 42, y: 71, r: 2.7 },
+  { x: 53, y: 63, r: 3.8 },
+  { x: 58, y: 84, r: 2.1 },
+  { x: 64, y: 92, r: 5.1 },
+  { x: 65, y: 66, r: 2.6 },
+  { x: 74, y: 78, r: 6.4 },
+  { x: 83, y: 61, r: 2.2 },
+  { x: 85, y: 74, r: 4.2 },
+  { x: 90, y: 89, r: 2.9 },
+  { x: 96, y: 68, r: 5.4 },
 ];
 
 /**
@@ -70,7 +70,7 @@ export function generatePebbleField(count: number, seed: number): Pebble[] {
   for (let i = 0; i < count; i++) {
     const x = Number((2 + rand() * 96).toFixed(1));
     const y = Number((2 + rand() * 96).toFixed(1));
-    const r = Number((1 + Math.pow(rand(), 2.2) * 4.5).toFixed(1));
+    const r = Number((1.6 + Math.pow(rand(), 2.2) * 7.5).toFixed(1));
     const light = rand() > 0.5;
     const alpha = 0.16 + rand() * 0.2;
     const color = light

@@ -1,8 +1,11 @@
 import Image from "next/image";
 import { MobileHeader } from "@/components/mobile-header";
 import { FigmaCanvas } from "@/components/figma-canvas";
-import { SoilPebbles } from "@/components/soil-pebbles";
+import { SoilPebbles, generatePebbleField } from "@/components/soil-pebbles";
 import { SOIL_COLOR } from "@/lib/soil";
+
+/** Dense, non-repeating pebble field for the mobile hero soil strip. */
+const HERO_PEBBLES = generatePebbleField(45, 2024);
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -108,13 +111,17 @@ export function MobileHero() {
           priority
         />
 
-        <SoilPebbles style={{ left: SOIL.left, top: SOIL.top, width: SOIL.width, height: SOIL.height }} />
+        <SoilPebbles
+          pebbles={HERO_PEBBLES}
+          style={{ left: SOIL.left, top: SOIL.top, width: SOIL.width, height: SOIL.height }}
+        />
 
         <div className="absolute z-20" style={{ ...PLANT }}>
           <Image
             src="/plant-mobile-one.svg"
             alt="Marijuana plant growing in soil"
             fill
+            unoptimized
             className="object-contain object-bottom"
             sizes="167px"
             priority
