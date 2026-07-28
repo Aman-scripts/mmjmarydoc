@@ -99,7 +99,7 @@ export function MobileHero() {
         />
 
         <Image
-          src="/soil_one.png"
+          src="/soil_one.svg"
           alt=""
           width={SOIL.width}
           height={SOIL.height}
