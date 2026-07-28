@@ -180,7 +180,7 @@ export function MagneticHeroPlant({ className, style }: MagneticHeroPlantProps) 
       }
     };
 
-    fetch("/hero-plant-desktop.svg")
+    fetch("/plant-desktop-one.svg")
       .then((res) => res.text())
       .then((markup) => {
         if (cancelled) return;
@@ -215,7 +215,7 @@ export function MagneticHeroPlant({ className, style }: MagneticHeroPlantProps) 
       .catch(() => {
         if (cancelled || host.querySelector("img")) return;
         const img = document.createElement("img");
-        img.src = "/hero-plant-desktop.svg";
+        img.src = "/plant-desktop-one.svg";
         img.alt = "Marijuana plant growing in soil";
         img.className = "h-full w-full object-contain object-bottom";
         host.appendChild(img);

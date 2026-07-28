@@ -2,6 +2,7 @@ import Image from "next/image";
 import { MobileHeader } from "@/components/mobile-header";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { SoilPebbles } from "@/components/soil-pebbles";
+import { SOIL_COLOR } from "@/lib/soil";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -37,8 +38,9 @@ const textGradient = {
 // offset relative to the crossed text/plant block's own top-left (y=114 in
 // the source frame, i.e. just below the header).
 const PLANT = { left: 103, top: 20, width: 184, height: 356 };
-const SOIL = { left: 0, top: 319, width: 390, height: 80 };
-const CANVAS_HEIGHT = 399;
+// Match soil_one.png aspect (752×138) so the wavy top stays visible.
+const SOIL = { left: 0, top: 300, width: 390, height: Math.round((390 * 138) / 752) };
+const CANVAS_HEIGHT = SOIL.top + SOIL.height;
 
 export function MobileHero() {
   return (
@@ -88,17 +90,17 @@ export function MobileHero() {
             top: SOIL.top + SOIL.height - 10,
             width: SOIL.width,
             height: 10,
-            background: "#926A36",
+            background: SOIL_COLOR,
           }}
           aria-hidden
         />
 
         <Image
-          src="/hero-soil.png"
+          src="/soil_one.png"
           alt=""
           width={SOIL.width}
           height={SOIL.height}
-          className="absolute select-none object-cover"
+          className="absolute select-none object-fill"
           style={{ left: SOIL.left, top: SOIL.top, width: SOIL.width, height: SOIL.height }}
           data-hero-soil
           aria-hidden
@@ -107,12 +109,12 @@ export function MobileHero() {
 
         <SoilPebbles style={{ left: SOIL.left, top: SOIL.top, width: SOIL.width, height: SOIL.height }} />
 
-        <div className="absolute" style={{ ...PLANT }}>
+        <div className="absolute z-20" style={{ ...PLANT }}>
           <Image
-            src="/hero-plant-mobile.svg"
+            src="/plant-mobile-one.svg"
             alt="Marijuana plant growing in soil"
             fill
-            className="object-contain"
+            className="object-contain object-bottom"
             sizes="167px"
             priority
           />
@@ -127,7 +129,7 @@ export function MobileHero() {
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 h-1"
-        style={{ background: "#926A36" }}
+        style={{ background: SOIL_COLOR }}
       />
     </section>
   );

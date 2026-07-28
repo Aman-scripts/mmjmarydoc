@@ -7,6 +7,7 @@ import { FigmaCanvas } from "@/components/figma-canvas";
 import { generatePebbleField, pebbleImage } from "@/components/soil-pebbles";
 import ScrollFloat from "@/components/ScrollFloat";
 import { mobileHeaderOffsetPx, scrollStartBelowMobileHeader } from "@/lib/utils";
+import { SOIL_COLOR } from "@/lib/soil";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -17,14 +18,11 @@ const BOTTOM = 0;
 const CONTAINER = { left: 185, width: 1069 };
 
 /**
- * The hero's soil strip (public/hero-soil.png) is a flat two-tone band —
- * #AE8A48 on top, #926A36 below. This section picks up exactly where that
- * lower tone ends and carries the earth down through the whole scroll track,
- * darkening with depth like a soil cross-section. It stays soil all the way
- * to the bottom — no fade to the page background, which read as a white wash.
+ * Continues from the bottom tone of public/soil_one.png (#7C5538) so the
+ * hero soil strip and this scroll track read as one continuous earth —
+ * darkening with depth, never snapping to a different brown at the seam.
  */
-const SOIL_BG =
-  "linear-gradient(180deg, #926A36 0%, #825C2C 20%, #6F4D23 45%, #5E401C 70%, #513617 88%, #452D13 100%)";
+const SOIL_BG = `linear-gradient(180deg, ${SOIL_COLOR} 0%, #6F4A30 20%, #5E3F28 45%, #4F3521 70%, #432C1B 88%, #382416 100%)`;
 
 /**
  * Small pebbles scattered across the whole soil track (not tiled — this

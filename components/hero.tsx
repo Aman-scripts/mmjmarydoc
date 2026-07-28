@@ -1,9 +1,11 @@
 import Image from "next/image";
+
 import { Header } from "@/components/header";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { MobileHero } from "@/components/mobile-hero";
 import { MagneticHeroPlant } from "@/components/magnetic-hero-plant";
 import { SoilPebbles } from "@/components/soil-pebbles";
+import { SOIL_COLOR } from "@/lib/soil";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -41,16 +43,22 @@ const textGradient = {
 const HERO_LIFT = 120;
 const HERO_ORIG_TOP = 201;
 const HERO_ROW = { left: 144, top: HERO_ORIG_TOP - HERO_LIFT, width: 1216, height: 613 };
-const PLANT = { left: 435 - HERO_ROW.left, top: 279 - HERO_ORIG_TOP, width: 307, height: 596 };
-const SOIL = { left: 0, top: HERO_ROW.top + PLANT.top + PLANT.height - 90, width: 1440, height: 125 };
+const PLANT = { left: 435 - HERO_ROW.left + 19, top: 279 - HERO_ORIG_TOP - 50, width: 269, height: 646 };
+// soil_one.png is 752×138 — keep that aspect so the wavy top isn't cropped by object-cover.
+const SOIL_HEIGHT = Math.round((1440 * 138) / 752);
+// Plant sits deeper in the soil (~150px overlap) so the stem/roots read as planted.
+const SOIL = {
+  left: 0,
+  top: HERO_ROW.top + PLANT.top + PLANT.height - 150,
+  width: 1440,
+  height: SOIL_HEIGHT,
+};
 const CARD = { left: 148 - HERO_ROW.left, top: 402 - HERO_ORIG_TOP, width: 314, height: 155 };
 const WITH_GUIDED = { left: 744 - HERO_ROW.left, top: 402 - HERO_ORIG_TOP };
 const YOUR = { left: 266 - HERO_ROW.left, top: 263 - HERO_ORIG_TOP, width: 219, height: 155 };
 const MARIJUANA = { left: 695 - HERO_ROW.left, top: 263 - HERO_ORIG_TOP, width: 633, height: 155 };
 const DESCRIPTION = { left: 133 - HERO_ROW.left, top: 561 - HERO_ORIG_TOP, width: 297 };
 const CARE = { left: 746 - HERO_ROW.left, top: 546 - HERO_ORIG_TOP };
-// Keep leaf just after "Care." (same offset as original Figma: leaf − care = 259).
-const LEAF = { left: 1005 - HERO_ROW.left, top: 565 - HERO_ORIG_TOP, width: 91, height: 96 };
 
 function DesktopHero() {
   return (
@@ -58,7 +66,7 @@ function DesktopHero() {
     // factor, so its last row can round short — anything showing behind it at
     // the bottom edge must be soil, not mint, or a light line appears above
     // the stats section.
-    <section className="relative" style={{ background: "#926A36" }}>
+    <section className="relative" style={{ background: SOIL_COLOR }}>
       <FigmaCanvas
         width={1440}
         height={SOIL.top + SOIL.height}
@@ -69,8 +77,8 @@ function DesktopHero() {
         {/*
           The soil PNG's bottom few rows are transparent, which would leave a
           sliver of hero gradient between it and the soil background of the
-          stats section below. Back the band with its own lower tone (#926A36)
-          so the two meet seamlessly.
+          stats section below. Back the band with soil_one's lower tone
+          (#7C5538) so the two meet seamlessly.
         */}
         <div
           className="pointer-events-none absolute"
@@ -79,20 +87,21 @@ function DesktopHero() {
             top: SOIL.top + SOIL.height - 14,
             width: SOIL.width,
             height: 14,
-            background: "#926A36",
+            background: SOIL_COLOR,
           }}
           aria-hidden
         />
 
         <Image
-          src="/hero-soil.png"
+          src="/soil_one.png"
           alt=""
           width={SOIL.width}
           height={SOIL.height}
-          className="absolute select-none object-cover"
+          className="absolute select-none object-fill"
           style={{ left: SOIL.left, top: SOIL.top, width: SOIL.width, height: SOIL.height }}
           data-hero-soil
           aria-hidden
+          priority
         />
 
         <SoilPebbles style={{ left: SOIL.left, top: SOIL.top, width: SOIL.width, height: SOIL.height }} />
@@ -166,15 +175,6 @@ function DesktopHero() {
           >
             Care.
           </h1>
-          <Image
-            src="/small_leaf.webp"
-            alt=""
-            width={LEAF.width}
-            height={LEAF.height}
-            className="pointer-events-none absolute"
-            style={{ left: LEAF.left, top: LEAF.top }}
-            aria-hidden
-          />
         </div>
 
         <div

@@ -29,12 +29,10 @@ const DEFAULT_PEBBLES: Pebble[] = [
 ];
 
 /**
- * public/hero-soil.png draws its pebbles as plain flat, fully-opaque circles
- * — each dot is just the *other* soil tone (a light #AE8A48 dot sitting on
- * the dark #926A36 fill, or vice versa), no gradient sheen. This matches
- * that: one flat color per dot, hard-edged.
+ * Flat hard-edged dots in the lighter soil_one tone, sitting on the darker
+ * #7C5538 fill — same language as the baked-in grit in the soil strip.
  */
-const LIGHT_TONE = "#AE8A48";
+const LIGHT_TONE = "#846240";
 
 export function pebbleImage(pebbles: Pebble[], color: string = LIGHT_TONE) {
   return pebbles
