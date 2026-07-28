@@ -356,7 +356,7 @@ function ValuesDesktop() {
             }}
           >
             <SeqChars>Four things</SeqChars>{" "}
-            <SeqChars>WE NEVER COMPROMISE</SeqChars>{" "}
+            <SeqChars>We Never Compromise</SeqChars>{" "}
             <SeqChars>On</SeqChars>
           </h2>
         </TextSequence>
@@ -497,7 +497,7 @@ function ValuesMobile() {
                 }}
               >
                 <SeqChars>Four things</SeqChars>{" "}
-                <SeqChars>WE NEVER COMPROMISE</SeqChars>{" "}
+                <SeqChars>We Never Compromise</SeqChars>{" "}
                 <SeqChars>On</SeqChars>
               </h2>
             </TextSequence>

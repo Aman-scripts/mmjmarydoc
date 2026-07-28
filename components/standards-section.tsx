@@ -182,7 +182,7 @@ function StandardsDesktop() {
             }}
           >
             <SeqChars>Our</SeqChars>{" "}
-            <SeqChars style={{ fontSize: 96, letterSpacing: "-1.92px" }}>STANDARDS</SeqChars>
+            <SeqChars style={{ fontSize: 96, letterSpacing: "-1.92px" }}>Standards</SeqChars>
           </h2>
         </TextSequence>
 
@@ -226,7 +226,7 @@ function StandardsMobile() {
               }}
             >
               <SeqChars>Our</SeqChars>{" "}
-              <SeqChars>STANDARDS</SeqChars>
+              <SeqChars>Standards</SeqChars>
             </h2>
           </TextSequence>
           <Image src="/faq-section-top.webp" alt="" width={38} height={27} className="shrink-0 -scale-x-100" />
