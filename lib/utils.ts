@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-/** Pixels cleared by the fixed mobile header (matches --mobile-header-offset). */
+
 export function mobileHeaderOffsetPx() {
   if (typeof window === "undefined") return 0
   if (window.matchMedia("(min-width: 1024px)").matches) return 0

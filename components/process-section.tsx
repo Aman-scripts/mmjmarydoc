@@ -13,11 +13,11 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 }
 
-// Coordinates lifted 1:1 from the Figma frame (62:139 -> instance "Steps",
-// 83:332), each offset relative to this section's own top-left corner.
+
+
 const TOP = 0;
-// No trailing padding — the section should end right at the ring's own
-// bottom edge (937), not leave empty space below it.
+
+
 const BOTTOM = 0;
 
 const mobileGradient = {
@@ -48,16 +48,16 @@ const steps = [
 
 const STEP_COUNT = steps.length;
 
-// ellipse.svg is a circle of radius 491.5 cropped to its top half, drawn at
-// canvas (228, TOP+471) with a 984x466 viewBox — so its true center sits at
-// (228+492, TOP+471+492) and badges travel along that same circle's arc.
+
+
+
 const RING_CENTER = { x: 720, y: TOP + 963 };
 const RING_RADIUS = 491.5;
-// Badges float this far past the ring itself (dot-on-ring, bubble-beyond-it,
-// same relationship as the reference wheel's dot vs. bubble radii).
+
+
 const BUBBLE_RADIUS = 585;
-// How far round the arc a neighbor sits from the centered (top, 0deg) step —
-// matches the original hand-placed corner positions almost exactly.
+
+
 const NEIGHBOR_ANGLE = 79;
 
 function pointOnRing(angleDeg: number, radius: number, center = RING_CENTER) {
@@ -65,10 +65,10 @@ function pointOnRing(angleDeg: number, radius: number, center = RING_CENTER) {
   return { x: center.x + radius * Math.sin(rad), y: center.y - radius * Math.cos(rad) };
 }
 
-// For step i, which arc angle it sits at while step `active` is centered —
-// only the active step and its two immediate ring-neighbors (wrapping) are
-// ever shown; with more than 3 steps, everything else fades out until it
-// becomes a neighbor again. Returns null for "not currently visible."
+
+
+
+
 function angleFor(i: number, active: number): number | null {
   if (i === active) return 0;
   if (i === (active + 1) % STEP_COUNT) return NEIGHBOR_ANGLE;
@@ -93,9 +93,9 @@ function MobileProcessSection() {
         ease: "none",
         scrollTrigger: {
           trigger: wrapperRef.current,
-          // Start once this section's top is 60% down the viewport, so it
-          // kicks in while the previous section is still finishing instead
-          // of waiting for a full scroll-to-top.
+          
+          
+          
           start: "top -50%",
           end: `+=${(STEP_COUNT - 1) * window.innerHeight}`,
           scrub: true,

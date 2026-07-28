@@ -16,7 +16,7 @@ export function CtaSection() {
               "linear-gradient(265.32deg, #4C8C1A 2.23%, #166047 40.81%, #0E5A4D 69.11%, #0B3832 97.77%)",
           }}
         >
-          {/* Decorative arcs — sized down on mobile/tablet so they stay inside the card */}
+          {}
           <Image
             src="/cta-section-top-left.svg"
             alt=""

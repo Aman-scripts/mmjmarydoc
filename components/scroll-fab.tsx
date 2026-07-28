@@ -66,7 +66,7 @@ export function ScrollFab({
       }
 
       const rect = footer.getBoundingClientRect();
-      // FAB sits ~32px from the bottom; hide as soon as the footer reaches that band.
+      
       const fabTop = window.innerHeight - 120;
       const overlapsFab = rect.top < window.innerHeight && rect.bottom > fabTop;
       setHiddenByFooter(overlapsFab);
@@ -75,7 +75,7 @@ export function ScrollFab({
     updateFooterVisibility();
     window.addEventListener("scroll", updateFooterVisibility, { passive: true });
     window.addEventListener("resize", updateFooterVisibility);
-    // Footer is lazy-mounted — poll until #site-footer exists, then rely on scroll.
+    
     retryId = window.setInterval(updateFooterVisibility, 400);
 
     return () => {

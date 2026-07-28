@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-/** Always land on the hero after refresh / back-forward cache restore. */
+
 export function ScrollToTopOnLoad() {
   useEffect(() => {
     if ("scrollRestoration" in history) {

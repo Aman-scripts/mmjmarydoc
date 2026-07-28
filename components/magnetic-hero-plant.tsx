@@ -8,10 +8,6 @@ type MagneticHeroPlantProps = {
   style?: CSSProperties;
 };
 
-/**
- * Plant illustration with a gentle idle breeze sway — the whole tree rocks
- * left/right from the soil as one rigid piece. No drag/click interaction.
- */
 export function MagneticHeroPlant({ className, style }: MagneticHeroPlantProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const hostRef = useRef<HTMLDivElement>(null);
@@ -47,9 +43,6 @@ export function MagneticHeroPlant({ className, style }: MagneticHeroPlantProps) 
 
         if (reduced) return;
 
-        // Gentle breeze: whole tree rocks left ↔ right from the soil.
-        // backfaceVisibility/perspective keep the rotating SVG on its own
-        // GPU layer with crisp edges instead of blurring during the tween.
         gsap.set(svg, {
           rotate: -4.5,
           transformOrigin: "50% 100%",

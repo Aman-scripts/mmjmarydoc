@@ -27,8 +27,8 @@ export function RevealOnView({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Trigger once, the first time the section is scrolled into view —
-        // not on page load, and not again on subsequent re-entries.
+        
+        
         if (entry.isIntersecting) {
           setVisible(true);
           observer.disconnect();

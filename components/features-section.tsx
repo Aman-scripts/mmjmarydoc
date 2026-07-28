@@ -11,8 +11,8 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 88, 86:724),
-// each offset relative to this section's own top-left corner (4899, 2504).
+
+
 const TOP = 100;
 const BOTTOM = 40;
 const HEADING = { left: 169, top: TOP + 0, width: 357 };

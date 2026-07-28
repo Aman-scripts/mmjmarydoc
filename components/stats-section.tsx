@@ -17,11 +17,7 @@ const TOP = 0;
 const BOTTOM = 0;
 const CONTAINER = { left: 185, width: 1069 };
 
-/**
- * Continues from the bottom tone of public/soil_one.png (#7C5538) so the
- * hero soil strip and this scroll track read as one continuous earth —
- * darkening with depth, never snapping to a different brown at the seam.
- */
+
 const SOIL_BG = `linear-gradient(180deg, ${SOIL_COLOR} 0%, #6F4A30 20%, #5E3F28 45%, #4F3521 70%, #432C1B 88%, #382416 100%)`;
 
 /**

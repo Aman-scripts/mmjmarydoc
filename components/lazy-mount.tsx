@@ -2,11 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 
-/**
- * Mounts children only after the user scrolls/touches (or after a long idle
- * fallback). Prevents below-fold GSAP sections from blocking mobile TBT when
- * empty placeholders sit in the first viewport.
- */
+
 export function LazyMount({
   children,
   rootMargin = "120px 0px",
@@ -33,7 +29,7 @@ export function LazyMount({
     window.addEventListener("touchstart", onInteract, { passive: true, once: true });
     window.addEventListener("pointerdown", onInteract, { passive: true, once: true });
 
-    // Crawlers / non-interactive sessions still get content eventually.
+    
     const idleId =
       "requestIdleCallback" in window
         ? window.requestIdleCallback(() => arm(), { timeout: 6000 })

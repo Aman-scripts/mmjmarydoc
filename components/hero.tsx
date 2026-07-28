@@ -7,7 +7,7 @@ import { MagneticHeroPlant } from "@/components/magnetic-hero-plant";
 import { SoilPebbles, generatePebbleField } from "@/components/soil-pebbles";
 import { SOIL_COLOR } from "@/lib/soil";
 
-/** Dense, non-repeating pebble field for the hero soil strip. */
+
 const HERO_PEBBLES = generatePebbleField(70, 2024, 22);
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -47,9 +47,9 @@ const HERO_LIFT = 120;
 const HERO_ORIG_TOP = 201;
 const HERO_ROW = { left: 144, top: HERO_ORIG_TOP - HERO_LIFT, width: 1216, height: 613 };
 const PLANT = { left: 435 - HERO_ROW.left + 19, top: 279 - HERO_ORIG_TOP - 50, width: 269, height: 646 };
-// soil_one.png is 752×138 — keep that aspect so the wavy top isn't cropped by object-cover.
+
 const SOIL_HEIGHT = Math.round((1440 * 138) / 752);
-// Plant sits deeper in the soil (~150px overlap) so the stem/roots read as planted.
+
 const SOIL = {
   left: 0,
   top: HERO_ROW.top + PLANT.top + PLANT.height - 150,
@@ -65,10 +65,10 @@ const CARE = { left: 746 - HERO_ROW.left, top: 546 - HERO_ORIG_TOP };
 
 function DesktopHero() {
   return (
-    // Soil-toned section background: the FigmaCanvas is scaled by a fractional
-    // factor, so its last row can round short — anything showing behind it at
-    // the bottom edge must be soil, not mint, or a light line appears above
-    // the stats section.
+    
+    
+    
+    
     <section className="relative" style={{ background: SOIL_COLOR }}>
       <FigmaCanvas
         width={1440}
@@ -77,12 +77,7 @@ function DesktopHero() {
       >
         <Header />
 
-        {/*
-          The soil PNG's bottom few rows are transparent, which would leave a
-          sliver of hero gradient between it and the soil background of the
-          stats section below. Back the band with soil_one's lower tone
-          (#7C5538) so the two meet seamlessly.
-        */}
+        {}
         <div
           className="pointer-events-none absolute"
           style={{

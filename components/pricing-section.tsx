@@ -10,17 +10,17 @@ function NewEvaluationIcon({ className }: { className?: string }) {
   return <Image src="/newevaluation.svg" alt="" width={16} height={16} className={className} />;
 }
 
-// Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 71, 95:1342),
-// each offset relative to this section's own top-left corner (4899, 5375).
-// Figma places a 100px gap before and after this block, added as TOP/BOTTOM.
-// The pricing card component set also has a "Variant2" (hover/expanded)
-// state that reveals a checklist panel — reproduced here as a hover reveal.
+
+
+
+
+
 const TOP = 100;
 const BOTTOM = 100;
-// Cards grow ~214px on hover (332px -> 546px). That growth is reserved in
-// this section's own fixed height (via EXPAND_ALLOWANCE) and clipped to it
-// (overflow: hidden), so the checklist expands entirely within the pricing
-// section itself instead of spilling into — or shifting — whatever follows.
+
+
+
+
 const EXPAND_ALLOWANCE = 220;
 
 const plans = [

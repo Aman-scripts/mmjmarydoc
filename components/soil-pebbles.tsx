@@ -2,11 +2,7 @@ import { cn } from "@/lib/utils";
 
 export type Pebble = { x: number; y: number; r: number; color?: string };
 
-/**
- * Scattered positions (% of box) and radii (px) — hand-placed with uneven
- * spacing (tight clusters next to bare gaps) and a wide size range (tiny
- * grit next to bigger stones), so it doesn't read as a grid of dots.
- */
+
 const DEFAULT_PEBBLES: Pebble[] = [
   { x: 2, y: 70, r: 3.5 },
   { x: 5.5, y: 85, r: 7.4 },
@@ -28,10 +24,7 @@ const DEFAULT_PEBBLES: Pebble[] = [
   { x: 96, y: 68, r: 5.4 },
 ];
 
-/**
- * Flat hard-edged dots in the lighter soil_one tone, sitting on the darker
- * #7C5538 fill — same language as the baked-in grit in the soil strip.
- */
+
 const LIGHT_TONE = "#846240";
 
 export function pebbleImage(pebbles: Pebble[], color: string = LIGHT_TONE) {

@@ -3,14 +3,14 @@ import { FigmaCanvas } from "@/components/figma-canvas";
 import { RevealOnView } from "@/components/reveal-on-view";
 import { TextSequence, SeqChars, SeqLines } from "@/components/text-sequence";
 
-// Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 97, 95:1155),
-// each offset relative to this section's own top-left corner (4899, 4705).
+
+
 const HEADING = { left: 83, top: 78, width: 445 };
 const PARAGRAPH = { left: 83, top: 276, width: 405 };
 const IMAGE_LEFT = { left: 603, top: 103, width: 367, height: 406 };
 const IMAGE_RIGHT = { left: 992, top: 102, width: 367, height: 406 };
 const IMAGE_MIDDLE = { left: 830, top: 60, width: 317, height: 421 };
-// Images bottom out near ~509 — give the section breathing room below.
+
 const CANVAS_H = 520 + 48;
 
 const paragraphLines = [

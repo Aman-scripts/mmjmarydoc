@@ -4,7 +4,7 @@ import { FigmaCanvas } from "@/components/figma-canvas";
 import { SoilPebbles, generatePebbleField } from "@/components/soil-pebbles";
 import { SOIL_COLOR } from "@/lib/soil";
 
-/** Dense, non-repeating pebble field for the mobile hero soil strip. */
+
 const HERO_PEBBLES = generatePebbleField(45, 2024, 22);
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -37,11 +37,11 @@ const textGradient = {
   margin: "-0.15em -0.1em",
 } as const;
 
-// Coordinates lifted 1:1 from the Figma mobile frame (Mobile -> Frame 142),
-// offset relative to the crossed text/plant block's own top-left (y=114 in
-// the source frame, i.e. just below the header).
+
+
+
 const PLANT = { left: 103, top: 20, width: 184, height: 356 };
-// Match soil_one.png aspect (752×138) so the wavy top stays visible.
+
 const SOIL = { left: 0, top: 300, width: 390, height: Math.round((390 * 138) / 752) };
 const CANVAS_HEIGHT = SOIL.top + SOIL.height;
 
@@ -85,7 +85,7 @@ export function MobileHero() {
       </div>
 
       <FigmaCanvas width={390} height={CANVAS_HEIGHT} className="mx-auto mt-4">
-        {/* Backs the soil PNG's transparent bottom rows — see hero.tsx. */}
+        {}
         <div
           className="pointer-events-none absolute"
           style={{
@@ -129,11 +129,7 @@ export function MobileHero() {
         </div>
       </FigmaCanvas>
 
-      {/*
-        The canvas is scaled by a fractional factor, so its last row can round
-        short. Cap the section in the soil's own tone so no mint line shows
-        above the stats section's soil background.
-      */}
+      {}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 h-1"

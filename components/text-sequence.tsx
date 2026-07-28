@@ -14,10 +14,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-/**
- * Orchestrates intro animations in document order with a simple fade-in.
- * Each [data-seq] child finishes before the next starts.
- */
+
 export function TextSequence({
   children,
   className,
@@ -56,7 +53,7 @@ export function TextSequence({
       });
 
       items.forEach((item, i) => {
-        // Preserve CSS opacity (e.g. opacity-50) as the fade target instead of forcing 1.
+        
         const targetOpacity = parseFloat(window.getComputedStyle(item).opacity);
         const endOpacity = Number.isFinite(targetOpacity) ? targetOpacity : 1;
         gsap.set(item, { opacity: 0 });

@@ -29,15 +29,15 @@ const textGradient = {
   margin: "-0.3em -0.2em",
 } as const;
 
-// Coordinates lifted 1:1 from the Figma frame (62:139 -> Frame 100, 95:1340).
-// Cards nudged up after the heading went from a tall 2-line block to a single line.
+
+
 const TOP = 60;
 const BOTTOM = 24;
 const DESIGN_W = 1440;
 const CARDS_Y_SHIFT = 220;
 const DESIGN_H = TOP + 700 + BOTTOM;
 
-/** Scaled poster height for the current viewport width. */
+
 function displayCanvasHeight() {
   const w = Math.min(DESIGN_W, window.innerWidth);
   return w * (DESIGN_H / DESIGN_W);
@@ -102,13 +102,13 @@ const cards = [
   },
 ];
 
-// Fixed final slots (0 = leftmost/most counter-rotated, 3 = rightmost/most clockwise),
-// lifted from Figma's reveal prototype (Frame 96 -> 97 -> 99 -> 98 -> 100): each new
-// card always lands in slot 3, and previously placed cards shift one slot left.
-// Figma arc is already centered — no extra x/y nudge, or the fan drifts left.
+
+
+
+
 const SLOTS = cards.map((card) => ({ left: card.left, top: card.top, rotate: card.rotate }));
 
-// Final resting translate3d — applied only on the last reveal (all 4 cards shown).
+
 const FINAL_TRANSFORM = [
   { x: -160, y: 0, z: 10 },
   { x: -160, y: -20, z: 10 }, 
@@ -128,11 +128,11 @@ function slotPose(cardIndex: number, slotIndex: number, withFinal = false) {
   };
 }
 
-// Real entrance-motion curve: sampled at runtime directly from the actual
-// public/value-section-path.svg file (fetched once, rendered into an
-// off-DOM SVGPathElement so the browser's native getPointAtLength() can read
-// its true geometry) — never a hand-copied/hardcoded set of control points,
-// so any future edit to the file is picked up automatically.
+
+
+
+
+
 let curveShapePromise: Promise<{ dx: number; dy: number }[]> | null = null;
 
 function loadCurveShape() {
@@ -148,9 +148,9 @@ function loadCurveShape() {
         path.setAttribute("d", d);
         const total = path.getTotalLength();
 
-        // The right portion of the curve (arc-length 62% -> 100%) sweeps down
-        // from up near the peak into the low right endpoint — the same shape
-        // as a card swooping in from up-and-away down into its slot.
+        
+        
+        
         const samples = 16;
         const raw = Array.from({ length: samples }, (_, i) => {
           const len = total * (0.62 + 0.38 * (i / (samples - 1)));
@@ -162,8 +162,8 @@ function loadCurveShape() {
         const last = raw[raw.length - 1];
         const trend = { x: last.x - first.x, y: last.y - first.y };
         const trendLen = Math.hypot(trend.x, trend.y) || 1;
-        // Deviation from the straight line between first/last, normalized by
-        // trend length, so it can be rescaled to any hop while keeping shape.
+        
+        
         return raw.map((p, i) => {
           const along = i / (raw.length - 1);
           const lerp = { x: first.x + trend.x * along, y: first.y + trend.y * along };
@@ -174,9 +174,9 @@ function loadCurveShape() {
   return curveShapePromise;
 }
 
-// Builds a multi-point path from `from` to `to` following the real curve's
-// shape (scaled and rotated to fit however long/short/angled this specific
-// hop is), instead of a straight line or a single guessed midpoint.
+
+
+
 function shapedHopPoints(shape: { dx: number; dy: number }[], from: { x: number; y: number }, to: { x: number; y: number }) {
   const hop = { x: to.x - from.x, y: to.y - from.y };
   const hopLen = Math.hypot(hop.x, hop.y) || 1;
@@ -185,8 +185,8 @@ function shapedHopPoints(shape: { dx: number; dy: number }[], from: { x: number;
   return shape.map(({ dx, dy }, i) => {
     const along = i / (shape.length - 1);
     const base = { x: from.x + hop.x * along, y: from.y + hop.y * along };
-    // Rotate the normalized (dx,dy) deviation to align with this hop's own
-    // direction, then scale it by the hop's actual length.
+    
+    
     const rx = dx * cos - dy * sin;
     const ry = dx * sin + dy * cos;
     return { x: base.x + rx * hopLen, y: base.y + ry * hopLen };
@@ -288,9 +288,9 @@ function ValuesDesktop() {
           }
         }
 
-        // 1024+ fix: never force a full-screen sticky when the poster is shorter
-        // than the viewport — that left a huge empty band under the cards. Only pan
-        // when the scaled canvas is actually taller than the screen.
+        
+        
+        
         const pan = panRef.current;
         const sticky = stickyRef.current;
         if (pan && sticky) {

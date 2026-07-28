@@ -28,7 +28,7 @@ const reviews = [
   },
 ];
 
-/** Original stacked Figma layout (default). */
+
 const STACK = {
   left: { left: 124, top: -4, width: 420, height: 491 },
   center: { left: 182, top: -1, width: 375, height: 514 },
@@ -37,7 +37,7 @@ const STACK = {
 
 const STAGE_STACK = { left: 354, width: 732 };
 
-/** Opened horizontal row — centered between arrows. */
+
 const ARROW_W = 52;
 const ARROW_GAP = 28;
 const SIDE_W = 300;
@@ -187,7 +187,7 @@ function ReviewFace({
   );
 }
 
-/** Original front card markup for the stacked default. */
+
 function FrontCard({
   style,
   review,
@@ -252,23 +252,23 @@ const SLOT_POSE = [ROW.left, ROW.center, ROW.right] as const;
 
 function ReviewsDesktop() {
   const n = reviews.length;
-  // order = [reviewIndex in 1st, reviewIndex in 2nd/center, reviewIndex in 3rd]
+  
   const [order, setOrder] = useState([n - 1, 0, 1]);
-  // Light/dark is owned by a card identity, not the center slot —
-  // when cards rotate, the mint face moves with that card.
+  
+  
   const [featuredIdx, setFeaturedIdx] = useState(0);
-  // expanded = full review faces; layoutMode = stack vs row positions
+  
   const [expanded, setExpanded] = useState(false);
   const [layoutMode, setLayoutMode] = useState<"stack" | "row">("stack");
-  // Enable CSS transitions only after mount interactions (avoids load-time jump)
+  
   const [motionOn, setMotionOn] = useState(false);
-  // Card that wraps around the row (1st↔3rd) — must not slide across the center
+  
   const [wrapIdx, setWrapIdx] = useState<number | null>(null);
   const [wrapHidden, setWrapHidden] = useState(false);
   const busyRef = useRef(false);
   const sectionRef = useRef<HTMLElement>(null);
   const openedOnViewRef = useRef(false);
-  // Keep latest open fn for the intersection observer without re-subscribing
+  
   const openHorizontalRef = useRef<() => void>(() => {});
 
   const centerIndex = order[1];
@@ -293,13 +293,13 @@ function ReviewsDesktop() {
     if (busyRef.current || layoutMode === "row") return;
     busyRef.current = true;
 
-    // 1) Show faces while still stacked — mint stays on the front card
+    
     setExpanded(true);
     setFeaturedIdx(order[1]);
-    // 2) Turn transitions on at the stack pose
+    
     setMotionOn(true);
 
-    // 3) Next frames: move to row — CSS transitions handle the fan-open (no GSAP jump)
+    
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         setLayoutMode("row");
@@ -312,7 +312,7 @@ function ReviewsDesktop() {
 
   openHorizontalRef.current = openHorizontal;
 
-  // Fan cards open once when the section scrolls into view
+  
   useEffect(() => {
     const el = sectionRef.current;
     if (!el || typeof IntersectionObserver === "undefined") return;
@@ -323,7 +323,7 @@ function ReviewsDesktop() {
         if (!entry.isIntersecting || openedOnViewRef.current) return;
         openedOnViewRef.current = true;
         observer.disconnect();
-        // Brief beat so stacked cards + text reveal land first, then fan open
+        
         const delay = prefersReducedMotion() ? 0 : 480;
         openTimer = window.setTimeout(() => openHorizontalRef.current(), delay);
       },
@@ -346,7 +346,7 @@ function ReviewsDesktop() {
       nextCenter,
       (nextCenter + 1) % n,
     ]);
-    // Stack front is always the light card
+    
     setFeaturedIdx(nextCenter);
     setLayoutMode("stack");
     setExpanded(false);
@@ -364,8 +364,8 @@ function ReviewsDesktop() {
     }
 
     busyRef.current = true;
-    // Forward: left wraps to right. Back: right wraps to left.
-    // That card must teleport (not slide across the center / "come from the front").
+    
+    
     const wrapping = dir === "right" ? order[0] : order[2];
     const next =
       dir === "right"
@@ -454,7 +454,7 @@ function ReviewsDesktop() {
             transition: moveTransition,
           }}
         >
-          {/* Stable DOM order by review index — cards physically slide between slots */}
+          {}
           {reviews.map((review, reviewIdx) => {
             const slot = order.indexOf(reviewIdx);
             if (slot < 0) return null;
@@ -479,17 +479,17 @@ function ReviewsDesktop() {
                   top: pose.top,
                   width: pose.width,
                   height: pose.height,
-                  // Wrapping card stays behind; otherwise slot stack order
+                  
                   zIndex: isWrapping ? 0 : pose.zIndex,
                   transform: tilt,
                   opacity: isWrapping && wrapHidden ? 0 : 1,
-                  // Shell color travels with the featured card (not the center slot)
+                  
                   background: expanded
                     ? isFeatured
                       ? "#DFF8EC"
                       : "#0E5A4D"
                     : undefined,
-                  // Wrap: jump position with no slide (avoids crossing the center)
+                  
                   transition: isWrapping
                     ? wrapHidden
                       ? "opacity 0.12s ease, z-index 0s"
@@ -498,7 +498,7 @@ function ReviewsDesktop() {
                   willChange: motionOn ? "left, top, width, height, transform, opacity" : undefined,
                 }}
               >
-                {/* Stable delay by review index — never tie to slot, or reveal restarts and hides the slide */}
+                {}
                 <RevealOnView
                   delay={reviewIdx * 120}
                   animationName="fade-up-in"
