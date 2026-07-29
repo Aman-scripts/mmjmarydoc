@@ -407,8 +407,8 @@ function ReviewsDesktop() {
       >
         <TextSequence className="absolute left-0 top-0 w-full" style={{ height: TOP + 160 }}>
           <SeqFade
-            className="absolute flex items-center justify-center rounded-full bg-[#DFF8EC] text-xs font-normal leading-[18px] tracking-[-0.24px] text-primary"
-            style={{ left: 681, top: TOP + 0, width: 78, height: 22 }}
+            className="absolute flex items-center justify-center rounded-full bg-[#DFF8EC] text-base font-medium leading-none tracking-[-0.24px] text-primary"
+            style={{ left: 650, top: TOP + 0, width: 140, height: 40 }}
           >
             Reviews
           </SeqFade>
@@ -416,7 +416,7 @@ function ReviewsDesktop() {
             className="absolute text-center text-primary"
             style={{
               left: 0,
-              top: TOP + 38,
+              top: TOP + 58,
               width: 1439,
               fontFamily: "var(--font-sans)",
               fontSize: 48,
@@ -432,7 +432,7 @@ function ReviewsDesktop() {
             className="absolute text-center text-muted-foreground"
             style={{
               left: 0,
-              top: TOP + 112,
+              top: TOP + 132,
               width: 1439,
               fontSize: 18,
               lineHeight: "28px",
@@ -702,7 +702,7 @@ function ReviewsMobile() {
     >
       <div className="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
         <TextSequence className="flex flex-col items-center gap-4">
-          <SeqFade className="rounded-full bg-[#DFF8EC] px-4 py-0.5 text-xs font-normal text-primary">
+          <SeqFade className="rounded-full bg-[#DFF8EC] px-6 py-2 text-base font-medium text-primary">
             Reviews
           </SeqFade>
           <h2

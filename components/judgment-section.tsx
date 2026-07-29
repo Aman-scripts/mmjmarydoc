@@ -7,9 +7,18 @@ import { TextSequence, SeqChars, SeqLines } from "@/components/text-sequence";
 
 const HEADING = { left: 83, top: 78, width: 445 };
 const PARAGRAPH = { left: 83, top: 276, width: 405 };
-const IMAGE_LEFT = { left: 603, top: 103, width: 367, height: 406 };
-const IMAGE_RIGHT = { left: 992, top: 102, width: 367, height: 406 };
-const IMAGE_MIDDLE = { left: 830, top: 60, width: 317, height: 421 };
+
+// The source PNGs already contain the fan rotation baked into a pre-rotated, transparent
+// card crop (confirmed by inspecting the files — each is a tilted parallelogram, not a
+// plain rectangle). These boxes are each image's rotated bounding box from Figma (node
+// 622:977), so no additional CSS rotation is applied — that would double-rotate them.
+const FAN_IMAGES = [
+  { src: "/judgement-section-right-first.png", left: 565, top: 178, width: 310, height: 321, z: 1 },
+  { src: "/judgement-section-right-second.png", left: 631, top: 87, width: 367, height: 406, z: 3 },
+  { src: "/judgement-section-center.png", left: 807, top: 65, width: 317, height: 421, z: 5 },
+  { src: "/judgement-section-left-second.png", left: 919, top: 87, width: 367, height: 406, z: 4 },
+  { src: "/judgement-section-left-third.png", left: 1044, top: 165, width: 310, height: 321, z: 2 },
+] as const;
 
 const CANVAS_H = 520 + 48;
 
@@ -56,48 +65,28 @@ function JudgmentDesktop() {
           />
         </TextSequence>
 
-        <RevealOnView
-          delay={500}
-          animationName="emerge-from-behind-left"
-          className="absolute overflow-hidden rounded-[30px]"
-          style={{ ...IMAGE_LEFT }}
-        >
-          <Image
-            src="/judgement-section-image1.webp"
-            alt="MaryDoc patient care"
-            fill
-            className="object-cover"
-            sizes="367px"
-          />
-        </RevealOnView>
-        <RevealOnView
-          delay={500}
-          animationName="emerge-from-behind-right"
-          className="absolute overflow-hidden rounded-[30px]"
-          style={{ ...IMAGE_RIGHT }}
-        >
-          <Image
-            src="/judgement-section-image3.webp"
-            alt="MaryDoc patient care"
-            fill
-            className="object-cover"
-            sizes="367px"
-          />
-        </RevealOnView>
-
-        <RevealOnView
-          delay={0}
-          className="absolute overflow-hidden rounded-[30px] shadow-lg"
-          style={{ ...IMAGE_MIDDLE }}
-        >
-          <Image
-            src="/judgement-section-image2.webp"
-            alt="MaryDoc patient care"
-            fill
-            className="object-cover"
-            sizes="317px"
-          />
-        </RevealOnView>
+        {FAN_IMAGES.map((img, i) => (
+          <RevealOnView
+            key={img.src}
+            delay={i * 120}
+            className="absolute drop-shadow-lg"
+            style={{
+              left: img.left,
+              top: img.top,
+              width: img.width,
+              height: img.height,
+              zIndex: img.z,
+            }}
+          >
+            <Image
+              src={img.src}
+              alt="MaryDoc patient care"
+              fill
+              className="object-cover"
+              sizes={`${img.width}px`}
+            />
+          </RevealOnView>
+        ))}
       </FigmaCanvas>
     </section>
   );
@@ -131,7 +120,7 @@ function JudgmentMobile() {
 
         <RevealOnView className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[30px]">
           <Image
-            src="/judgement-section-image2.webp"
+            src="/judgement-section-center.png"
             alt="MaryDoc patient care"
             fill
             className="object-cover"
