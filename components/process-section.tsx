@@ -130,7 +130,7 @@ function MobileProcessSection() {
     <section className="relative w-full overflow-hidden lg:hidden" ref={wrapperRef}>
       <div ref={pinRef} className="w-full px-5 py-16 sm:px-8" style={mobileGradient}>
         <TextSequence className="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
-          <SeqFade className="rounded-full bg-[#DFF8EC] px-4 py-0.5 text-xs font-normal text-primary">
+          <SeqFade className="rounded-full bg-[#DFF8EC] px-6 py-2 text-base font-medium text-primary">
             Process
           </SeqFade>
           <h2
@@ -308,7 +308,7 @@ function DesktopProcessSection() {
             {/* Header: process tag + heading + subcopy */}
             <TextSequence className="absolute" style={{ left: 228, top: TOP + 70, width: 984 }}>
               <SeqFade
-                className="mx-auto block w-fit rounded-full bg-[#DFF8EC] px-4 py-0.5 text-xs font-normal leading-[18px] tracking-[-0.24px] text-primary"
+                className="mx-auto block w-fit rounded-full bg-[#DFF8EC] px-6 py-2 text-base font-medium leading-none tracking-[-0.24px] text-primary"
                 style={{ marginBottom: 16 }}
               >
                 Process

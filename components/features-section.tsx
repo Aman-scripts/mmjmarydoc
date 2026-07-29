@@ -189,7 +189,7 @@ function FeaturesDesktop() {
             ref={mainRevealRef}
             className="relative h-full w-full overflow-hidden rounded-[20px]"
           >
-            <Image src="/image1.webp" alt="Cannabis plant" fill className="object-cover" sizes="783px" />
+            <Image src="/features-section-center.png" alt="Cannabis plant" fill className="object-cover" sizes="783px" />
           </div>
         </div>
 
@@ -199,7 +199,7 @@ function FeaturesDesktop() {
             className="relative h-full w-full overflow-hidden rounded-full shadow-lg"
           >
             <Image
-              src="/Image2.webp"
+              src="/features-section-top.png"
               alt="Holding tincture bottles"
               fill
               className="object-cover"
@@ -214,7 +214,7 @@ function FeaturesDesktop() {
             className="relative h-full w-full overflow-hidden rounded-[20px]"
           >
             <Image
-              src="/image3.webp"
+              src="/features-section-bottom.png"
               alt="Doctor consultation supplies"
               fill
               className="object-cover"
@@ -367,7 +367,7 @@ function FeaturesMobile() {
                 ref={mainRevealRef}
                 className="relative h-full w-full overflow-hidden rounded-2xl"
               >
-                <Image src="/image1.webp" alt="Cannabis plant" fill className="object-cover" sizes="248px" />
+                <Image src="/features-section-center.png" alt="Cannabis plant" fill className="object-cover" sizes="248px" />
               </div>
             </div>
             <div

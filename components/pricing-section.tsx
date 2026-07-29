@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { FigmaCanvas } from "@/components/figma-canvas";
 import { TextSequence, SeqChars, SeqFade, SeqLines } from "@/components/text-sequence";
@@ -59,14 +58,12 @@ const plans = [
 ];
 
 function PricingDesktop() {
-  const [expanded, setExpanded] = useState(false);
-  const restPct = ((TOP + 536 + BOTTOM) / 1440) * 100;
   const expandedPct = ((TOP + 536 + BOTTOM + EXPAND_ALLOWANCE) / 1440) * 100;
 
   return (
     <section
-      className="relative hidden bg-background transition-[padding-bottom] duration-300 ease-out lg:block"
-      style={{ height: 0, paddingBottom: `${expanded ? expandedPct : restPct}%` }}
+      className="relative hidden bg-background lg:block"
+      style={{ height: 0, paddingBottom: `${expandedPct}%` }}
     >
       <FigmaCanvas
         width={1440}
@@ -75,8 +72,8 @@ function PricingDesktop() {
       >
         <TextSequence className="absolute left-0 top-0 w-full" style={{ height: TOP + 180 }}>
           <SeqFade
-            className="absolute flex items-center justify-center rounded-full bg-[#DFF8EC] text-xs font-normal leading-[18px] tracking-[-0.24px] text-primary"
-            style={{ left: 685, top: TOP + 0, width: 70, height: 22 }}
+            className="absolute flex items-center justify-center rounded-full bg-[#DFF8EC] text-base font-medium leading-none tracking-[-0.24px] text-primary"
+            style={{ left: 660, top: TOP + 0, width: 120, height: 40 }}
           >
             Pricing
           </SeqFade>
@@ -85,7 +82,7 @@ function PricingDesktop() {
             className="absolute text-center text-primary"
             style={{
               left: 0,
-              top: TOP + 38,
+              top: TOP + 58,
               width: 1439,
               fontFamily: "var(--font-sans)",
               fontSize: 48,
@@ -102,7 +99,7 @@ function PricingDesktop() {
             className="absolute text-center text-muted-foreground"
             style={{
               left: 411,
-              top: TOP + 112,
+              top: TOP + 132,
               width: 618,
               fontSize: 18,
               fontWeight: 400,
@@ -118,10 +115,8 @@ function PricingDesktop() {
         {plans.map((plan) => (
           <div
             key={plan.title}
-            className="group absolute z-0 rounded-[30px] bg-[#DFF8EC] px-11 py-8 shadow-sm transition-shadow duration-300 hover:z-10 hover:shadow-xl"
+            className="group absolute z-0 rounded-[30px] bg-[#DFF8EC] px-11 py-8 shadow-sm"
             style={{ left: plan.left, top: TOP + 204, width: 411 }}
-            onMouseEnter={() => setExpanded(true)}
-            onMouseLeave={() => setExpanded(false)}
           >
             <div className="flex items-center justify-between">
               <div className="flex h-9 w-14 items-center justify-center rounded-full border border-primary/30 bg-transparent">
@@ -154,34 +149,22 @@ function PricingDesktop() {
               {plan.price}
             </p>
 
-            <a
-              href="#start-evaluation"
-              className="mt-6 flex w-fit items-center justify-center rounded-full px-9 py-2 text-base font-semibold leading-[26px] tracking-[-0.32px] text-white transition-opacity duration-200 group-hover:pointer-events-none group-hover:absolute group-hover:opacity-0"
-              style={{ background: "var(--gradient-primary)" }}
-            >
-              {plan.cta}
-            </a>
-
-            <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-out group-hover:grid-rows-[1fr]">
-              <div className="overflow-hidden">
-                <div className="mt-6 flex flex-col gap-3 rounded-[24px] bg-white p-6">
-                  {plan.checklist.map((item) => (
-                    <div key={item} className="flex items-center gap-3">
-                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#DFF8EC]">
-                        <Check className="h-3 w-3 text-primary" />
-                      </span>
-                      <span className="text-xs text-muted-foreground">{item}</span>
-                    </div>
-                  ))}
-                  <a
-                    href="#start-evaluation"
-                    className="mt-2 flex w-fit items-center justify-center rounded-full px-9 py-2 text-base font-semibold leading-[26px] tracking-[-0.32px] text-white"
-                    style={{ background: "var(--gradient-primary)" }}
-                  >
-                    {plan.cta}
-                  </a>
+            <div className="mt-6 flex flex-col gap-3 rounded-[24px] bg-white p-6">
+              {plan.checklist.map((item) => (
+                <div key={item} className="flex items-center gap-3">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#DFF8EC]">
+                    <Check className="h-3 w-3 text-primary" />
+                  </span>
+                  <span className="text-xs text-muted-foreground">{item}</span>
                 </div>
-              </div>
+              ))}
+              <a
+                href="#start-evaluation"
+                className="mt-2 flex w-fit items-center justify-center rounded-full px-9 py-2 text-base font-semibold leading-[26px] tracking-[-0.32px] text-white"
+                style={{ background: "var(--gradient-primary)" }}
+              >
+                {plan.cta}
+              </a>
             </div>
           </div>
         ))}
@@ -249,7 +232,7 @@ function PricingMobile() {
     <section className="relative bg-background px-5 py-14 sm:px-8 sm:py-16 lg:hidden">
       <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-4 text-center">
         <TextSequence className="flex flex-col items-center gap-4">
-          <SeqFade className="rounded-full bg-[#DFF8EC] px-4 py-0.5 text-xs font-normal text-primary">
+          <SeqFade className="rounded-full bg-[#DFF8EC] px-6 py-2 text-base font-medium text-primary">
             Pricing
           </SeqFade>
           <h2
