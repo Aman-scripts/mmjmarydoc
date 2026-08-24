@@ -19,7 +19,7 @@ function CtaButton() {
         className="rounded-full px-5 py-2.5 text-sm font-semibold tracking-[-0.02em] text-white sm:px-7 sm:py-3 sm:text-base"
         style={{ background: BUTTON_GRADIENT }}
       >
-        Start your Consultation
+        Start Your Evaluation
       </span>
       <span
         className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white sm:h-12 sm:w-12"
@@ -55,7 +55,7 @@ function CtaDesktop() {
               color: "#FFFBF5",
             }}
           >
-            <SeqChars>Access Your MMJ</SeqChars>
+            <SeqChars>Access Your Medical</SeqChars>
             <br />
             <SeqChars>Card Today</SeqChars>
           </h2>
@@ -71,7 +71,7 @@ function CtaDesktop() {
               opacity: 0.9,
             }}
             lines={[
-              "Your trusted partner for medical cannabis care. We've helped thousands of patients nationwide with safe and stress-free MMJ card approvals.",
+              "Get personalized online care from a licensed provider and take the next step toward your medical card, all from the comfort of home.",
             ]}
           />
         </TextSequence>
@@ -114,7 +114,7 @@ function CtaMobile() {
               color: "#FFFBF5",
             }}
           >
-            <SeqChars>Access Your MMJ</SeqChars>
+            <SeqChars>Access Your Medical</SeqChars>
             <br />
             <SeqChars>Card Today</SeqChars>
           </h2>
@@ -130,7 +130,7 @@ function CtaMobile() {
               opacity: 0.9,
             }}
             lines={[
-              "Your trusted partner for medical cannabis care. We've helped thousands of patients nationwide with safe and stress-free MMJ card approvals.",
+              "Get personalized online care from a licensed provider and take the next step toward your medical card, all from the comfort of home.",
             ]}
           />
         </TextSequence>

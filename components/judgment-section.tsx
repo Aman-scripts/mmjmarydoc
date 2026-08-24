@@ -23,8 +23,8 @@ const FAN_IMAGES = [
 const CANVAS_H = 520 + 48;
 
 const paragraphLines = [
-  "Behind every medical cannabis evaluation is a person looking for answers, not judgment.",
-  "At MaryDoc, we believe healthcare begins with listening, respecting each patient’s journey, and providing thoughtful guidance from licensed physicians.",
+  "Every patient comes with different questions, experiences, and expectations.",
+  "At MaryDoc, we believe better decisions start with listening, honest information, and giving people the space to make choices that feel right for them.",
 ];
 
 function JudgmentDesktop() {
@@ -45,11 +45,9 @@ function JudgmentDesktop() {
               letterSpacing: "-0.96px",
             }}
           >
-            <SeqChars>Seeking relief</SeqChars>
+            <SeqChars>Your Journey Starts</SeqChars>
             <br />
-            <SeqChars>should never come</SeqChars>
-            <br />
-            <SeqChars>with judgment</SeqChars>
+            <SeqChars>With Better Guidance</SeqChars>
           </h2>
           <SeqLines
             className="text-muted-foreground"
@@ -110,11 +108,9 @@ function JudgmentMobile() {
               letterSpacing: "-0.02em",
             }}
           >
-            <SeqChars>Seeking relief</SeqChars>
+            <SeqChars>Your Journey Starts</SeqChars>
             <br />
-            <SeqChars>should never come</SeqChars>
-            <br />
-            <SeqChars>with judgment</SeqChars>
+            <SeqChars>With Better Guidance</SeqChars>
           </h2>
         </TextSequence>
 

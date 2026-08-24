@@ -59,16 +59,16 @@ const stats = [
     number: "100%" as const,
     label: ["Licensed"],
     lastLinePrefix: "",
-    lastWord: "Doctors",
+    lastWord: "Physicians",
     labelLeft: 208,
     underlineLeft: 278,
   },
   {
     left: 654,
     number: "30+" as const,
-    label: ["Trusted by"],
-    lastLinePrefix: "Patients in ",
-    lastWord: "States",
+    label: ["U.S. States"],
+    lastLinePrefix: "",
+    lastWord: "Served",
     labelLeft: 798 - 654,
     underlineLeft: 1002 - 654,
   },
@@ -80,16 +80,16 @@ const MOBILE_STATS = [
     numberBox: { left: 35, top: 78, width: 196, height: 90 },
     label: ["Licensed"],
     lastLinePrefix: "",
-    lastWord: "Doctors",
-    labelBox: { left: 190, top: 157, width: 88 },
+    lastWord: "Physicians",
+    labelBox: { left: 190, top: 157, width: 110 },
     underline: { left: 209, top: 217 },
   },
   {
     number: "30+" as const,
     numberBox: { left: 52, top: 264, width: 147, height: 90 },
-    label: ["Trusted by"],
-    lastLinePrefix: "Patients in ",
-    lastWord: "States",
+    label: ["U.S. States"],
+    lastLinePrefix: "",
+    lastWord: "Served",
     labelBox: { left: 168, top: 334, width: 162 },
     underline: { left: 263, top: 397 },
   },
@@ -213,8 +213,8 @@ export function StatsSection() {
                   opacity: headingOpacity,
                 }}
               >
-                <ScrollFloat as="span">Find Care in</ScrollFloat>{" "}
-                <ScrollFloat as="span">your state</ScrollFloat>
+                <ScrollFloat as="span">Care You Can</ScrollFloat>{" "}
+                <ScrollFloat as="span">Trust</ScrollFloat>
               </h2>
 
               {MOBILE_STATS.map((stat, i) => (
@@ -279,8 +279,8 @@ export function StatsSection() {
                   opacity: headingOpacity,
                 }}
               >
-                <ScrollFloat as="span">Find Care in</ScrollFloat>{" "}
-                <ScrollFloat as="span">your state</ScrollFloat>
+                <ScrollFloat as="span">Care You Can</ScrollFloat>{" "}
+                <ScrollFloat as="span">Trust</ScrollFloat>
               </h2>
 
               <div

@@ -25,8 +25,8 @@ const LEAF_TOP_RIGHT = { left: 936, top: TOP + 311, width: 336, height: 351 };
 const CANVAS_H = TOP + 1072 + BOTTOM;
 
 const COPY_LINES = [
-  "For years, getting a medical marijuana card meant navigating confusing websites or impersonal clinics. Many patients living with chronic pain, anxiety, PTSD, and other qualifying conditions were left feeling judged while searching for safe, legitimate care.",
-  "MaryDoc was created to change that. We connect patients with licensed physicians for secure online evaluations, making access to medical cannabis simple, trusted, and compassionate. Our mission is to provide a seamless, transparent experience that puts patients first—making quality care more accessible across 30+ states.",
+  "Patients may explore their options when symptoms such as chronic pain, nausea, or sleep difficulties affect daily life. For some, it may be an option they want to discuss after exploring other approaches.",
+  "Having these symptoms or conditions alone does not mean you qualify for medical care. Eligibility varies by state and must be determined through an evaluation by a licensed physician. With MaryDoc, patients can navigate this process with a clearer understanding of what to expect and what options may be available to them.",
 ];
 
 function prefersReducedMotion() {
@@ -150,9 +150,8 @@ function FeaturesDesktop() {
               letterSpacing: "-0.96px",
             }}
           >
-            <SeqChars>Making</SeqChars>{" "}
-            <SeqChars>Medical Cannabis</SeqChars>{" "}
-            <SeqChars>More Accessible</SeqChars>
+            <SeqChars>Why Do Patients</SeqChars>{" "}
+            <SeqChars>Consider Medical Care?</SeqChars>
           </h2>
           <SeqLines
             className="absolute text-muted-foreground"
@@ -334,10 +333,8 @@ function FeaturesMobile() {
               letterSpacing: "-0.02em",
             }}
           >
-            <SeqChars>Making</SeqChars>{" "}
-            <SeqChars>Medical Cannabis</SeqChars>
-            <br />
-            <SeqChars>More Accessible</SeqChars>
+            <SeqChars>Why Do Patients</SeqChars>{" "}
+            <SeqChars>Consider Medical Care?</SeqChars>
           </h2>
         </TextSequence>
 

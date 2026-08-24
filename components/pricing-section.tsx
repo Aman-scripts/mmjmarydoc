@@ -25,9 +25,9 @@ const EXPAND_ALLOWANCE = 220;
 const plans = [
   {
     Icon: NewEvaluationIcon,
-    badge: "New Evaluation",
-    title: "New Card Evaluation",
-    description: "Get Started with Your Medical Cannabis Evaluation.",
+    badge: "New Card Evaluation",
+    title: "Start Your Medical Card Evaluation",
+    description: "Choose a new evaluation for your medical card through secure online care.",
     price: "$149",
     cta: "Start Evaluation",
     left: 297,
@@ -35,22 +35,22 @@ const plans = [
       "Initial online medical evaluation",
       "Consultation with a licensed healthcare provider",
       "Eligibility assessment",
-      "Guidance throughout the application process",
+      "Guidance through the application process",
       "Secure and confidential consultation",
     ],
   },
   {
     Icon: RefreshCw,
     badge: "Card Renewal",
-    title: "Card Renewal",
-    description: "Renew Your Medical Cannabis Card.",
+    title: "Renew Your Medical Card",
+    description: "Renew your existing medical card through secure online care.",
     price: "$129",
     cta: "Renew My Card",
     left: 732,
     checklist: [
       "Online renewal consultation",
       "Review by a licensed healthcare provider",
-      "Fast and convenient renewal process",
+      "Simple and convenient renewal process",
       "Continued eligibility assessment",
       "Secure and confidential service",
     ],
@@ -91,8 +91,7 @@ function PricingDesktop() {
               letterSpacing: "-0.96px",
             }}
           >
-            <SeqChars>Get Started in Just a</SeqChars>{" "}
-            <SeqChars>Few Clicks</SeqChars>
+            <SeqChars>Your Next Step Starts Here</SeqChars>
           </h2>
 
           <SeqLines
@@ -107,7 +106,7 @@ function PricingDesktop() {
               letterSpacing: "-0.32px",
             }}
             lines={[
-              "Select your evaluation type and connect with a licensed provider to begin your medical cannabis journey online.",
+              "Choose a new evaluation or renew your existing medical card, all through secure online care.",
             ]}
           />
         </TextSequence>
@@ -245,13 +244,12 @@ function PricingMobile() {
               letterSpacing: "-0.02em",
             }}
           >
-            <SeqChars>Get Started in Just a</SeqChars>{" "}
-            <SeqChars>Few Clicks</SeqChars>
+            <SeqChars>Your Next Step Starts Here</SeqChars>
           </h2>
           <SeqLines
             className="text-base text-muted-foreground sm:text-lg"
             lines={[
-              "Select your evaluation type and connect with a licensed provider to begin your medical cannabis journey online.",
+              "Choose a new evaluation or renew your existing medical card, all through secure online care.",
             ]}
           />
         </TextSequence>

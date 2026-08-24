@@ -159,9 +159,8 @@ function DesktopHero() {
               letterSpacing: "-0.18px",
             }}
           >
-            MaryDoc connects you with licensed physicians in your state for
-            secure online medical marijuana evaluations, all from the comfort
-            of your home.
+            We connect you with a state-licensed physician in your state for a
+            HIPAA-compliant online evaluation.
           </p>
 
           <h1
