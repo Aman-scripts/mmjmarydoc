@@ -57,11 +57,11 @@ const SOIL = {
   height: SOIL_HEIGHT,
 };
 const CARD = { left: 148 - HERO_ROW.left, top: 402 - HERO_ORIG_TOP, width: 314, height: 155 };
-const WITH_GUIDED = { left: 744 - HERO_ROW.left, top: 402 - HERO_ORIG_TOP };
+const WITH_GUIDED = { left: 695 - HERO_ROW.left, top: 402 - HERO_ORIG_TOP };
 const YOUR = { left: 266 - HERO_ROW.left - 160, top: 263 - HERO_ORIG_TOP, width: 380, height: 155 };
 const MARIJUANA = { left: 695 - HERO_ROW.left, top: 263 - HERO_ORIG_TOP, width: 633, height: 155 };
 const DESCRIPTION = { left: 133 - HERO_ROW.left, top: 561 - HERO_ORIG_TOP, width: 297 };
-const CARE = { left: 746 - HERO_ROW.left, top: 520 - HERO_ORIG_TOP };
+const CARE = { left: 695 - HERO_ROW.left, top: 520 - HERO_ORIG_TOP };
 
 function DesktopHero() {
   return (
