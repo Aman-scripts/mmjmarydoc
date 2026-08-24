@@ -63,23 +63,23 @@ export function MobileHero() {
           <FacebookIcon className="h-3 w-3 text-muted-foreground" />
         </div>
 
-        <h1 className="flex flex-col items-center gap-1 px-6 text-center text-[30px] font-extrabold leading-[44px] tracking-[-0.5px]">
-          <span className="flex items-baseline gap-x-2">
-            <span className="text-primary">Your</span>
-            <span className="whitespace-nowrap text-[36px] leading-[44px] tracking-[-0.6px] text-accent opacity-50">
-              MARIJUANA
+        <h1 className="flex flex-col items-center gap-1 px-4 text-center text-[26px] sm:text-[30px] font-extrabold leading-[40px] tracking-[-0.5px]">
+          <span className="flex flex-wrap items-baseline justify-center gap-x-2">
+            <span className="text-primary">Get Your</span>
+            <span className="whitespace-nowrap text-[30px] sm:text-[36px] leading-[40px] tracking-[-0.6px] text-accent opacity-50">
+              MEDICAL
             </span>
-          </span>
-          <span className="flex items-baseline gap-x-2">
-            <span className="whitespace-nowrap text-[36px] leading-[44px] tracking-[-0.6px] text-accent opacity-50">
+            <span className="whitespace-nowrap text-[30px] sm:text-[36px] leading-[40px] tracking-[-0.6px] text-accent opacity-50">
               CARD
             </span>
-            <span className="whitespace-nowrap" style={textGradient}>
-              With
-            </span>
           </span>
-          <span className="whitespace-nowrap" style={textGradient}>
-            Guided Care.
+          <span className="flex flex-wrap items-baseline justify-center gap-x-2">
+            <span className="whitespace-nowrap text-primary">
+              Online
+            </span>
+            <span className="whitespace-nowrap" style={textGradient}>
+              With Guided Care.
+            </span>
           </span>
         </h1>
       </div>
