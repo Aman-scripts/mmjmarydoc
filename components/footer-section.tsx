@@ -26,7 +26,11 @@ function YoutubeIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-const navLinks = ["Our Story", "What we stand for", "Our Standards"];
+const navLinks = [
+  { label: "Our Story", href: "#our-story" },
+  { label: "What we stand for", href: "#what-we-stand-for" },
+  { label: "Our Standards", href: "#our-standards" },
+];
 
 export function FooterSection() {
   return (
@@ -57,11 +61,11 @@ export function FooterSection() {
         <nav className="flex flex-col items-center justify-center gap-8 lg:flex-row lg:flex-wrap lg:gap-10">
           {navLinks.map((link) => (
             <a
-              key={link}
-              href="#"
+              key={link.label}
+              href={link.href}
               className="text-sm font-medium leading-[22px] tracking-[-0.28px] text-[#FAFAF8]/90 hover:text-[#FAFAF8]"
             >
-              {link}
+              {link.label}
             </a>
           ))}
         </nav>

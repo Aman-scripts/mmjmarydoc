@@ -187,7 +187,7 @@ export function StatsSection() {
   return (
     // -1px pulls the track over the hero's fractional (scaled-canvas) bottom
     // row, so no page background can show through at the seam.
-    <div ref={wrapperRef} className="relative" style={{ height: "150vh", marginTop: -1 }}>
+    <div id="care-in-your-state" ref={wrapperRef} className="relative scroll-mt-10" style={{ height: "150vh", marginTop: -1 }}>
       <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: SOIL_BG }} />
       <div
         aria-hidden

@@ -266,9 +266,9 @@ function PricingMobile() {
 
 export function PricingSection() {
   return (
-    <>
+    <div id="pricing" className="scroll-mt-10">
       <PricingMobile />
       <PricingDesktop />
-    </>
+    </div>
   );
 }

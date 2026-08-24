@@ -420,9 +420,9 @@ function FeaturesMobile() {
 
 export function FeaturesSection() {
   return (
-    <>
+    <div id="our-story" className="scroll-mt-10">
       <FeaturesMobile />
       <FeaturesDesktop />
-    </>
+    </div>
   );
 }

@@ -559,9 +559,9 @@ function ValuesMobile() {
 
 export function ValuesSection() {
   return (
-    <>
+    <div id="what-we-stand-for" className="scroll-mt-10">
       <ValuesMobile />
       <ValuesDesktop />
-    </>
+    </div>
   );
 }

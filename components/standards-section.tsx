@@ -284,9 +284,9 @@ function StandardsMobile() {
 
 export function StandardsSection() {
   return (
-    <>
+    <div id="our-standards" className="scroll-mt-10">
       <StandardsMobile />
       <StandardsDesktop />
-    </>
+    </div>
   );
 }
