@@ -15,7 +15,7 @@ if (typeof window !== "undefined") {
 
 const TOP = 100;
 const BOTTOM = 40;
-const HEADING = { left: 169, top: TOP + 0, width: 357 };
+const HEADING = { left: 169, top: TOP + 0, width: 520 };
 const PARAGRAPH = { left: 712, top: TOP + 0, width: 555 };
 const IMAGE_OVAL = { left: 171, top: TOP + 245, width: 284, height: 391 };
 const IMAGE_MAIN = { left: 355, top: TOP + 421, width: 783, height: 434 };
@@ -150,7 +150,8 @@ function FeaturesDesktop() {
               letterSpacing: "-0.96px",
             }}
           >
-            <SeqChars>Why Do Patients</SeqChars>{" "}
+            <SeqChars>Why Do Patients</SeqChars>
+            <br />
             <SeqChars>Consider Medical Care?</SeqChars>
           </h2>
           <SeqLines
@@ -333,7 +334,8 @@ function FeaturesMobile() {
               letterSpacing: "-0.02em",
             }}
           >
-            <SeqChars>Why Do Patients</SeqChars>{" "}
+            <SeqChars>Why Do Patients</SeqChars>
+            <br />
             <SeqChars>Consider Medical Care?</SeqChars>
           </h2>
         </TextSequence>
