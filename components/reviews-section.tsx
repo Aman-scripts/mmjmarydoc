@@ -40,27 +40,27 @@ const STAGE_STACK = { left: 354, width: 732 };
 
 const ARROW_W = 52;
 const ARROW_GAP = 28;
-const SIDE_W = 300;
-const CENTER_W = 340;
-const CARD_GAP = 20;
+const CARD_W = 340;
+const CARD_H = 490;
+const CARD_GAP = 24;
 const STAGE_ROW_W =
-  ARROW_W + ARROW_GAP + SIDE_W + CARD_GAP + CENTER_W + CARD_GAP + SIDE_W + ARROW_GAP + ARROW_W;
+  ARROW_W + ARROW_GAP + 3 * CARD_W + 2 * CARD_GAP + ARROW_GAP + ARROW_W;
 const STAGE_ROW = { left: (1440 - STAGE_ROW_W) / 2, width: STAGE_ROW_W };
 const ROW_X0 = ARROW_W + ARROW_GAP;
 
 const ROW = {
-  left: { left: ROW_X0, top: 28, width: SIDE_W, height: 460 },
+  left: { left: ROW_X0, top: 10, width: CARD_W, height: CARD_H },
   center: {
-    left: ROW_X0 + SIDE_W + CARD_GAP,
-    top: 0,
-    width: CENTER_W,
-    height: 514,
+    left: ROW_X0 + CARD_W + CARD_GAP,
+    top: 10,
+    width: CARD_W,
+    height: CARD_H,
   },
   right: {
-    left: ROW_X0 + SIDE_W + CARD_GAP + CENTER_W + CARD_GAP,
-    top: 28,
-    width: SIDE_W,
-    height: 460,
+    left: ROW_X0 + (CARD_W + CARD_GAP) * 2,
+    top: 10,
+    width: CARD_W,
+    height: CARD_H,
   },
 } as const;
 
@@ -76,7 +76,7 @@ function PeekFace() {
     <div className="absolute inset-0 overflow-hidden rounded-[30px] bg-primary shadow-lg">
       <Image
         src="/quote.svg"
-        alt=""
+        alt="Quotation mark"
         width={120}
         height={119}
         className="absolute opacity-80"
@@ -100,35 +100,36 @@ function ReviewFace({
       style={{
         background: featured ? "#DFF8EC" : "#0E5A4D",
         transition:
-          "background-color 0.7s cubic-bezier(0.22, 1, 0.36, 1), color 0.7s ease",
+          "background-color 0.45s cubic-bezier(0.22, 1, 0.36, 1), color 0.45s ease",
       }}
     >
       <Image
         src="/quote.svg"
-        alt=""
-        width={featured ? 140 : 110}
-        height={featured ? 139 : 109}
+        alt="Quotation mark"
+        width={120}
+        height={119}
         className="absolute opacity-90"
-        style={{ right: featured ? 20 : 12, top: 0 }}
+        style={{ right: 16, top: 0 }}
       />
       <Image
         src="/google.webp"
         alt="Google"
-        width={featured ? 52 : 40}
-        height={featured ? 52 : 40}
+        width={44}
+        height={44}
         className="relative z-10"
-        style={{ marginLeft: featured ? 40 : 28, marginTop: featured ? 72 : 56 }}
+        style={{ marginLeft: 32, marginTop: 56 }}
       />
       <p
-        className="relative z-10 line-clamp-6"
+        className="relative z-10 line-clamp-6 text-left"
         style={{
-          marginLeft: featured ? 40 : 28,
-          marginRight: featured ? 40 : 28,
-          marginTop: featured ? 24 : 18,
-          fontSize: featured ? 18 : 14,
-          lineHeight: featured ? "28px" : "22px",
+          marginLeft: 32,
+          marginRight: 32,
+          marginTop: 18,
+          fontSize: 16,
+          lineHeight: "26px",
           letterSpacing: "-0.32px",
           color: featured ? "var(--muted-foreground)" : "rgba(255,255,255,0.88)",
+          transition: "color 0.45s ease",
         }}
       >
         {review.text}
@@ -137,11 +138,12 @@ function ReviewFace({
         href="#read-more"
         className="relative z-10 mt-auto inline-flex w-fit items-center justify-center rounded-full border text-sm font-semibold"
         style={{
-          marginLeft: featured ? 40 : 28,
-          marginBottom: 8,
-          padding: featured ? "8px 28px" : "6px 20px",
+          marginLeft: 32,
+          marginBottom: 10,
+          padding: "7px 24px",
           borderColor: featured ? "var(--primary)" : "rgba(255,255,255,0.5)",
           color: featured ? "var(--primary)" : "#fff",
+          transition: "color 0.45s ease, border-color 0.45s ease",
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -150,19 +152,20 @@ function ReviewFace({
       <div
         className="relative z-10"
         style={{
-          marginLeft: featured ? 40 : 28,
-          marginRight: featured ? 40 : 28,
+          marginLeft: 32,
+          marginRight: 32,
           height: 1,
           background: featured ? "var(--border)" : "rgba(255,255,255,0.2)",
+          transition: "background-color 0.45s ease",
         }}
       />
       <div
         className="relative z-10 flex items-center gap-3"
         style={{
-          marginLeft: featured ? 40 : 28,
-          marginRight: featured ? 40 : 28,
-          marginTop: 16,
-          marginBottom: featured ? 28 : 20,
+          marginLeft: 32,
+          marginRight: 32,
+          marginTop: 14,
+          marginBottom: 22,
         }}
       >
         <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-white/15">
@@ -171,13 +174,19 @@ function ReviewFace({
         <div className="min-w-0 text-left">
           <p
             className="truncate text-base font-medium"
-            style={{ color: featured ? "var(--foreground)" : "#fff" }}
+            style={{
+              color: featured ? "var(--foreground)" : "#fff",
+              transition: "color 0.45s ease",
+            }}
           >
             {review.name}
           </p>
           <p
             className="text-xs"
-            style={{ color: featured ? "var(--muted-foreground)" : "rgba(255,255,255,0.7)" }}
+            style={{
+              color: featured ? "var(--muted-foreground)" : "rgba(255,255,255,0.7)",
+              transition: "color 0.45s ease",
+            }}
           >
             {review.time}
           </p>
@@ -199,7 +208,7 @@ function FrontCard({
     <div className="absolute overflow-hidden rounded-[30px] bg-[#DFF8EC] shadow-xl" style={style}>
       <Image
         src="/quote.svg"
-        alt=""
+        alt="Quotation mark"
         width={140}
         height={139}
         className="absolute"
@@ -251,34 +260,18 @@ function FrontCard({
 const SLOT_POSE = [ROW.left, ROW.center, ROW.right] as const;
 
 function ReviewsDesktop() {
-  const n = reviews.length;
-  
-  const [order, setOrder] = useState([n - 1, 0, 1]);
-  
-  
-  const [featuredIdx, setFeaturedIdx] = useState(0);
-  
+  const [order, setOrder] = useState<number[]>([2, 0, 1]);
   const [expanded, setExpanded] = useState(false);
   const [layoutMode, setLayoutMode] = useState<"stack" | "row">("stack");
-  
-  const [motionOn, setMotionOn] = useState(false);
-  
-  const [wrapIdx, setWrapIdx] = useState<number | null>(null);
-  const [wrapHidden, setWrapHidden] = useState(false);
   const busyRef = useRef(false);
   const sectionRef = useRef<HTMLElement>(null);
   const openedOnViewRef = useRef(false);
-  
-  const openHorizontalRef = useRef<() => void>(() => {});
 
-  const centerIndex = order[1];
   const inRow = layoutMode === "row";
   const reduce = prefersReducedMotion();
-  const moveMs = reduce ? 0 : 700;
-  const moveTransition =
-    motionOn && !reduce
-      ? "left 0.7s cubic-bezier(0.22, 1, 0.36, 1), top 0.7s cubic-bezier(0.22, 1, 0.36, 1), width 0.7s cubic-bezier(0.22, 1, 0.36, 1), height 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease, z-index 0s"
-      : undefined;
+  const moveTransition = !reduce
+    ? "left 0.45s cubic-bezier(0.22, 1, 0.36, 1), top 0.45s cubic-bezier(0.22, 1, 0.36, 1), width 0.45s cubic-bezier(0.22, 1, 0.36, 1), height 0.45s cubic-bezier(0.22, 1, 0.36, 1), transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.45s ease, opacity 0.3s ease"
+    : undefined;
 
   function styleFor(slot: number) {
     if (inRow) {
@@ -290,29 +283,11 @@ function ReviewsDesktop() {
   }
 
   function openHorizontal() {
-    if (busyRef.current || layoutMode === "row") return;
-    busyRef.current = true;
-
-    
+    if (layoutMode === "row") return;
     setExpanded(true);
-    setFeaturedIdx(order[1]);
-    
-    setMotionOn(true);
-
-    
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setLayoutMode("row");
-        window.setTimeout(() => {
-          busyRef.current = false;
-        }, moveMs);
-      });
-    });
+    setLayoutMode("row");
   }
 
-  openHorizontalRef.current = openHorizontal;
-
-  
   useEffect(() => {
     const el = sectionRef.current;
     if (!el || typeof IntersectionObserver === "undefined") return;
@@ -323,9 +298,8 @@ function ReviewsDesktop() {
         if (!entry.isIntersecting || openedOnViewRef.current) return;
         openedOnViewRef.current = true;
         observer.disconnect();
-        
         const delay = prefersReducedMotion() ? 0 : 480;
-        openTimer = window.setTimeout(() => openHorizontalRef.current(), delay);
+        openTimer = window.setTimeout(() => openHorizontal(), delay);
       },
       { threshold: 0.35 }
     );
@@ -337,60 +311,37 @@ function ReviewsDesktop() {
     };
   }, []);
 
-  function closeToStack(nextCenter = centerIndex) {
+  function closeToStack() {
     if (busyRef.current || !expanded) return;
     busyRef.current = true;
-
-    setOrder([
-      (nextCenter - 1 + n) % n,
-      nextCenter,
-      (nextCenter + 1) % n,
-    ]);
-    
-    setFeaturedIdx(nextCenter);
     setLayoutMode("stack");
     setExpanded(false);
     window.setTimeout(() => {
       busyRef.current = false;
-    }, moveMs);
+    }, 450);
   }
 
   function onArrow(dir: "left" | "right") {
     if (busyRef.current) return;
-
-    if (!inRow) {
-      openHorizontal();
-      return;
-    }
-
     busyRef.current = true;
-    
-    
-    const wrapping = dir === "right" ? order[0] : order[2];
-    const next =
-      dir === "right"
-        ? ([order[1], order[2], order[0]] as [number, number, number])
-        : ([order[2], order[0], order[1]] as [number, number, number]);
 
-    if (reduce) {
-      setOrder(next);
+    if (!expanded) {
+      openHorizontal();
       busyRef.current = false;
       return;
     }
 
-    setWrapIdx(wrapping);
-    setWrapHidden(true);
-
-    requestAnimationFrame(() => {
-      setOrder(next);
-      requestAnimationFrame(() => {
-        setWrapHidden(false);
-        window.setTimeout(() => {
-          setWrapIdx(null);
-          busyRef.current = false;
-        }, moveMs);
-      });
+    setOrder((prev) => {
+      if (dir === "right") {
+        return [prev[1], prev[2], prev[0]];
+      } else {
+        return [prev[2], prev[0], prev[1]];
+      }
     });
+
+    window.setTimeout(() => {
+      busyRef.current = false;
+    }, 450);
   }
 
   const stageBox = inRow ? STAGE_ROW : STAGE_STACK;
@@ -454,14 +405,11 @@ function ReviewsDesktop() {
             transition: moveTransition,
           }}
         >
-          {}
           {reviews.map((review, reviewIdx) => {
             const slot = order.indexOf(reviewIdx);
             if (slot < 0) return null;
             const pose = styleFor(slot);
             const isCenter = slot === 1;
-            const isFeatured = reviewIdx === featuredIdx;
-            const isWrapping = wrapIdx === reviewIdx;
             const tilt = inRow
               ? "rotate(0deg)"
               : slot === 0
@@ -479,26 +427,17 @@ function ReviewsDesktop() {
                   top: pose.top,
                   width: pose.width,
                   height: pose.height,
-                  
-                  zIndex: isWrapping ? 0 : pose.zIndex,
+                  zIndex: pose.zIndex,
                   transform: tilt,
-                  opacity: isWrapping && wrapHidden ? 0 : 1,
-                  
                   background: expanded
-                    ? isFeatured
+                    ? isCenter
                       ? "#DFF8EC"
                       : "#0E5A4D"
                     : undefined,
-                  
-                  transition: isWrapping
-                    ? wrapHidden
-                      ? "opacity 0.12s ease, z-index 0s"
-                      : "opacity 0.35s ease, background-color 0.7s cubic-bezier(0.22, 1, 0.36, 1), z-index 0s"
-                    : moveTransition,
-                  willChange: motionOn ? "left, top, width, height, transform, opacity" : undefined,
+                  transition: moveTransition,
+                  willChange: "left, top, width, height, transform, opacity",
                 }}
               >
-                {}
                 <RevealOnView
                   delay={reviewIdx * 120}
                   animationName="fade-up-in"
@@ -509,12 +448,12 @@ function ReviewsDesktop() {
                     tabIndex={inRow ? 0 : -1}
                     aria-label={inRow ? `Select review by ${review.name}` : undefined}
                     onClick={() => {
-                      if (inRow) closeToStack(reviewIdx);
+                      if (inRow) closeToStack();
                     }}
                     className={`h-full w-full ${inRow ? "cursor-pointer" : isCenter ? "" : "pointer-events-none"}`}
                   >
                     {expanded ? (
-                      <ReviewFace review={review} featured={isFeatured} />
+                      <ReviewFace review={review} featured={isCenter} />
                     ) : isCenter ? (
                       <FrontCard
                         style={{ left: 0, top: 0, width: "100%", height: "100%" }}
@@ -579,7 +518,7 @@ function MobileFrontCard({ review }: { review: (typeof reviews)[number] }) {
       {/* Two quotes on top-right */}
       <Image
         src="/quote.svg"
-        alt=""
+        alt="Quotation mark"
         width={120}
         height={119}
         className="pointer-events-none absolute"
