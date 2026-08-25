@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useLeadModal } from "@/components/lead-capture-modal";
 
 export function ScrollFab({
   ctaHref = "#pricing",
@@ -11,6 +12,7 @@ export function ScrollFab({
   ctaHref?: string;
   label?: string;
 }) {
+  const { isOpen: isModalOpen } = useLeadModal();
   const [expanded, setExpanded] = useState(false);
   const [bounce, setBounce] = useState(false);
   const [hiddenByFooter, setHiddenByFooter] = useState(false);
@@ -94,21 +96,23 @@ export function ScrollFab({
     }
   };
 
+  const isHidden = hiddenByFooter || isModalOpen;
+
   return (
     <a
       href={expanded ? ctaHref : "#content"}
       onClick={handleClick}
       onAnimationEnd={() => setBounce(false)}
-      className={cn("scrollFab", expanded && "expanded", bounce && "bounce", hiddenByFooter && "fabHidden")}
+      className={cn("scrollFab", expanded && "expanded", bounce && "bounce", isHidden && "fabHidden")}
       aria-label={label}
-      aria-hidden={hiddenByFooter}
-      tabIndex={hiddenByFooter ? -1 : undefined}
+      aria-hidden={isHidden}
+      tabIndex={isHidden ? -1 : undefined}
     >
       <span className="shell">
         <span className="core">
           <span className="label">{label}</span>
           {!expanded && (
-            <Image src="/arrow.svg" alt="" width={22} height={19} className="scrollFabIcon" />
+            <Image src="/arrow.svg" alt="Scroll up icon" width={22} height={19} className="scrollFabIcon" />
           )}
         </span>
       </span>

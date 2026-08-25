@@ -24,11 +24,69 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "MaryDoc | State-Licensed Medical Marijuana Card Telehealth",
+  metadataBase: new URL("https://marydoc.com"),
+  title: "Online Medical Card Evaluations With Licensed Physicians | MaryDoc",
   description:
-    "MaryDoc connects you with state-licensed physicians for secure, HIPAA-compliant online medical marijuana evaluations and card renewals.",
+    "Complete a HIPAA-compliant online medical card evaluation with a state-licensed physician and guided support throughout the process.",
+  keywords: [
+    "medical marijuana card",
+    "MMJ card online",
+    "online medical card evaluation",
+    "licensed physicians MMJ",
+    "HIPAA compliant medical cannabis",
+    "MaryDoc",
+  ],
+  icons: {
+    icon: [
+      { url: "/favicon/favicon.ico", sizes: "any" },
+      { url: "/favicon/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+    ],
+    shortcut: "/favicon/favicon.ico",
+    apple: "/favicon/apple-touch-icon.png",
+  },
+  manifest: "/favicon/site.webmanifest",
+  openGraph: {
+    title: "Online Medical Card Evaluations With Licensed Physicians | MaryDoc",
+    description:
+      "Complete a HIPAA-compliant online medical card evaluation with a state-licensed physician and guided support throughout the process.",
+    url: "https://marydoc.com",
+    siteName: "MaryDoc",
+    images: [
+      {
+        url: "/cta-section.png",
+        width: 1200,
+        height: 630,
+        alt: "Online Medical Card Evaluations With Licensed Physicians | MaryDoc",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Online Medical Card Evaluations With Licensed Physicians | MaryDoc",
+    description:
+      "Complete a HIPAA-compliant online medical card evaluation with a state-licensed physician and guided support throughout the process.",
+    images: ["/cta-section.png"],
+    creator: "@marydoc",
+  },
+  alternates: {
+    canonical: "/",
+  },
   verification: {
     google: "deGWDcGfkhgxV6bmW670CPyLyA-Wiqj9u-5UzS5ZsXg",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -43,6 +101,11 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", plusJakartaSans.variable, spaceGrotesk.variable, "font-sans")}
     >
       <head>
+        <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+        <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
         <Script
           id="gtm-script"
           strategy="afterInteractive"

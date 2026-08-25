@@ -174,14 +174,14 @@ function FeaturesDesktop() {
           className="pointer-events-none absolute opacity-50 will-change-transform"
           style={{ ...LEAF_BOTTOM_LEFT }}
         >
-          <Image src="/left-bottom.webp" alt="" fill className="object-contain" sizes="468px" />
+          <Image src="/left-bottom.webp" alt="Botanical leaf accent" fill className="object-contain" sizes="468px" />
         </div>
         <div
           ref={leafRightRef}
           className="pointer-events-none absolute opacity-50 will-change-transform"
           style={{ ...LEAF_TOP_RIGHT }}
         >
-          <Image src="/right-top.webp" alt="" fill className="object-contain" sizes="336px" />
+          <Image src="/right-top.webp" alt="Botanical leaf accent" fill className="object-contain" sizes="336px" />
         </div>
 
         <div ref={mainParallaxRef} className="absolute will-change-transform" style={{ ...IMAGE_MAIN }}>
@@ -347,14 +347,14 @@ function FeaturesMobile() {
               className="pointer-events-none absolute opacity-50"
               style={{ left: -17, top: 136, width: 147, height: 139 }}
             >
-              <Image src="/left-bottom.webp" alt="" fill className="object-contain" sizes="147px" />
+              <Image src="/left-bottom.webp" alt="Botanical leaf accent" fill className="object-contain" sizes="147px" />
             </div>
             <div
               ref={leafRightRef}
               className="pointer-events-none absolute opacity-50"
               style={{ left: 241, top: 24, width: 106, height: 128 }}
             >
-              <Image src="/right-top.webp" alt="" fill className="object-contain" sizes="106px" />
+              <Image src="/right-top.webp" alt="Botanical leaf accent" fill className="object-contain" sizes="106px" />
             </div>
 
             <div
