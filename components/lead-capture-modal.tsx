@@ -266,12 +266,15 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
     };
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      document.body.classList.add("lead-modal-open");
       window.addEventListener("keydown", handleKeyDown);
     } else {
       document.body.style.overflow = "";
+      document.body.classList.remove("lead-modal-open");
     }
     return () => {
       document.body.style.overflow = "";
+      document.body.classList.remove("lead-modal-open");
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen]);
