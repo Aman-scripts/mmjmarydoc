@@ -564,20 +564,42 @@ function MobileReviewCard({
 }
 
 function ReviewsMobile() {
-  const [index, setIndex] = useState(0);
+  const n = reviews.length;
+  // Infinite looped slides: [last, ...reviews, first]
+  const slides = [reviews[n - 1], ...reviews, reviews[0]];
+  const [currentIndex, setCurrentIndex] = useState(1);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [withTransition, setWithTransition] = useState(true);
   const startXRef = useRef<number | null>(null);
   const startYRef = useRef<number | null>(null);
   const isHorizontalSwipeRef = useRef<boolean | null>(null);
-  const n = reviews.length;
+
+  const active = ((currentIndex - 1) % n + n) % n;
 
   function prevSlide() {
-    setIndex((prev) => (prev - 1 + n) % n);
+    setWithTransition(true);
+    setCurrentIndex((prev) => prev - 1);
   }
 
   function nextSlide() {
-    setIndex((prev) => (prev + 1) % n);
+    setWithTransition(true);
+    setCurrentIndex((prev) => prev + 1);
+  }
+
+  function goToSlide(targetIdx: number) {
+    setWithTransition(true);
+    setCurrentIndex(targetIdx + 1);
+  }
+
+  function handleTransitionEnd() {
+    if (currentIndex === 0) {
+      setWithTransition(false);
+      setCurrentIndex(n);
+    } else if (currentIndex === n + 1) {
+      setWithTransition(false);
+      setCurrentIndex(1);
+    }
   }
 
   const handlePointerDown = (e: React.PointerEvent) => {
@@ -585,6 +607,7 @@ function ReviewsMobile() {
     startYRef.current = e.clientY;
     isHorizontalSwipeRef.current = null;
     setIsDragging(true);
+    setWithTransition(false);
     setDragOffset(0);
     try {
       (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
@@ -615,7 +638,11 @@ function ReviewsMobile() {
         nextSlide();
       } else if (diffX > minSwipeDistance) {
         prevSlide();
+      } else {
+        setWithTransition(true);
       }
+    } else {
+      setWithTransition(true);
     }
     setIsDragging(false);
     setDragOffset(0);
@@ -655,7 +682,7 @@ function ReviewsMobile() {
           />
         </TextSequence>
 
-        {/* Carousel Slider with Full Touch / Pointer Swiping */}
+        {/* Carousel Slider with Infinite Forward/Backward Loop */}
         <div
           className="relative mt-4 w-full max-w-sm cursor-grab overflow-hidden select-none active:cursor-grabbing"
           style={{ touchAction: "pan-y" }}
@@ -665,14 +692,19 @@ function ReviewsMobile() {
           onPointerCancel={handlePointerUp}
         >
           <div
-            className={`flex ${isDragging ? "transition-none" : "transition-transform duration-500 ease-out"}`}
+            className={`flex ${
+              withTransition && !isDragging
+                ? "transition-transform duration-500 ease-out"
+                : "transition-none"
+            }`}
             style={{
-              transform: `translateX(calc(-${index * 100}% + ${dragOffset}px))`,
+              transform: `translateX(calc(-${currentIndex * 100}% + ${dragOffset}px))`,
             }}
+            onTransitionEnd={handleTransitionEnd}
           >
-            {reviews.map((r, i) => (
-              <div key={r.name} className="w-full shrink-0 px-1">
-                <MobileReviewCard review={r} isFeatured={i % 2 === 0} />
+            {slides.map((r, i) => (
+              <div key={`${r.name}-${i}`} className="w-full shrink-0 px-1">
+                <MobileReviewCard review={r} isFeatured={((i % n) + n) % 2 === 0} />
               </div>
             ))}
           </div>
@@ -696,12 +728,12 @@ function ReviewsMobile() {
                 key={r.name}
                 type="button"
                 aria-label={`Go to review ${i + 1}`}
-                onClick={() => setIndex(i)}
+                onClick={() => goToSlide(i)}
                 className="h-2 rounded-full transition-all"
                 style={{
-                  width: i === index ? 20 : 7,
+                  width: i === active ? 20 : 7,
                   background:
-                    i === index ? "var(--primary)" : "rgba(14, 90, 77, 0.25)",
+                    i === active ? "var(--primary)" : "rgba(14, 90, 77, 0.25)",
                 }}
               />
             ))}

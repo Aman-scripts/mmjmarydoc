@@ -77,20 +77,42 @@ function angleFor(i: number, active: number): number | null {
 }
 
 function MobileProcessSection() {
-  const [active, setActive] = useState(0);
+  const n = steps.length;
+  // Infinite looped slides: [last, ...steps, first]
+  const slides = [steps[n - 1], ...steps, steps[0]];
+  const [currentIndex, setCurrentIndex] = useState(1);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [withTransition, setWithTransition] = useState(true);
   const startXRef = useRef<number | null>(null);
   const startYRef = useRef<number | null>(null);
   const isHorizontalSwipeRef = useRef<boolean | null>(null);
-  const n = steps.length;
+
+  const active = ((currentIndex - 1) % n + n) % n;
 
   function prevSlide() {
-    setActive((prev) => (prev - 1 + n) % n);
+    setWithTransition(true);
+    setCurrentIndex((prev) => prev - 1);
   }
 
   function nextSlide() {
-    setActive((prev) => (prev + 1) % n);
+    setWithTransition(true);
+    setCurrentIndex((prev) => prev + 1);
+  }
+
+  function goToSlide(targetIdx: number) {
+    setWithTransition(true);
+    setCurrentIndex(targetIdx + 1);
+  }
+
+  function handleTransitionEnd() {
+    if (currentIndex === 0) {
+      setWithTransition(false);
+      setCurrentIndex(n);
+    } else if (currentIndex === n + 1) {
+      setWithTransition(false);
+      setCurrentIndex(1);
+    }
   }
 
   const handlePointerDown = (e: React.PointerEvent) => {
@@ -98,6 +120,7 @@ function MobileProcessSection() {
     startYRef.current = e.clientY;
     isHorizontalSwipeRef.current = null;
     setIsDragging(true);
+    setWithTransition(false);
     setDragOffset(0);
     try {
       (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
@@ -128,7 +151,11 @@ function MobileProcessSection() {
         nextSlide();
       } else if (diffX > minSwipeDistance) {
         prevSlide();
+      } else {
+        setWithTransition(true);
       }
+    } else {
+      setWithTransition(true);
     }
     setIsDragging(false);
     setDragOffset(0);
@@ -168,7 +195,7 @@ function MobileProcessSection() {
           />
         </TextSequence>
 
-        {/* Carousel Slider with Real-time Finger / Thumb Swipe */}
+        {/* Carousel Slider with Infinite Forward/Backward Loop */}
         <div
           className="relative mt-8 w-full cursor-grab overflow-hidden select-none active:cursor-grabbing"
           style={{ touchAction: "pan-y" }}
@@ -185,13 +212,18 @@ function MobileProcessSection() {
           />
 
           <div
-            className={`flex ${isDragging ? "transition-none" : "transition-transform duration-500 ease-out"}`}
+            className={`flex ${
+              withTransition && !isDragging
+                ? "transition-transform duration-500 ease-out"
+                : "transition-none"
+            }`}
             style={{
-              transform: `translateX(calc(-${active * 100}% + ${dragOffset}px))`,
+              transform: `translateX(calc(-${currentIndex * 100}% + ${dragOffset}px))`,
             }}
+            onTransitionEnd={handleTransitionEnd}
           >
-            {steps.map((step) => (
-              <div key={step.number} className="w-full shrink-0 px-1">
+            {slides.map((step, i) => (
+              <div key={`${step.number}-${i}`} className="w-full shrink-0 px-1">
                 <div className="mx-auto flex max-w-xl flex-col items-center gap-4 p-6 text-center">
                   <div className="flex flex-col items-center">
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#DFF8EC] shadow-md">
@@ -250,7 +282,7 @@ function MobileProcessSection() {
                 key={step.number}
                 type="button"
                 aria-label={`Go to step ${step.number}`}
-                onClick={() => setActive(index)}
+                onClick={() => goToSlide(index)}
                 className="h-2 rounded-full transition-all"
                 style={{
                   width: index === active ? 20 : 7,

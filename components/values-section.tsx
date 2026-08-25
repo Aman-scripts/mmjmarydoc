@@ -431,20 +431,44 @@ function ValuesDesktop() {
 }
 
 function ValuesMobile() {
-  const [active, setActive] = useState(0);
+  const n = cards.length;
+  // Infinite looped slides: [last, ...cards, first]
+  const slides = [cards[n - 1], ...cards, cards[0]];
+  const [currentIndex, setCurrentIndex] = useState(1);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [withTransition, setWithTransition] = useState(true);
   const startXRef = useRef<number | null>(null);
   const startYRef = useRef<number | null>(null);
   const isHorizontalSwipeRef = useRef<boolean | null>(null);
-  const n = cards.length;
+
+  const active = ((currentIndex - 1) % n + n) % n;
 
   function prevSlide() {
-    setActive((prev) => (prev - 1 + n) % n);
+    setWithTransition(true);
+    setCurrentIndex((prev) => prev - 1);
   }
 
   function nextSlide() {
-    setActive((prev) => (prev + 1) % n);
+    setWithTransition(true);
+    setCurrentIndex((prev) => prev + 1);
+  }
+
+  function goToSlide(targetIdx: number) {
+    setWithTransition(true);
+    setCurrentIndex(targetIdx + 1);
+  }
+
+  function handleTransitionEnd() {
+    if (currentIndex === 0) {
+      // Reached prepended clone -> jump to real last slide without animation
+      setWithTransition(false);
+      setCurrentIndex(n);
+    } else if (currentIndex === n + 1) {
+      // Reached appended clone -> jump to real first slide without animation
+      setWithTransition(false);
+      setCurrentIndex(1);
+    }
   }
 
   const handlePointerDown = (e: React.PointerEvent) => {
@@ -452,6 +476,7 @@ function ValuesMobile() {
     startYRef.current = e.clientY;
     isHorizontalSwipeRef.current = null;
     setIsDragging(true);
+    setWithTransition(false);
     setDragOffset(0);
     try {
       (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
@@ -482,7 +507,11 @@ function ValuesMobile() {
         nextSlide();
       } else if (diffX > minSwipeDistance) {
         prevSlide();
+      } else {
+        setWithTransition(true);
       }
+    } else {
+      setWithTransition(true);
     }
     setIsDragging(false);
     setDragOffset(0);
@@ -514,7 +543,7 @@ function ValuesMobile() {
           </h2>
         </TextSequence>
 
-        {/* Carousel Slider with Real-time Finger / Thumb Swipe */}
+        {/* Carousel Slider with Infinite Forward/Backward Loop */}
         <div
           className="relative mt-2 w-full max-w-sm cursor-grab overflow-hidden select-none active:cursor-grabbing"
           style={{ touchAction: "pan-y" }}
@@ -524,27 +553,33 @@ function ValuesMobile() {
           onPointerCancel={handlePointerUp}
         >
           <div
-            className={`flex ${isDragging ? "transition-none" : "transition-transform duration-500 ease-out"}`}
+            className={`flex ${
+              withTransition && !isDragging
+                ? "transition-transform duration-500 ease-out"
+                : "transition-none"
+            }`}
             style={{
-              transform: `translateX(calc(-${active * 100}% + ${dragOffset}px))`,
+              transform: `translateX(calc(-${currentIndex * 100}% + ${dragOffset}px))`,
             }}
+            onTransitionEnd={handleTransitionEnd}
           >
-            {cards.map((card) => (
-              <div key={card.title} className="w-full shrink-0 px-1">
+            {slides.map((card, i) => (
+              <div key={`${card.title}-${i}`} className="w-full shrink-0 px-1">
                 <div className="relative overflow-hidden rounded-[28px] bg-[#DFF8EC] p-6 text-left shadow-none sm:p-7">
+                  {/* Subtle Background Watermark Number */}
                   <span
-                    className="pointer-events-none absolute right-4 top-2 select-none"
+                    className="pointer-events-none absolute right-4 top-1 select-none"
                     style={{
                       fontFamily: "var(--font-space-grotesk)",
-                      fontSize: "clamp(3.5rem, 18vw, 5.5rem)",
+                      fontSize: "clamp(3rem, 14vw, 4.5rem)",
                       fontWeight: 700,
                       ...textGradient,
-                      opacity: 0.15,
+                      opacity: 0.08,
                     }}
                   >
                     {card.number}
                   </span>
-                  <div className="relative flex flex-col gap-4">
+                  <div className="relative z-10 flex flex-col gap-4">
                     <div className="flex items-center gap-3.5">
                       <div
                         className="flex h-14 w-14 min-h-14 min-w-14 shrink-0 aspect-square items-center justify-center rounded-full text-white"
@@ -560,7 +595,7 @@ function ValuesMobile() {
                       >
                         <card.Icon className="h-6 w-6 shrink-0" />
                       </div>
-                      <span className="min-w-0 flex-1 text-xl font-bold leading-tight text-primary">
+                      <span className="min-w-0 flex-1 pr-2 text-xl font-bold leading-tight text-primary">
                         {card.title}
                       </span>
                     </div>
@@ -592,7 +627,7 @@ function ValuesMobile() {
                 key={card.title}
                 type="button"
                 aria-label={`Go to ${card.title}`}
-                onClick={() => setActive(index)}
+                onClick={() => goToSlide(index)}
                 className="h-2 rounded-full transition-all"
                 style={{
                   width: index === active ? 20 : 7,
