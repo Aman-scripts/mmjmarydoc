@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
@@ -46,9 +46,9 @@ function displayCanvasHeight() {
 const cards = [
   {
     Icon: ShieldCheck,
-    title: "Trust",
+    title: "Patient Privacy",
     description:
-      "Every evaluation is conducted by a state-licensed physician. No shortcuts and no exceptions, just real medical care you can rely on.",
+      "Your personal and medical information is protected through a HIPAA-compliant telehealth experience.",
     left: -138,
     top: 517 - CARDS_Y_SHIFT,
     width: 375,
@@ -60,9 +60,9 @@ const cards = [
   },
   {
     Icon: Globe,
-    title: "Access",
+    title: "Straightforward Pricing",
     description:
-      "Care should not depend on where you live. Our services are designed to be accessible online, so you can connect with a physician from anywhere.",
+      "Know what you're paying for before you begin, with no unnecessary surprises.",
     left: 304,
     top: 423 - CARDS_Y_SHIFT,
     width: 375,
@@ -74,9 +74,9 @@ const cards = [
   },
   {
     Icon: Heart,
-    title: "Compassion",
+    title: "State-Specific Guidance",
     description:
-      "No one should feel judged for managing their health. All patients are treated with respect, privacy, and care from the very first step.",
+      "Get information relevant to the medical care requirements in your state.",
     left: 735,
     top: 429 - CARDS_Y_SHIFT,
     width: 375,
@@ -88,9 +88,9 @@ const cards = [
   },
   {
     Icon: Award,
-    title: "Experience",
+    title: "Clear Expectations",
     description:
-      "Behind every consultation is a team with years of experience across multiple states, focused on making the entire process clear and stress-free.",
+      "Understand the process, what to expect, and what your evaluation can and cannot determine.",
     left: 1164,
     top: 531 - CARDS_Y_SHIFT,
     width: 375,
@@ -559,9 +559,9 @@ function ValuesMobile() {
 
 export function ValuesSection() {
   return (
-    <>
+    <div id="what-we-stand-for" className="scroll-mt-10">
       <ValuesMobile />
       <ValuesDesktop />
-    </>
+    </div>
   );
 }

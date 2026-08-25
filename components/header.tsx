@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 const navLinks = [
-  { label: "Our Story", left: 395 - 79, width: 63 },
-  { label: "What we stand for", left: 531 - 79, width: 118 },
-  { label: "Our Standards", left: 723 - 79, width: 94 },
+  { label: "Our Story", href: "#our-story", left: 395 - 79, width: 63 },
+  { label: "What we stand for", href: "#what-we-stand-for", left: 531 - 79, width: 118 },
+  { label: "Our Standards", href: "#our-standards", left: 723 - 79, width: 94 },
 ];
 
 export function Header() {
@@ -18,8 +18,8 @@ export function Header() {
         {navLinks.map((link) => (
           <a
             key={link.label}
-            href="#"
-            className="absolute whitespace-nowrap text-sm font-medium leading-[22px] tracking-[-0.28px] text-muted-foreground"
+            href={link.href}
+            className="absolute whitespace-nowrap text-sm font-medium leading-[22px] tracking-[-0.28px] text-muted-foreground hover:text-primary transition-colors"
             style={{ left: link.left - (395 - 79), top: 0 }}
           >
             {link.label}

@@ -57,11 +57,11 @@ const SOIL = {
   height: SOIL_HEIGHT,
 };
 const CARD = { left: 148 - HERO_ROW.left, top: 402 - HERO_ORIG_TOP, width: 314, height: 155 };
-const WITH_GUIDED = { left: 744 - HERO_ROW.left, top: 402 - HERO_ORIG_TOP };
-const YOUR = { left: 266 - HERO_ROW.left, top: 263 - HERO_ORIG_TOP, width: 219, height: 155 };
+const WITH_GUIDED = { left: 695 - HERO_ROW.left, top: 402 - HERO_ORIG_TOP };
+const YOUR = { left: 266 - HERO_ROW.left - 160, top: 263 - HERO_ORIG_TOP, width: 380, height: 155 };
 const MARIJUANA = { left: 695 - HERO_ROW.left, top: 263 - HERO_ORIG_TOP, width: 633, height: 155 };
 const DESCRIPTION = { left: 133 - HERO_ROW.left, top: 561 - HERO_ORIG_TOP, width: 297 };
-const CARE = { left: 746 - HERO_ROW.left, top: 546 - HERO_ORIG_TOP };
+const CARE = { left: 695 - HERO_ROW.left, top: 520 - HERO_ORIG_TOP };
 
 function DesktopHero() {
   return (
@@ -117,16 +117,16 @@ function DesktopHero() {
           </div>
 
           <h1
-            className="pointer-events-none absolute text-right text-primary"
+            className="pointer-events-none absolute text-right text-primary whitespace-nowrap"
             style={{ ...YOUR, fontWeight: 800, fontSize: 100, lineHeight: "155px", letterSpacing: "-2px" }}
           >
-            Your
+            Get Your
           </h1>
           <h1
             className="pointer-events-none absolute whitespace-nowrap text-accent opacity-50"
             style={{ ...MARIJUANA, fontWeight: 800, fontSize: 110, lineHeight: "155px", letterSpacing: "-2.2px" }}
           >
-            MARIJUANA
+            MEDICAL
           </h1>
 
           <h1
@@ -146,7 +146,7 @@ function DesktopHero() {
               ...textGradient,
             }}
           >
-            With Guided
+            Online With
           </h1>
 
           <p
@@ -159,13 +159,12 @@ function DesktopHero() {
               letterSpacing: "-0.18px",
             }}
           >
-            MaryDoc connects you with licensed physicians in your state for
-            secure online medical marijuana evaluations, all from the comfort
-            of your home.
+            We connect you with a state-licensed physician in your state for a
+            HIPAA-compliant online evaluation.
           </p>
 
           <h1
-            className="pointer-events-none absolute"
+            className="pointer-events-none absolute whitespace-nowrap"
             style={{
               ...CARE,
               fontWeight: 800,
@@ -175,7 +174,7 @@ function DesktopHero() {
               ...textGradient,
             }}
           >
-            Care.
+            Guided Care.
           </h1>
         </div>
 

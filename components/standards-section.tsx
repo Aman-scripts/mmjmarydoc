@@ -29,7 +29,7 @@ const EXPAND_ALLOWANCE = 160;
 const standards = [
   {
     number: "01",
-    title: "Set The Bar High",
+    title: "Set the Bar High",
     answer:
       "We hold every part of the experience — from the evaluation to customer support — to a higher standard than typical telehealth platforms.",
   },
@@ -41,19 +41,19 @@ const standards = [
   },
   {
     number: "03",
-    title: "HIPAA Compliant",
+    title: "HIPAA-Compliant Care",
     answer:
       "Your medical information is handled under strict HIPAA-compliant security practices, kept private and confidential at every step.",
   },
   {
     number: "04",
-    title: "Same-Day Evaluation",
+    title: "Same-Day Evaluations",
     answer:
       "Most patients complete their evaluation and receive a decision the same day they apply, with no unnecessary waiting.",
   },
   {
     number: "05",
-    title: "Affordable Pricing",
+    title: "Transparent, Affordable Pricing",
     answer:
       "Transparent, flat-rate pricing with no hidden fees — you know exactly what you're paying before you start.",
   },
@@ -284,9 +284,9 @@ function StandardsMobile() {
 
 export function StandardsSection() {
   return (
-    <>
+    <div id="our-standards" className="scroll-mt-10">
       <StandardsMobile />
       <StandardsDesktop />
-    </>
+    </div>
   );
 }

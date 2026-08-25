@@ -28,21 +28,21 @@ const mobileGradient = {
 const steps = [
   {
     number: 1,
-    title: "Book Your Appointment",
+    title: "Book Your Evaluation",
     description:
-      "Provide your basic details and medical history through our HIPAA-compliant form. Schedule your consultation at your chosen time from the comfort of your home.",
+      "Select your state, provide your basic details, and choose a convenient date and time for your secure online medical evaluation.",
   },
   {
     number: 2,
-    title: "Consult with MMJ Doctor",
+    title: "Meet Your State-Licensed Doctor",
     description:
-      "Connect with our licensed MMJ Doctor via a video or audio call. The doctor will review your medical condition and determine eligibility under your state's medical cannabis program.",
+      "Connect with your doctor online via audio/video call and discuss your medical history, symptoms, and find out whether you may qualify for medical care.",
   },
   {
     number: 3,
-    title: "Receive Your Recommendation",
+    title: "Complete Your Registration",
     description:
-      "If approved, your MMJ recommendation is emailed within 24-48 hours, allowing you to buy medical cannabis from licensed dispensaries.",
+      "If approved by the doctor, follow your state's requirements to complete the registration process and receive your medical card.",
   },
 ];
 
@@ -137,15 +137,14 @@ function MobileProcessSection() {
             className="text-[#FAFAF8]"
             style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.75rem, 7vw, 2.5rem)", fontWeight: 700, letterSpacing: "-0.02em" }}
           >
-            <SeqChars>Three Simple Steps to Apply for Your</SeqChars>{" "}
-            <SeqChars>Medical Marijuana Card</SeqChars>
+            <SeqChars>How to Apply for Your</SeqChars>{" "}
+            <SeqChars>Medical Card?</SeqChars>
           </h2>
           <SeqLines
             className="text-[#DFF8EC]"
             style={{ fontFamily: "var(--font-sans)", fontSize: 18, lineHeight: "28px" }}
             lines={[
-              "You need to follow a three-step process designed to prioritize your convenience and care.",
-              "Every evaluation is conducted by a state-licensed MMJ doctor, giving you a reliable way to obtain your medical marijuana recommendation.",
+              "You can apply for a medical card in three simple steps:",
             ]}
           />
         </TextSequence>
@@ -325,7 +324,7 @@ function DesktopProcessSection() {
                   marginTop: 16,
                 }}
               >
-                Three Simple Steps to Apply for Your Medical Marijuana Card
+                How to Apply for Your Medical Card?
               </SeqChars>
               <SeqLines
                 className="mx-auto text-center text-[#DFF8EC]"
@@ -339,8 +338,7 @@ function DesktopProcessSection() {
                   maxWidth: 984,
                 }}
                 lines={[
-                  "You need to follow a three-step process designed to prioritize your convenience and care.",
-                  "Every evaluation is conducted by a state-licensed MMJ doctor, giving you a reliable way to obtain your medical marijuana recommendation.",
+                  "You can apply for a medical card in three simple steps:",
                 ]}
               />
             </TextSequence>

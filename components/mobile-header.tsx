@@ -12,14 +12,14 @@ const navItems = [
   },
   {
     label: "What we stand for",
-    href: "#",
+    href: "#what-we-stand-for",
     ariaLabel: "What we stand for",
     rotation: 6,
     hoverStyles: { bgColor: "#4C8C1A", textColor: "#ffffff" },
   },
   {
     label: "Our Standards",
-    href: "#",
+    href: "#our-standards",
     ariaLabel: "Our Standards",
     rotation: -6,
     hoverStyles: { bgColor: "#0E5A4D", textColor: "#ffffff" },
