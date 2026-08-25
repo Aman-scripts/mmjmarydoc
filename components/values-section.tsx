@@ -527,7 +527,7 @@ function ValuesMobile() {
     <section className="relative overflow-hidden bg-background px-4 py-14 sm:px-6 sm:py-16 lg:hidden">
       <div className="mx-auto flex max-w-lg flex-col items-center gap-6 text-center">
         <TextSequence className="w-full text-center">
-          <h2
+          <p
             className="text-primary"
             style={{
               fontFamily: "var(--font-sans)",
@@ -540,7 +540,7 @@ function ValuesMobile() {
             <SeqChars>Four things</SeqChars>{" "}
             <SeqChars>We Never Compromise</SeqChars>{" "}
             <SeqChars>On</SeqChars>
-          </h2>
+          </p>
         </TextSequence>
 
         {/* Carousel Slider with Infinite Forward/Backward Loop */}

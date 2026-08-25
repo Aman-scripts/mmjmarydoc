@@ -54,10 +54,10 @@ export const metadata: Metadata = {
     siteName: "MaryDoc",
     images: [
       {
-        url: "/cta-section.png",
+        url: "/features-section-center.png",
         width: 1200,
         height: 630,
-        alt: "Online Medical Card Evaluation | MaryDoc",
+        alt: "MaryDoc - Online Medical Marijuana Card Evaluation",
       },
     ],
     locale: "en_US",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     title: "Online Medical Card Evaluation | MaryDoc",
     description:
       "Complete a HIPAA-compliant online medical card evaluation with a state-licensed physician and guided support throughout the process.",
-    images: ["/cta-section.png"],
+    images: ["/features-section-center.png"],
     creator: "@marydoc",
   },
   alternates: {
