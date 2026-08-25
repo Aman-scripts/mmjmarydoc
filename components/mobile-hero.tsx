@@ -63,7 +63,7 @@ export function MobileHero() {
           <FacebookIcon className="h-3 w-3 text-muted-foreground" />
         </div>
 
-        <h1 className="flex flex-col items-center gap-1 px-4 text-center text-[26px] sm:text-[30px] font-extrabold leading-[40px] tracking-[-0.5px]">
+        <div aria-hidden="true" className="flex flex-col items-center gap-1 px-4 text-center text-[26px] sm:text-[30px] font-extrabold leading-[40px] tracking-[-0.5px]">
           <span className="flex flex-wrap items-baseline justify-center gap-x-2">
             <span className="text-primary">Get Your</span>
             <span className="whitespace-nowrap text-[30px] sm:text-[36px] leading-[40px] tracking-[-0.6px] text-accent opacity-50">
@@ -78,14 +78,14 @@ export function MobileHero() {
               Online
             </span>
             <span className="whitespace-nowrap" style={textGradient}>
-              With Guided Care.
+              Today
             </span>
           </span>
-        </h1>
+        </div>
       </div>
 
       <FigmaCanvas width={390} height={CANVAS_HEIGHT} className="mx-auto mt-4">
-        {}
+        { }
         <div
           className="pointer-events-none absolute"
           style={{
@@ -100,7 +100,7 @@ export function MobileHero() {
 
         <Image
           src="/soil_one.svg"
-          alt=""
+          alt="Decorative garden soil base"
           width={SOIL.width}
           height={SOIL.height}
           unoptimized
@@ -129,7 +129,7 @@ export function MobileHero() {
         </div>
       </FigmaCanvas>
 
-      {}
+      { }
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 h-1"

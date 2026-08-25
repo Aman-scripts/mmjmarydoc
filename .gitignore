@@ -40,5 +40,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# local scratch scripts
+.scratch-shot*.js
+shot[0-9]*.js
+.claude/
+AGENTS.md
+CLAUDE.md
+
 # local audit reports
 lighthouse*.json

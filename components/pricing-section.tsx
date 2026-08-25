@@ -6,7 +6,7 @@ import { TextSequence, SeqChars, SeqFade, SeqLines } from "@/components/text-seq
 import { RefreshCw, Check } from "lucide-react";
 
 function NewEvaluationIcon({ className }: { className?: string }) {
-  return <Image src="/newevaluation.svg" alt="" width={16} height={16} className={className} />;
+  return <Image src="/newevaluation.svg" alt="Medical evaluation icon" width={16} height={16} className={className} />;
 }
 
 
@@ -14,13 +14,10 @@ function NewEvaluationIcon({ className }: { className?: string }) {
 
 
 
-const TOP = 100;
-const BOTTOM = 100;
-
-
-
-
-const EXPAND_ALLOWANCE = 220;
+const TOP = 70;
+const BOTTOM = 110;
+const CARD_HEIGHT = 635;
+const CANVAS_HEIGHT = TOP + 204 + CARD_HEIGHT + BOTTOM;
 
 const plans = [
   {
@@ -58,7 +55,7 @@ const plans = [
 ];
 
 function PricingDesktop() {
-  const expandedPct = ((TOP + 536 + BOTTOM + EXPAND_ALLOWANCE) / 1440) * 100;
+  const expandedPct = (CANVAS_HEIGHT / 1440) * 100;
 
   return (
     <section
@@ -67,7 +64,7 @@ function PricingDesktop() {
     >
       <FigmaCanvas
         width={1440}
-        height={TOP + 536 + BOTTOM + EXPAND_ALLOWANCE}
+        height={CANVAS_HEIGHT}
         className="absolute inset-0 mx-auto"
       >
         <TextSequence className="absolute left-0 top-0 w-full" style={{ height: TOP + 180 }}>

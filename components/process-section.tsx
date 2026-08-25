@@ -6,7 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { FigmaCanvas } from "@/components/figma-canvas";
-import { MobileProcessCarousel } from "@/components/mobile-process-carousel";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { TextSequence, SeqChars, SeqFade, SeqLines } from "@/components/text-sequence";
 
 if (typeof window !== "undefined") {
@@ -77,65 +77,111 @@ function angleFor(i: number, active: number): number | null {
 }
 
 function MobileProcessSection() {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const pinRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
-  const [active, setActive] = useState(0);
+  const n = steps.length;
+  // Infinite looped slides: [last, ...steps, first]
+  const slides = [steps[n - 1], ...steps, steps[0]];
+  const [currentIndex, setCurrentIndex] = useState(1);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [withTransition, setWithTransition] = useState(true);
+  const startXRef = useRef<number | null>(null);
+  const startYRef = useRef<number | null>(null);
+  const isHorizontalSwipeRef = useRef<boolean | null>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const track = trackRef.current;
-      if (!track) return;
+  const active = ((currentIndex - 1) % n + n) % n;
 
-      const tween = gsap.to(track, {
-        xPercent: -(100 * (STEP_COUNT - 1)) / STEP_COUNT,
-        ease: "none",
-        scrollTrigger: {
-          trigger: wrapperRef.current,
-          
-          
-          
-          start: "top -50%",
-          end: `+=${(STEP_COUNT - 1) * window.innerHeight}`,
-          scrub: true,
-          pin: pinRef.current,
-          anticipatePin: 1,
-          onUpdate: (self) => {
-            setActive(Math.round(self.progress * (STEP_COUNT - 1)));
-          },
-          onToggle: (self) => {
-            document.body.classList.toggle("process-pinned", self.isActive);
-          },
-        },
-      });
-
-      scrollTriggerRef.current = tween.scrollTrigger ?? null;
-    }, wrapperRef);
-
-    return () => {
-      ctx.revert();
-      document.body.classList.remove("process-pinned");
-    };
-  }, []);
-
-  function scrollToIndex(index: number) {
-    const st = scrollTriggerRef.current;
-    if (!st) return;
-    const target = st.start + (st.end - st.start) * (index / (STEP_COUNT - 1));
-    gsap.to(window, { scrollTo: target, duration: 0.6, ease: "power2.out" });
+  function prevSlide() {
+    setWithTransition(true);
+    setCurrentIndex((prev) => prev - 1);
   }
 
+  function nextSlide() {
+    setWithTransition(true);
+    setCurrentIndex((prev) => prev + 1);
+  }
+
+  function goToSlide(targetIdx: number) {
+    setWithTransition(true);
+    setCurrentIndex(targetIdx + 1);
+  }
+
+  function handleTransitionEnd() {
+    if (currentIndex === 0) {
+      setWithTransition(false);
+      setCurrentIndex(n);
+    } else if (currentIndex === n + 1) {
+      setWithTransition(false);
+      setCurrentIndex(1);
+    }
+  }
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    startXRef.current = e.clientX;
+    startYRef.current = e.clientY;
+    isHorizontalSwipeRef.current = null;
+    setIsDragging(true);
+    setWithTransition(false);
+    setDragOffset(0);
+    try {
+      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    } catch (_) {}
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (startXRef.current === null || startYRef.current === null) return;
+    const diffX = e.clientX - startXRef.current;
+    const diffY = e.clientY - startYRef.current;
+
+    if (isHorizontalSwipeRef.current === null) {
+      if (Math.abs(diffX) > 6 || Math.abs(diffY) > 6) {
+        isHorizontalSwipeRef.current = Math.abs(diffX) > Math.abs(diffY);
+      }
+    }
+
+    if (isHorizontalSwipeRef.current) {
+      setDragOffset(diffX);
+    }
+  };
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (startXRef.current !== null && isHorizontalSwipeRef.current) {
+      const diffX = e.clientX - startXRef.current;
+      const minSwipeDistance = 35;
+      if (diffX < -minSwipeDistance) {
+        nextSlide();
+      } else if (diffX > minSwipeDistance) {
+        prevSlide();
+      } else {
+        setWithTransition(true);
+      }
+    } else {
+      setWithTransition(true);
+    }
+    setIsDragging(false);
+    setDragOffset(0);
+    startXRef.current = null;
+    startYRef.current = null;
+    isHorizontalSwipeRef.current = null;
+    try {
+      (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+    } catch (_) {}
+  };
+
   return (
-    <section className="relative w-full overflow-hidden lg:hidden" ref={wrapperRef}>
-      <div ref={pinRef} className="w-full px-5 py-16 sm:px-8" style={mobileGradient}>
+    <section className="relative w-full overflow-hidden lg:hidden">
+      <div className="w-full px-5 py-16 sm:px-8" style={mobileGradient}>
         <TextSequence className="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
           <SeqFade className="rounded-full bg-[#DFF8EC] px-6 py-2 text-base font-medium text-primary">
             Process
           </SeqFade>
           <h2
             className="text-[#FAFAF8]"
-            style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.75rem, 7vw, 2.5rem)", fontWeight: 700, letterSpacing: "-0.02em" }}
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "clamp(1.75rem, 7vw, 2.5rem)",
+              fontWeight: 700,
+              letterSpacing: "-0.02em",
+            }}
           >
             <SeqChars>How to Apply for Your</SeqChars>{" "}
             <SeqChars>Medical Card?</SeqChars>
@@ -149,15 +195,112 @@ function MobileProcessSection() {
           />
         </TextSequence>
 
-        <div className="relative mt-8">
-          {/* Full-width divider (Figma "Line 5") sitting behind the badge's
-              connector dot — a plain straight line, not an arc/ring. */}
+        {/* Carousel Slider with Infinite Forward/Backward Loop */}
+        <div
+          className="relative mt-8 w-full cursor-grab overflow-hidden select-none active:cursor-grabbing"
+          style={{ touchAction: "pan-y" }}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+        >
+          {/* Full-width divider behind badge */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 h-px bg-white"
+            className="pointer-events-none absolute inset-x-0 h-px bg-white/30"
             style={{ top: 91 }}
           />
-          <MobileProcessCarousel ref={trackRef} steps={steps} active={active} onDotClick={scrollToIndex} />
+
+          <div
+            className={`flex ${
+              withTransition && !isDragging
+                ? "transition-transform duration-500 ease-out"
+                : "transition-none"
+            }`}
+            style={{
+              transform: `translateX(calc(-${currentIndex * 100}% + ${dragOffset}px))`,
+            }}
+            onTransitionEnd={handleTransitionEnd}
+          >
+            {slides.map((step, i) => (
+              <div key={`${step.number}-${i}`} className="w-full shrink-0 px-1">
+                <div className="mx-auto flex max-w-xl flex-col items-center gap-4 p-6 text-center">
+                  <div className="flex flex-col items-center">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#DFF8EC] shadow-md">
+                      <span
+                        className="text-primary"
+                        style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 32, fontWeight: 700 }}
+                      >
+                        {step.number}
+                      </span>
+                    </div>
+                    <Image src="/point.svg" alt="Step indicator marker" width={12} height={12} className="mt-[15px]" />
+                    <Image
+                      src="/line.svg"
+                      alt="Step connector marker"
+                      width={1}
+                      height={40}
+                      className="mt-[10px]"
+                      style={{ width: 1, height: 40 }}
+                    />
+                  </div>
+                  <h3
+                    className="text-[#FAFAF8]"
+                    style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.5rem, 6vw, 2rem)", fontWeight: 700 }}
+                  >
+                    {step.title}
+                  </h3>
+                  <p className="text-[#DFF8EC]" style={{ fontFamily: "var(--font-sans)", fontSize: 18, lineHeight: "28px" }}>
+                    {step.description}
+                  </p>
+                  <a
+                    href="#book-consultation"
+                    className="mt-2 rounded-full bg-[#DFF8EC] px-9 py-2.5 text-base font-semibold text-primary shadow-md transition-transform active:scale-95"
+                  >
+                    Book My Consultation
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Controls: Arrows & Indicators */}
+        <div className="mt-4 flex items-center justify-center gap-4">
+          <button
+            type="button"
+            aria-label="Previous step"
+            onClick={prevSlide}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#DFF8EC] text-primary shadow-md transition-transform active:scale-95"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </button>
+
+          <div className="flex items-center gap-2">
+            {steps.map((step, index) => (
+              <button
+                key={step.number}
+                type="button"
+                aria-label={`Go to step ${step.number}`}
+                onClick={() => goToSlide(index)}
+                className="h-2 rounded-full transition-all"
+                style={{
+                  width: index === active ? 20 : 7,
+                  background:
+                    index === active ? "#DFF8EC" : "rgba(223, 248, 236, 0.35)",
+                }}
+              />
+            ))}
+          </div>
+
+          <button
+            type="button"
+            aria-label="Next step"
+            onClick={nextSlide}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#DFF8EC] text-primary shadow-md transition-transform active:scale-95"
+          >
+            <ArrowRight className="h-4 w-4" />
+          </button>
         </div>
       </div>
     </section>
@@ -297,7 +440,7 @@ function DesktopProcessSection() {
                 984x466 viewBox rather than relying on canvas-edge cropping. */}
             <Image
               src="/ellipse.svg"
-              alt=""
+              alt="Medical card application process arc"
               width={984}
               height={466}
               className="pointer-events-none absolute"
@@ -347,7 +490,7 @@ function DesktopProcessSection() {
                 dot sits exactly on the ring (angle 0, RING_RADIUS). */}
             <Image
               src="/point.svg"
-              alt=""
+              alt="Step indicator point"
               width={12}
               height={12}
               className="pointer-events-none absolute"
@@ -356,7 +499,7 @@ function DesktopProcessSection() {
             <Image
               ref={lineRef}
               src="/line.svg"
-              alt=""
+              alt="Step connector line"
               width={1}
               height={126}
               className="pointer-events-none absolute"

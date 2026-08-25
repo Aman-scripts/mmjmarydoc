@@ -65,10 +65,10 @@ const CARE = { left: 695 - HERO_ROW.left, top: 520 - HERO_ORIG_TOP };
 
 function DesktopHero() {
   return (
-    
-    
-    
-    
+
+
+
+
     <section className="relative" style={{ background: SOIL_COLOR }}>
       <FigmaCanvas
         width={1440}
@@ -77,7 +77,7 @@ function DesktopHero() {
       >
         <Header />
 
-        {}
+        { }
         <div
           className="pointer-events-none absolute"
           style={{
@@ -92,7 +92,7 @@ function DesktopHero() {
 
         <Image
           src="/soil_one.svg"
-          alt=""
+          alt="Decorative garden soil base"
           width={SOIL.width}
           height={SOIL.height}
           unoptimized
@@ -111,31 +111,32 @@ function DesktopHero() {
         <div
           className="absolute"
           style={{ left: HERO_ROW.left, top: HERO_ROW.top, width: HERO_ROW.width, height: HERO_ROW.height }}
+          aria-hidden="true"
         >
           <div className="absolute z-20" style={{ ...PLANT }}>
             <MagneticHeroPlant className="h-full w-full" />
           </div>
 
-          <h1
+          <span
             className="pointer-events-none absolute text-right text-primary whitespace-nowrap"
             style={{ ...YOUR, fontWeight: 800, fontSize: 100, lineHeight: "155px", letterSpacing: "-2px" }}
           >
             Get Your
-          </h1>
-          <h1
+          </span>
+          <span
             className="pointer-events-none absolute whitespace-nowrap text-accent opacity-50"
             style={{ ...MARIJUANA, fontWeight: 800, fontSize: 110, lineHeight: "155px", letterSpacing: "-2.2px" }}
           >
             MEDICAL
-          </h1>
+          </span>
 
-          <h1
+          <span
             className="pointer-events-none absolute text-right text-accent opacity-50"
             style={{ ...CARD, fontWeight: 800, fontSize: 110, lineHeight: "155px", letterSpacing: "-2.2px" }}
           >
             CARD
-          </h1>
-          <h1
+          </span>
+          <span
             className="pointer-events-none absolute whitespace-nowrap"
             style={{
               ...WITH_GUIDED,
@@ -146,8 +147,8 @@ function DesktopHero() {
               ...textGradient,
             }}
           >
-            Online With
-          </h1>
+            Online Today
+          </span>
 
           <p
             className="pointer-events-none absolute text-right text-muted-foreground"
@@ -162,20 +163,6 @@ function DesktopHero() {
             We connect you with a state-licensed physician in your state for a
             HIPAA-compliant online evaluation.
           </p>
-
-          <h1
-            className="pointer-events-none absolute whitespace-nowrap"
-            style={{
-              ...CARE,
-              fontWeight: 800,
-              fontSize: 100,
-              lineHeight: "120px",
-              letterSpacing: "-2px",
-              ...textGradient,
-            }}
-          >
-            Guided Care.
-          </h1>
         </div>
 
         <div
@@ -197,6 +184,7 @@ function DesktopHero() {
 export function Hero() {
   return (
     <>
+      <h1 className="sr-only">Get Your Medical Card Online With Guided Care</h1>
       <div className="lg:hidden">
         <MobileHero />
       </div>
