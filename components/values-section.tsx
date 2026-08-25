@@ -545,7 +545,7 @@ function ValuesMobile() {
 
         {/* Carousel Slider with Infinite Forward/Backward Loop */}
         <div
-          className="relative mt-2 w-full max-w-sm cursor-grab overflow-hidden select-none active:cursor-grabbing"
+          className="relative mt-2 w-full max-w-[420px] cursor-grab overflow-hidden select-none active:cursor-grabbing"
           style={{ touchAction: "pan-y" }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
@@ -565,41 +565,41 @@ function ValuesMobile() {
           >
             {slides.map((card, i) => (
               <div key={`${card.title}-${i}`} className="w-full shrink-0 px-1">
-                <div className="relative overflow-hidden rounded-[28px] bg-[#DFF8EC] p-6 text-left shadow-none sm:p-7">
-                  {/* Subtle Background Watermark Number */}
+                <div className="relative flex min-h-[250px] w-full flex-col justify-between overflow-hidden rounded-[30px] bg-[#DFF8EC] p-7 text-left shadow-none sm:min-h-[270px] sm:p-8">
+                  {/* Clearly visible watermark number in bottom-right corner */}
                   <span
-                    className="pointer-events-none absolute right-4 top-1 select-none"
+                    className="pointer-events-none absolute bottom-2 right-4 select-none leading-none"
                     style={{
                       fontFamily: "var(--font-space-grotesk)",
-                      fontSize: "clamp(3rem, 14vw, 4.5rem)",
+                      fontSize: "clamp(3.5rem, 16vw, 5.5rem)",
                       fontWeight: 700,
                       ...textGradient,
-                      opacity: 0.08,
+                      opacity: 0.22,
                     }}
                   >
                     {card.number}
                   </span>
                   <div className="relative z-10 flex flex-col gap-4">
-                    <div className="flex items-center gap-3.5">
+                    <div className="flex items-center gap-4">
                       <div
-                        className="flex h-14 w-14 min-h-14 min-w-14 shrink-0 aspect-square items-center justify-center rounded-full text-white"
+                        className="flex h-[60px] w-[60px] min-h-[60px] min-w-[60px] shrink-0 aspect-square items-center justify-center rounded-full text-white"
                         style={{
                           background: "var(--gradient-primary)",
                           flexShrink: 0,
-                          width: 56,
-                          height: 56,
-                          minWidth: 56,
-                          minHeight: 56,
+                          width: 60,
+                          height: 60,
+                          minWidth: 60,
+                          minHeight: 60,
                           aspectRatio: "1 / 1",
                         }}
                       >
-                        <card.Icon className="h-6 w-6 shrink-0" />
+                        <card.Icon className="h-7 w-7 shrink-0" />
                       </div>
-                      <span className="min-w-0 flex-1 pr-2 text-xl font-bold leading-tight text-primary">
+                      <span className="min-w-0 flex-1 text-[22px] font-bold leading-tight text-primary sm:text-2xl">
                         {card.title}
                       </span>
                     </div>
-                    <p className="text-base leading-relaxed text-muted-foreground">
+                    <p className="pr-10 text-base leading-[26px] text-muted-foreground sm:text-lg sm:leading-[28px]">
                       {card.description}
                     </p>
                   </div>
