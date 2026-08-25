@@ -455,9 +455,8 @@ function DesktopProcessSection() {
               >
                 Process
               </SeqFade>
-              <SeqChars
-                as="h2"
-                containerClassName="text-center text-[#FAFAF8]"
+              <h2
+                className="text-center text-[#FAFAF8]"
                 style={{
                   fontFamily: "var(--font-sans)",
                   fontSize: 48,
@@ -467,8 +466,9 @@ function DesktopProcessSection() {
                   marginTop: 16,
                 }}
               >
-                How to Apply for Your Medical Card?
-              </SeqChars>
+                <SeqChars>How to Apply for Your</SeqChars>{" "}
+                <SeqChars>Medical Card?</SeqChars>
+              </h2>
               <SeqLines
                 className="mx-auto text-center text-[#DFF8EC]"
                 style={{
