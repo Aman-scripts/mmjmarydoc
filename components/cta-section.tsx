@@ -88,8 +88,9 @@ function CtaDesktop() {
           src="/cta-new-section.png"
           alt="Doctor holding a phone with the MaryDoc medical marijuana card"
           fill
+          quality={95}
           className="select-none object-contain object-bottom"
-          sizes="60vw"
+          sizes="(max-width: 1280px) 50vw, 780px"
         />
       </RevealOnView>
     </div>
@@ -145,9 +146,11 @@ function CtaMobile() {
         <Image
           src="/cta-new-section.png"
           alt="Doctor holding a phone with the MaryDoc medical marijuana card"
-          width={780}
-          height={585}
+          width={1386}
+          height={1665}
+          quality={95}
           className="h-auto w-full select-none object-contain"
+          sizes="(max-width: 640px) 320px, (max-width: 1024px) 420px, 52vw"
         />
       </RevealOnView>
     </div>
