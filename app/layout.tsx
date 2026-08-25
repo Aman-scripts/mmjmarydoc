@@ -25,7 +25,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://marydoc.com"),
-  title: "Online Medical Card Evaluations With Licensed Physicians | MaryDoc",
+  title: "Online Medical Card Evaluation | MaryDoc",
   description:
     "Complete a HIPAA-compliant online medical card evaluation with a state-licensed physician and guided support throughout the process.",
   keywords: [
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   manifest: "/favicon/site.webmanifest",
   openGraph: {
-    title: "Online Medical Card Evaluations With Licensed Physicians | MaryDoc",
+    title: "Online Medical Card Evaluation | MaryDoc",
     description:
       "Complete a HIPAA-compliant online medical card evaluation with a state-licensed physician and guided support throughout the process.",
     url: "https://marydoc.com",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
         url: "/cta-section.png",
         width: 1200,
         height: 630,
-        alt: "Online Medical Card Evaluations With Licensed Physicians | MaryDoc",
+        alt: "Online Medical Card Evaluation | MaryDoc",
       },
     ],
     locale: "en_US",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Online Medical Card Evaluations With Licensed Physicians | MaryDoc",
+    title: "Online Medical Card Evaluation | MaryDoc",
     description:
       "Complete a HIPAA-compliant online medical card evaluation with a state-licensed physician and guided support throughout the process.",
     images: ["/cta-section.png"],
