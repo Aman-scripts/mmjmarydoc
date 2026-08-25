@@ -104,7 +104,7 @@ function CtaMobile() {
     >
       <div className="relative z-10 flex w-full max-w-xl shrink-0 flex-col items-start gap-4 sm:gap-5 md:gap-6 lg:w-[42%] lg:max-w-none">
         <TextSequence className="flex w-full flex-col items-start gap-3 sm:gap-4 md:gap-5">
-          <h2
+          <p
             style={{
               fontFamily: "var(--font-sans)",
               fontWeight: 700,
@@ -117,7 +117,7 @@ function CtaMobile() {
             <SeqChars>Access Your Medical</SeqChars>
             <br />
             <SeqChars>Card Today</SeqChars>
-          </h2>
+          </p>
 
           <SeqLines
             className="w-full max-w-md"

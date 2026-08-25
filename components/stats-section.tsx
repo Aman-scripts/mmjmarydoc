@@ -198,7 +198,7 @@ export function StatsSection() {
         <div className="w-full">
           <div className="px-5 sm:px-8 lg:hidden">
             <FigmaCanvas width={358} height={417} className="mx-auto">
-              <h2
+              <p
                 className="absolute text-left"
                 style={{
                   left: 0,
@@ -215,7 +215,7 @@ export function StatsSection() {
               >
                 <ScrollFloat as="span">Care You Can</ScrollFloat>{" "}
                 <ScrollFloat as="span">Trust</ScrollFloat>
-              </h2>
+              </p>
 
               {MOBILE_STATS.map((stat, i) => (
                 <div key={stat.number}>

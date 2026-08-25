@@ -215,7 +215,7 @@ function StandardsMobile() {
         <div className="flex items-center gap-3">
           <Image src="/faq-section-top.webp" alt="MaryDoc standards leaf emblem" width={38} height={27} className="shrink-0" />
           <TextSequence>
-            <h2
+            <p
               className="text-center text-primary"
               style={{
                 fontFamily: "var(--font-sans)",
@@ -227,7 +227,7 @@ function StandardsMobile() {
             >
               <SeqChars>Our</SeqChars>{" "}
               <SeqChars>Standards</SeqChars>
-            </h2>
+            </p>
           </TextSequence>
           <Image src="/faq-section-top.webp" alt="MaryDoc standards leaf emblem" width={38} height={27} className="shrink-0 -scale-x-100" />
         </div>

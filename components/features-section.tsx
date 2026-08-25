@@ -324,7 +324,7 @@ function FeaturesMobile() {
     >
       <div className="mx-auto flex max-w-xl flex-col gap-8">
         <TextSequence>
-          <h2
+          <p
             className="text-center text-primary"
             style={{
               fontFamily: "var(--font-sans)",
@@ -337,7 +337,7 @@ function FeaturesMobile() {
             <SeqChars>Why Do Patients</SeqChars>
             <br />
             <SeqChars>Consider Medical Care?</SeqChars>
-          </h2>
+          </p>
         </TextSequence>
 
         <div ref={collageRef} className="relative mt-4">
