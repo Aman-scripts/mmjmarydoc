@@ -37,10 +37,10 @@ export const MobileProcessCarousel = forwardRef<HTMLDivElement, Props>(function 
                       {step.number}
                     </span>
                   </div>
-                  <Image src="/point.svg" alt="" width={12} height={12} className="mt-[15px]" />
+                  <Image src="/point.svg" alt="Step indicator marker" width={12} height={12} className="mt-[15px]" />
                   <Image
                     src="/line.svg"
-                    alt=""
+                    alt="Step connector marker"
                     width={1}
                     height={40}
                     className="mt-[10px]"

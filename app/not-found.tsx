@@ -17,21 +17,21 @@ export default function NotFound() {
       <div className="pointer-events-none absolute -bottom-32 -right-16 h-80 w-80 rounded-full bg-[#F4A261]/30 blur-3xl" />
       <Image
         src="/small_leaf.webp"
-        alt=""
+        alt="Decorative leaf"
         width={91}
         height={96}
         className="pointer-events-none absolute left-[6%] top-[6%] hidden opacity-60 sm:left-[14%] sm:block"
       />
       <Image
         src="/small_leaf.webp"
-        alt=""
+        alt="Decorative leaf"
         width={70}
         height={74}
         className="pointer-events-none absolute bottom-[6%] right-[6%] hidden rotate-45 opacity-50 sm:right-[16%] sm:block"
       />
 
       <Link href="/" className="relative flex items-center">
-        <Image src="/logo_marydoc.svg" alt="Marydoc" width={141} height={46} />
+        <Image src="/logo_marydoc.svg" alt="MaryDoc - Medical Marijuana Card Evaluations" width={141} height={46} />
       </Link>
 
       <div className="relative flex scale-50 flex-col items-center justify-center gap-2 sm:scale-75 md:scale-100">

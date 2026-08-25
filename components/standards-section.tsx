@@ -158,13 +158,13 @@ function StandardsDesktop() {
           className="pointer-events-none absolute"
           style={{ left: 113, top: TOP + 82, width: 150, height: 106 }}
         >
-          <Image src="/faq-section-top.webp" alt="" fill className="object-contain" sizes="150px" />
+          <Image src="/faq-section-top.webp" alt="MaryDoc standards leaf emblem" fill className="object-contain" sizes="150px" />
         </div>
         <div
           className="pointer-events-none absolute -scale-x-100"
           style={{ left: 1177, top: TOP + 82, width: 150, height: 106 }}
         >
-          <Image src="/faq-section-top.webp" alt="" fill className="object-contain" sizes="150px" />
+          <Image src="/faq-section-top.webp" alt="MaryDoc standards leaf emblem" fill className="object-contain" sizes="150px" />
         </div>
 
         <TextSequence
@@ -213,7 +213,7 @@ function StandardsMobile() {
     <section className="relative overflow-hidden bg-white px-5 py-16 sm:px-8 lg:hidden">
       <div className="mx-auto flex max-w-xl flex-col items-center gap-10">
         <div className="flex items-center gap-3">
-          <Image src="/faq-section-top.webp" alt="" width={38} height={27} className="shrink-0" />
+          <Image src="/faq-section-top.webp" alt="MaryDoc standards leaf emblem" width={38} height={27} className="shrink-0" />
           <TextSequence>
             <h2
               className="text-center text-primary"
@@ -229,7 +229,7 @@ function StandardsMobile() {
               <SeqChars>Standards</SeqChars>
             </h2>
           </TextSequence>
-          <Image src="/faq-section-top.webp" alt="" width={38} height={27} className="shrink-0 -scale-x-100" />
+          <Image src="/faq-section-top.webp" alt="MaryDoc standards leaf emblem" width={38} height={27} className="shrink-0 -scale-x-100" />
         </div>
 
         <div className="flex w-full flex-col">

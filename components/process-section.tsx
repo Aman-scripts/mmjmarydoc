@@ -297,7 +297,7 @@ function DesktopProcessSection() {
                 984x466 viewBox rather than relying on canvas-edge cropping. */}
             <Image
               src="/ellipse.svg"
-              alt=""
+              alt="Medical card application process arc"
               width={984}
               height={466}
               className="pointer-events-none absolute"
@@ -324,7 +324,7 @@ function DesktopProcessSection() {
                   marginTop: 16,
                 }}
               >
-                How to Apply for Your Medical Card?
+                Three Simple Steps to Apply for Your Medical Marijuana Card
               </SeqChars>
               <SeqLines
                 className="mx-auto text-center text-[#DFF8EC]"
@@ -338,7 +338,8 @@ function DesktopProcessSection() {
                   maxWidth: 984,
                 }}
                 lines={[
-                  "You can apply for a medical card in three simple steps:",
+                  "You need to follow a three-step process designed to prioritize your convenience and care.",
+                  "Every evaluation is conducted by a state-licensed MMJ doctor, giving you a reliable way to obtain your medical marijuana recommendation.",
                 ]}
               />
             </TextSequence>
@@ -347,7 +348,7 @@ function DesktopProcessSection() {
                 dot sits exactly on the ring (angle 0, RING_RADIUS). */}
             <Image
               src="/point.svg"
-              alt=""
+              alt="Step indicator point"
               width={12}
               height={12}
               className="pointer-events-none absolute"
@@ -356,7 +357,7 @@ function DesktopProcessSection() {
             <Image
               ref={lineRef}
               src="/line.svg"
-              alt=""
+              alt="Step connector line"
               width={1}
               height={126}
               className="pointer-events-none absolute"
