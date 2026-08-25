@@ -31,7 +31,7 @@ const standards = [
     number: "01",
     title: "Set the Bar High",
     answer:
-      "We hold every part of the experience — from the evaluation to customer support — to a higher standard than typical telehealth platforms.",
+      "We hold every part of the experience, from the evaluation to customer support, to a higher standard than typical telehealth platforms.",
   },
   {
     number: "02",
@@ -55,13 +55,13 @@ const standards = [
     number: "05",
     title: "Transparent, Affordable Pricing",
     answer:
-      "Transparent, flat-rate pricing with no hidden fees — you know exactly what you're paying before you start.",
+      "Transparent, flat-rate pricing with no hidden fees, so you know exactly what you're paying before you start.",
   },
   {
     number: "06",
     title: "Money-Back Guarantee",
     answer:
-      "If you're not approved, you don't pay full price — we stand behind every evaluation with a money-back guarantee.",
+      "If you're not approved, you don't pay full price. We stand behind every evaluation with a money-back guarantee.",
   },
   {
     number: "07",
@@ -73,7 +73,7 @@ const standards = [
     number: "08",
     title: "Ongoing Support",
     answer:
-      "We stay with you beyond the first visit — renewals, follow-ups, and guidance are always just a message away.",
+      "We stay with you beyond the first visit. Renewals, follow-ups, and guidance are always just a message away.",
   },
 ];
 

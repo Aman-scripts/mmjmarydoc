@@ -22,7 +22,7 @@ const reviews = [
     time: "8 months ago",
   },
   {
-    text: "Friendly, professional, and fast. No judgment, no awkward waiting rooms — just a real conversation with a licensed doctor who took my condition seriously.",
+    text: "Friendly, professional, and fast. No judgment, no awkward waiting rooms, just a real conversation with a licensed doctor who took my condition seriously.",
     name: "David Okafor",
     time: "3 months ago",
   },
