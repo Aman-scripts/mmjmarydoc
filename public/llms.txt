@@ -5,3 +5,4 @@
 ## Home
 
 - [Home](https://marydoc.com/): Get a medical marijuana card online through a HIPAA-compliant evaluation with a state-licensed physician.
+- [XML Sitemap](https://marydoc.com/sitemap.xml)
