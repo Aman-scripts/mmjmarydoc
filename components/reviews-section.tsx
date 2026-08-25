@@ -434,7 +434,7 @@ function ReviewsDesktop() {
                     className={`h-full w-full ${inRow ? "cursor-pointer" : isCenter ? "" : "pointer-events-none"}`}
                   >
                     {expanded ? (
-                      <ReviewFace review={review} featured={isCenter} />
+                      <ReviewFace review={review} featured={reviewIdx === 0} />
                     ) : isCenter ? (
                       <FrontCard
                         style={{ left: 0, top: 0, width: "100%", height: "100%" }}
