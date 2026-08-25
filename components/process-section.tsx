@@ -93,9 +93,9 @@ function MobileProcessSection() {
         ease: "none",
         scrollTrigger: {
           trigger: wrapperRef.current,
-          
-          
-          
+
+
+
           start: "top -50%",
           end: `+=${(STEP_COUNT - 1) * window.innerHeight}`,
           scrub: true,
@@ -324,7 +324,7 @@ function DesktopProcessSection() {
                   marginTop: 16,
                 }}
               >
-                Three Simple Steps to Apply for Your Medical Marijuana Card
+                How to Apply for Your Medical Card?
               </SeqChars>
               <SeqLines
                 className="mx-auto text-center text-[#DFF8EC]"
@@ -338,8 +338,7 @@ function DesktopProcessSection() {
                   maxWidth: 984,
                 }}
                 lines={[
-                  "You need to follow a three-step process designed to prioritize your convenience and care.",
-                  "Every evaluation is conducted by a state-licensed MMJ doctor, giving you a reliable way to obtain your medical marijuana recommendation.",
+                  "You can apply for a medical card in three simple steps:",
                 ]}
               />
             </TextSequence>
