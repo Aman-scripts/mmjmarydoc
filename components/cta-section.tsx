@@ -85,11 +85,12 @@ function CtaDesktop() {
         style={{ left: "37.62%", top: "-40.24%", width: "60.62%", height: "140.24%" }}
       >
         <Image
-          src="/cta-section.png"
+          src="/cta-new-section.png"
           alt="Doctor holding a phone with the MaryDoc medical marijuana card"
           fill
+          quality={95}
           className="select-none object-contain object-bottom"
-          sizes="60vw"
+          sizes="(max-width: 1280px) 50vw, 780px"
         />
       </RevealOnView>
     </div>
@@ -104,7 +105,7 @@ function CtaMobile() {
     >
       <div className="relative z-10 flex w-full max-w-xl shrink-0 flex-col items-start gap-4 sm:gap-5 md:gap-6 lg:w-[42%] lg:max-w-none">
         <TextSequence className="flex w-full flex-col items-start gap-3 sm:gap-4 md:gap-5">
-          <h2
+          <p
             style={{
               fontFamily: "var(--font-sans)",
               fontWeight: 700,
@@ -117,7 +118,7 @@ function CtaMobile() {
             <SeqChars>Access Your Medical</SeqChars>
             <br />
             <SeqChars>Card Today</SeqChars>
-          </h2>
+          </p>
 
           <SeqLines
             className="w-full max-w-md"
@@ -143,11 +144,13 @@ function CtaMobile() {
         className="relative z-10 -mb-9 mt-6 w-full max-w-[320px] shrink-0 sm:max-w-[420px] md:-mb-12 lg:mt-0 lg:w-[52%] lg:max-w-none lg:self-end"
       >
         <Image
-          src="/cta-section.png"
+          src="/cta-new-section.png"
           alt="Doctor holding a phone with the MaryDoc medical marijuana card"
-          width={780}
-          height={585}
+          width={1386}
+          height={1665}
+          quality={95}
           className="h-auto w-full select-none object-contain"
+          sizes="(max-width: 640px) 320px, (max-width: 1024px) 420px, 52vw"
         />
       </RevealOnView>
     </div>

@@ -12,6 +12,13 @@ export function JsonLd() {
         "description":
           "MaryDoc connects patients with licensed physicians for HIPAA-compliant online medical marijuana card evaluations.",
         "inLanguage": "en-US",
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "@id": "https://marydoc.com/#primaryimage",
+          "url": "https://marydoc.com/features-section-center.png",
+          "contentUrl": "https://marydoc.com/features-section-center.png",
+          "caption": "MaryDoc Online Medical Marijuana Card Evaluation",
+        },
         "publisher": {
           "@id": "https://marydoc.com/#organization",
         },
@@ -35,7 +42,7 @@ export function JsonLd() {
         "alternateName": "MaryDoc Telehealth",
         "url": "https://marydoc.com/",
         "logo": "https://marydoc.com/marydoc-logo.webp",
-        "image": "https://marydoc.com/cta-section.png",
+        "image": "https://marydoc.com/features-section-center.png",
         "description":
           "MaryDoc connects patients with licensed physicians for HIPAA-compliant online medical marijuana card evaluations.",
         "medicalSpecialty": "Telemedicine",

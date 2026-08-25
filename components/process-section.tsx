@@ -174,7 +174,7 @@ function MobileProcessSection() {
           <SeqFade className="rounded-full bg-[#DFF8EC] px-6 py-2 text-base font-medium text-primary">
             Process
           </SeqFade>
-          <h2
+          <p
             className="text-[#FAFAF8]"
             style={{
               fontFamily: "var(--font-sans)",
@@ -185,7 +185,7 @@ function MobileProcessSection() {
           >
             <SeqChars>How to Apply for Your</SeqChars>{" "}
             <SeqChars>Medical Card?</SeqChars>
-          </h2>
+          </p>
           <SeqLines
             className="text-[#DFF8EC]"
             style={{ fontFamily: "var(--font-sans)", fontSize: 18, lineHeight: "28px" }}
@@ -244,12 +244,12 @@ function MobileProcessSection() {
                       style={{ width: 1, height: 40 }}
                     />
                   </div>
-                  <h3
+                  <p
                     className="text-[#FAFAF8]"
                     style={{ fontFamily: "var(--font-sans)", fontSize: "clamp(1.5rem, 6vw, 2rem)", fontWeight: 700 }}
                   >
                     {step.title}
-                  </h3>
+                  </p>
                   <p className="text-[#DFF8EC]" style={{ fontFamily: "var(--font-sans)", fontSize: 18, lineHeight: "28px" }}>
                     {step.description}
                   </p>

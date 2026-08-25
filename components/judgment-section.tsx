@@ -98,7 +98,7 @@ function JudgmentMobile() {
     >
       <div className="mx-auto flex max-w-xl flex-col items-center gap-6 text-center">
         <TextSequence>
-          <h2
+          <p
             className="text-primary"
             style={{
               fontFamily: "var(--font-sans)",
@@ -111,7 +111,7 @@ function JudgmentMobile() {
             <SeqChars>Your Journey Starts</SeqChars>
             <br />
             <SeqChars>With Better Guidance</SeqChars>
-          </h2>
+          </p>
         </TextSequence>
 
         <RevealOnView className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[30px]">

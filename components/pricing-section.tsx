@@ -185,7 +185,7 @@ function PricingCard({ plan }: { plan: (typeof plans)[number] }) {
       </div>
 
       <div className="mt-5 flex flex-col gap-1">
-        <h3 className="text-lg font-semibold text-accent sm:text-xl">{plan.title}</h3>
+        <p className="text-lg font-semibold text-accent sm:text-xl">{plan.title}</p>
         <p className="text-sm font-medium text-muted-foreground sm:text-base">{plan.description}</p>
       </div>
 
@@ -231,7 +231,7 @@ function PricingMobile() {
           <SeqFade className="rounded-full bg-[#DFF8EC] px-6 py-2 text-base font-medium text-primary">
             Pricing
           </SeqFade>
-          <h2
+          <p
             className="text-primary"
             style={{
               fontFamily: "var(--font-sans)",
@@ -242,7 +242,7 @@ function PricingMobile() {
             }}
           >
             <SeqChars>Your Next Step Starts Here</SeqChars>
-          </h2>
+          </p>
           <SeqLines
             className="text-base text-muted-foreground sm:text-lg"
             lines={[

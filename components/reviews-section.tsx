@@ -661,7 +661,7 @@ function ReviewsMobile() {
           <SeqFade className="rounded-full bg-[#DFF8EC] px-5 py-1.5 text-sm font-medium text-primary">
             Reviews
           </SeqFade>
-          <h2
+          <p
             className="text-primary"
             style={{
               fontFamily: "var(--font-sans)",
@@ -673,7 +673,7 @@ function ReviewsMobile() {
           >
             <SeqChars>Hear From</SeqChars>{" "}
             <SeqChars>Our Patients</SeqChars>
-          </h2>
+          </p>
           <SeqLines
             className="text-sm text-muted-foreground sm:text-base"
             lines={[
