@@ -1,0 +1,24 @@
+# MaryDoc
+
+> MaryDoc connects patients with licensed physicians for HIPAA-compliant online medical marijuana card evaluations and renewals.
+
+## About MaryDoc
+MaryDoc is a physician-led telehealth platform designed to make medical cannabis card evaluations fast, private, and fully compliant with state regulations. Patients can complete an initial evaluation questionnaire, meet virtually with a state-licensed doctor, and obtain an official medical marijuana certificate or renewal.
+
+## Key Features & Highlights
+- **100% Online & HIPAA-Compliant**: Secure telehealth consultations with licensed medical doctors from the comfort of home.
+- **Fast Consultations**: Online evaluations typically take 10 to 15 minutes.
+- **Money-Back Guarantee**: 100% full refund if a patient is not approved by the physician.
+- **State-Specific Compliance**: Medical recommendations tailored to each state's legal framework.
+- **Transparent Pricing**: Straightforward pricing starting at $149 for new evaluations and $129 for renewals with no hidden surprise fees.
+
+## Process
+1. **Book Your Evaluation**: Select your state, provide basic medical details, and schedule a convenient telehealth appointment.
+2. **Meet Your Licensed Doctor**: Connect via secure video/audio with a state-licensed physician to evaluate medical conditions and history.
+3. **Receive Medical Recommendation**: Upon physician approval, receive your digital certificate and official instructions to complete state registry.
+
+## Contact & Links
+- Website: https://marydoc.com/
+- Logo: https://marydoc.com/marydoc-logo.webp
+- Evaluation Booking: https://marydoc.com/#book-consultation
+- Support: support@marydoc.com
