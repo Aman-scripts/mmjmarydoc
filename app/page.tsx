@@ -1,72 +1,30 @@
-import dynamic from "next/dynamic";
 import { Hero } from "@/components/hero";
-import { LazyMount } from "@/components/lazy-mount";
+import { StatsSection } from "@/components/stats-section";
+import { ProcessSection } from "@/components/process-section";
+import { FeaturesSection } from "@/components/features-section";
+import { ValuesSection } from "@/components/values-section";
+import { JudgmentSection } from "@/components/judgment-section";
+import { PricingSection } from "@/components/pricing-section";
+import { StandardsSection } from "@/components/standards-section";
+import { ReviewsSection } from "@/components/reviews-section";
+import { CtaSection } from "@/components/cta-section";
+import { FooterSection } from "@/components/footer-section";
 import { ScrollFab } from "@/components/scroll-fab";
-
-const StatsSection = dynamic(
-  () => import("@/components/stats-section").then((m) => ({ default: m.StatsSection })),
-  { ssr: true }
-);
-const ProcessSection = dynamic(() =>
-  import("@/components/process-section").then((m) => ({ default: m.ProcessSection }))
-);
-const FeaturesSection = dynamic(() =>
-  import("@/components/features-section").then((m) => ({ default: m.FeaturesSection }))
-);
-const ValuesSection = dynamic(() =>
-  import("@/components/values-section").then((m) => ({ default: m.ValuesSection }))
-);
-const JudgmentSection = dynamic(() =>
-  import("@/components/judgment-section").then((m) => ({ default: m.JudgmentSection }))
-);
-const PricingSection = dynamic(() =>
-  import("@/components/pricing-section").then((m) => ({ default: m.PricingSection }))
-);
-const StandardsSection = dynamic(() =>
-  import("@/components/standards-section").then((m) => ({ default: m.StandardsSection }))
-);
-const ReviewsSection = dynamic(() =>
-  import("@/components/reviews-section").then((m) => ({ default: m.ReviewsSection }))
-);
-const CtaSection = dynamic(() =>
-  import("@/components/cta-section").then((m) => ({ default: m.CtaSection }))
-);
-const FooterSection = dynamic(() =>
-  import("@/components/footer-section").then((m) => ({ default: m.FooterSection }))
-);
 
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
       <Hero />
       <StatsSection />
-      <LazyMount rootMargin="500px 0px" minHeight="220vh">
-        <ProcessSection />
-      </LazyMount>
-      <LazyMount rootMargin="80px 0px" minHeight={800}>
-        <FeaturesSection />
-      </LazyMount>
-      <LazyMount rootMargin="300px 0px" minHeight="300vh">
-        <ValuesSection />
-      </LazyMount>
-      <LazyMount rootMargin="80px 0px" minHeight={640}>
-        <JudgmentSection />
-      </LazyMount>
-      <LazyMount rootMargin="80px 0px" minHeight={640}>
-        <PricingSection />
-      </LazyMount>
-      <LazyMount rootMargin="80px 0px" minHeight={720}>
-        <StandardsSection />
-      </LazyMount>
-      <LazyMount rootMargin="80px 0px" minHeight={640}>
-        <ReviewsSection />
-      </LazyMount>
-      <LazyMount rootMargin="80px 0px" minHeight={320}>
-        <CtaSection />
-      </LazyMount>
-      <LazyMount rootMargin="80px 0px" minHeight={280}>
-        <FooterSection />
-      </LazyMount>
+      <ProcessSection />
+      <FeaturesSection />
+      <ValuesSection />
+      <JudgmentSection />
+      <PricingSection />
+      <StandardsSection />
+      <ReviewsSection />
+      <CtaSection />
+      <FooterSection />
       <ScrollFab />
     </div>
   );
