@@ -380,14 +380,14 @@ function ValuesDesktop() {
             >
               <div className="flex items-center gap-4">
                 <div
-                  className="flex h-[72px] w-[72px] items-center justify-center rounded-full text-white"
-                  style={{ background: "var(--gradient-primary)" }}
+                  className="flex h-[72px] w-[72px] min-h-[72px] min-w-[72px] shrink-0 aspect-square items-center justify-center rounded-full text-white"
+                  style={{ background: "var(--gradient-primary)", flexShrink: 0, width: 72, height: 72, minWidth: 72, minHeight: 72, aspectRatio: "1 / 1" }}
                 >
-                  <card.Icon className="h-8 w-8" />
+                  <card.Icon className="h-8 w-8 shrink-0" />
                 </div>
                 <span
-                  className="text-primary"
-                  style={{ fontFamily: "var(--font-sans)", fontSize: 32, fontWeight: 600, letterSpacing: "-0.64px" }}
+                  className="min-w-0 flex-1 text-primary leading-[1.2]"
+                  style={{ fontFamily: "var(--font-sans)", fontSize: 26, fontWeight: 600, letterSpacing: "-0.52px" }}
                 >
                   {card.title}
                 </span>
@@ -522,12 +522,12 @@ function ValuesMobile() {
                       <div className="relative flex flex-col gap-4">
                         <div className="flex items-center gap-4">
                           <div
-                            className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full text-white"
-                            style={{ background: "var(--gradient-primary)" }}
+                            className="flex h-14 w-14 min-h-14 min-w-14 shrink-0 aspect-square items-center justify-center rounded-full text-white"
+                            style={{ background: "var(--gradient-primary)", flexShrink: 0, width: 56, height: 56, minWidth: 56, minHeight: 56, aspectRatio: "1 / 1" }}
                           >
-                            <card.Icon className="h-6 w-6" />
+                            <card.Icon className="h-6 w-6 shrink-0" />
                           </div>
-                          <span className="text-2xl font-semibold text-primary">{card.title}</span>
+                          <span className="min-w-0 flex-1 text-2xl font-semibold leading-tight text-primary">{card.title}</span>
                         </div>
                         <p className="text-lg leading-relaxed text-muted-foreground">{card.description}</p>
                       </div>
