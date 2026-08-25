@@ -70,10 +70,9 @@ function prefersReducedMotion() {
     window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
 }
-
 function PeekFace() {
   return (
-    <div className="absolute inset-0 overflow-hidden rounded-[30px] bg-primary shadow-lg">
+    <div className="absolute inset-0 overflow-hidden rounded-[30px] bg-primary">
       <Image
         src="/quote.svg"
         alt="Quotation mark"
@@ -96,7 +95,7 @@ function ReviewFace({
   return (
     <div
       data-review-face
-      className="absolute inset-0 flex flex-col overflow-hidden rounded-[30px] shadow-xl"
+      className="absolute inset-0 flex flex-col overflow-hidden rounded-[30px]"
       style={{
         background: featured ? "#DFF8EC" : "#0E5A4D",
         transition:
@@ -106,25 +105,25 @@ function ReviewFace({
       <Image
         src="/quote.svg"
         alt="Quotation mark"
-        width={120}
-        height={119}
-        className="absolute opacity-90"
-        style={{ right: 16, top: 0 }}
+        width={90}
+        height={89}
+        className="pointer-events-none absolute opacity-30 select-none"
+        style={{ right: 24, top: 20 }}
       />
       <Image
         src="/google.webp"
         alt="Google"
-        width={44}
-        height={44}
+        width={42}
+        height={42}
         className="relative z-10"
-        style={{ marginLeft: 32, marginTop: 56 }}
+        style={{ marginLeft: 32, marginTop: 44, marginBottom: 20 }}
       />
       <p
         className="relative z-10 line-clamp-6 text-left"
         style={{
           marginLeft: 32,
           marginRight: 32,
-          marginTop: 18,
+          marginTop: 0,
           fontSize: 16,
           lineHeight: "26px",
           letterSpacing: "-0.32px",
@@ -139,7 +138,7 @@ function ReviewFace({
         className="relative z-10 mt-auto inline-flex w-fit items-center justify-center rounded-full border text-sm font-semibold"
         style={{
           marginLeft: 32,
-          marginBottom: 10,
+          marginBottom: 14,
           padding: "7px 24px",
           borderColor: featured ? "var(--primary)" : "rgba(255,255,255,0.5)",
           color: featured ? "var(--primary)" : "#fff",
@@ -150,22 +149,11 @@ function ReviewFace({
         Read More
       </a>
       <div
-        className="relative z-10"
-        style={{
-          marginLeft: 32,
-          marginRight: 32,
-          height: 1,
-          background: featured ? "var(--border)" : "rgba(255,255,255,0.2)",
-          transition: "background-color 0.45s ease",
-        }}
-      />
-      <div
         className="relative z-10 flex items-center gap-3"
         style={{
           marginLeft: 32,
           marginRight: 32,
-          marginTop: 14,
-          marginBottom: 22,
+          marginBottom: 24,
         }}
       >
         <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-white/15">
@@ -196,7 +184,6 @@ function ReviewFace({
   );
 }
 
-
 function FrontCard({
   style,
   review,
@@ -205,33 +192,33 @@ function FrontCard({
   review: (typeof reviews)[number];
 }) {
   return (
-    <div className="absolute overflow-hidden rounded-[30px] bg-[#DFF8EC] shadow-xl" style={style}>
+    <div className="absolute overflow-hidden rounded-[30px] bg-[#DFF8EC]" style={style}>
       <Image
         src="/quote.svg"
         alt="Quotation mark"
-        width={140}
-        height={139}
-        className="absolute"
-        style={{ left: 188, top: 0 }}
+        width={100}
+        height={99}
+        className="pointer-events-none absolute opacity-30 select-none"
+        style={{ right: 24, top: 20 }}
       />
       <Image
         src="/google.webp"
         alt="Google"
-        width={52}
-        height={52}
+        width={48}
+        height={48}
         className="absolute"
-        style={{ left: 40, top: 72 }}
+        style={{ left: 40, top: 48 }}
       />
       <p
-        className="absolute text-muted-foreground"
+        className="absolute text-muted-foreground text-left"
         style={{
           left: 40,
-          top: 148,
+          top: 120,
           width: 295,
-          fontSize: 18,
+          fontSize: 17,
           fontWeight: 400,
-          lineHeight: "28px",
-          letterSpacing: "-0.36px",
+          lineHeight: "27px",
+          letterSpacing: "-0.32px",
         }}
       >
         {review.text}
@@ -243,8 +230,7 @@ function FrontCard({
       >
         Read More
       </a>
-      <div className="absolute bg-border" style={{ left: 40, top: 398, width: 295, height: 1 }} />
-      <div className="absolute flex items-center gap-3" style={{ left: 40, top: 422, width: 295, height: 52 }}>
+      <div className="absolute flex items-center gap-3" style={{ left: 40, top: 418, width: 295, height: 52 }}>
         <div className="h-[52px] w-[52px] shrink-0 overflow-hidden rounded-full">
           <Image src="/review-section-image1.svg" alt={review.name} width={52} height={52} />
         </div>
@@ -429,11 +415,6 @@ function ReviewsDesktop() {
                   height: pose.height,
                   zIndex: pose.zIndex,
                   transform: tilt,
-                  background: expanded
-                    ? isCenter
-                      ? "#DFF8EC"
-                      : "#0E5A4D"
-                    : undefined,
                   transition: moveTransition,
                   willChange: "left, top, width, height, transform, opacity",
                 }}
@@ -492,87 +473,90 @@ function ReviewsDesktop() {
   );
 }
 
-/** Single opening quote mark for the back peek card. */
-function SingleQuoteMark({ className, style }: { className?: string; style?: CSSProperties }) {
-  return (
-    <svg
-      viewBox="0 0 62 113"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      style={style}
-      aria-hidden
-    >
-      <path
-        d="M30.545 34.75C36.559 34.75 42.438 36.533 47.438 39.874C52.438 43.215 56.336 47.964 58.637 53.52C60.938 59.076 61.54 65.19 60.367 71.088C59.194 76.986 56.298 82.404 52.046 86.656C47.793 90.909 42.376 93.805 36.477 94.978C30.579 96.151 24.465 95.549 18.909 93.247C13.353 90.946 8.604 87.049 5.263 82.049C1.922 77.048 0.139 71.17 0.139 65.156L0 60.812C0 44.684 6.407 29.216 17.812 17.811C29.216 6.407 44.684 0 60.812 0V17.375C55.106 17.36 49.452 18.476 44.18 20.659C38.907 22.842 34.119 26.048 30.094 30.093C28.529 31.655 27.085 33.333 25.776 35.115C27.334 34.865 28.921 34.741 30.537 34.741L30.545 34.75Z"
-        fill="white"
-      />
-    </svg>
-  );
-}
+
 
 /** Mobile front card — matches Frame 140 (full card + double quotes). */
-function MobileFrontCard({ review }: { review: (typeof reviews)[number] }) {
+function MobileReviewCard({
+  review,
+  isFeatured = true,
+}: {
+  review: (typeof reviews)[number];
+  isFeatured?: boolean;
+}) {
   return (
-    <div className="relative flex h-full w-full flex-col overflow-hidden rounded-[30px] bg-[#DFF8EC] shadow-xl">
-      {/* Two quotes on top-right */}
+    <div
+      className="relative flex h-full min-h-[420px] w-full flex-col justify-between overflow-hidden rounded-[28px] p-6 shadow-none sm:min-h-[450px] sm:p-7"
+      style={{
+        background: isFeatured ? "#DFF8EC" : "#0E5A4D",
+        color: isFeatured ? "var(--foreground)" : "#ffffff",
+      }}
+    >
+      {/* Top quote mark */}
       <Image
         src="/quote.svg"
         alt="Quotation mark"
-        width={120}
-        height={119}
-        className="pointer-events-none absolute"
-        style={{ right: -2, top: 0 }}
+        width={75}
+        height={74}
+        className="pointer-events-none absolute right-4 top-4 opacity-25 select-none"
       />
 
-      <Image
-        src="/google.webp"
-        alt="Google"
-        width={40}
-        height={40}
-        className="relative z-10"
-        style={{ marginLeft: 28, marginTop: 52 }}
-      />
+      <div className="relative z-10">
+        <Image
+          src="/google.webp"
+          alt="Google"
+          width={36}
+          height={36}
+          className="mb-4 mt-1"
+        />
 
-      <p
-        className="relative z-10 text-left text-muted-foreground"
-        style={{
-          marginLeft: 28,
-          marginRight: 28,
-          marginTop: 18,
-          fontSize: 15,
-          fontWeight: 400,
-          lineHeight: "24px",
-          letterSpacing: "-0.3px",
-        }}
-      >
-        {review.text}
-      </p>
+        <p
+          className="text-left text-[15px] leading-[26px] sm:text-base sm:leading-[27px] pr-2"
+          style={{
+            color: isFeatured ? "var(--muted-foreground)" : "rgba(255,255,255,0.9)",
+          }}
+        >
+          {review.text}
+        </p>
 
-      <a
-        href="#read-more"
-        className="relative z-10 mt-5 inline-flex w-fit items-center justify-center rounded-full border border-primary text-sm font-semibold text-primary"
-        style={{ marginLeft: 28, padding: "7px 22px" }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        Read More
-      </a>
+        <a
+          href="#read-more"
+          className="mt-4 inline-flex items-center justify-center rounded-full border px-5 py-1.5 text-sm font-semibold transition-colors"
+          style={{
+            borderColor: isFeatured ? "var(--primary)" : "rgba(255,255,255,0.4)",
+            color: isFeatured ? "var(--primary)" : "#ffffff",
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          Read More
+        </a>
+      </div>
 
-      <div
-        className="relative z-10 mt-auto"
-        style={{ marginLeft: 28, marginRight: 28, height: 1, background: "var(--border)" }}
-      />
-
-      <div
-        className="relative z-10 flex items-center gap-3"
-        style={{ marginLeft: 28, marginRight: 28, marginTop: 14, marginBottom: 22 }}
-      >
-        <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full">
-          <Image src="/review-section-image1.svg" alt={review.name} width={44} height={44} />
-        </div>
-        <div className="min-w-0 text-left">
-          <p className="truncate text-base text-foreground">{review.name}</p>
-          <p className="text-xs text-muted-foreground">{review.time}</p>
+      <div className="relative z-10 mt-6">
+        <div className="flex items-center gap-3">
+          <div className="h-11 w-11 shrink-0 overflow-hidden rounded-full bg-white/15">
+            <Image
+              src="/review-section-image1.svg"
+              alt={review.name}
+              width={44}
+              height={44}
+            />
+          </div>
+          <div className="min-w-0 text-left">
+            <p
+              className="truncate text-base font-semibold"
+              style={{ color: isFeatured ? "var(--foreground)" : "#ffffff" }}
+            >
+              {review.name}
+            </p>
+            <p
+              className="text-xs"
+              style={{
+                color: isFeatured ? "var(--muted-foreground)" : "rgba(255,255,255,0.7)",
+              }}
+            >
+              {review.time}
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -581,74 +565,80 @@ function MobileFrontCard({ review }: { review: (typeof reviews)[number] }) {
 
 function ReviewsMobile() {
   const [index, setIndex] = useState(0);
-  const [expanded, setExpanded] = useState(false);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const openedOnViewRef = useRef(false);
-  const review = reviews[index];
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const startXRef = useRef<number | null>(null);
+  const startYRef = useRef<number | null>(null);
+  const isHorizontalSwipeRef = useRef<boolean | null>(null);
+  const n = reviews.length;
 
-  // Open the carousel once when the section scrolls into view
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
-
-    let openTimer: number | undefined;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting || openedOnViewRef.current) return;
-        openedOnViewRef.current = true;
-        observer.disconnect();
-        const delay = prefersReducedMotion() ? 0 : 480;
-        openTimer = window.setTimeout(() => setExpanded(true), delay);
-      },
-      { threshold: 0.35 }
-    );
-
-    observer.observe(el);
-    return () => {
-      observer.disconnect();
-      if (openTimer !== undefined) window.clearTimeout(openTimer);
-    };
-  }, []);
-
-  function scrollToIndex(next: number) {
-    const track = trackRef.current;
-    if (!track) return;
-    const n = reviews.length;
-    const wrapped = ((next % n) + n) % n;
-    setIndex(wrapped);
-    const card = track.children[wrapped] as HTMLElement | undefined;
-    if (!card) return;
-    track.scrollTo({
-      left: card.offsetLeft,
-      behavior: prefersReducedMotion() ? "auto" : "smooth",
-    });
+  function prevSlide() {
+    setIndex((prev) => (prev - 1 + n) % n);
   }
 
-  function onArrow(dir: "left" | "right") {
-    // First click opens carousel from the tiled stack; later clicks navigate.
-    if (!expanded) {
-      setExpanded(true);
-      return;
+  function nextSlide() {
+    setIndex((prev) => (prev + 1) % n);
+  }
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    startXRef.current = e.clientX;
+    startYRef.current = e.clientY;
+    isHorizontalSwipeRef.current = null;
+    setIsDragging(true);
+    setDragOffset(0);
+    try {
+      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    } catch (_) {}
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (startXRef.current === null || startYRef.current === null) return;
+    const diffX = e.clientX - startXRef.current;
+    const diffY = e.clientY - startYRef.current;
+
+    if (isHorizontalSwipeRef.current === null) {
+      if (Math.abs(diffX) > 6 || Math.abs(diffY) > 6) {
+        isHorizontalSwipeRef.current = Math.abs(diffX) > Math.abs(diffY);
+      }
     }
-    scrollToIndex(dir === "right" ? index + 1 : index - 1);
-  }
+
+    if (isHorizontalSwipeRef.current) {
+      setDragOffset(diffX);
+    }
+  };
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (startXRef.current !== null && isHorizontalSwipeRef.current) {
+      const diffX = e.clientX - startXRef.current;
+      const minSwipeDistance = 35;
+      if (diffX < -minSwipeDistance) {
+        nextSlide();
+      } else if (diffX > minSwipeDistance) {
+        prevSlide();
+      }
+    }
+    setIsDragging(false);
+    setDragOffset(0);
+    startXRef.current = null;
+    startYRef.current = null;
+    isHorizontalSwipeRef.current = null;
+    try {
+      (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+    } catch (_) {}
+  };
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-hidden bg-background px-5 py-16 sm:px-8 lg:hidden"
-    >
-      <div className="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
-        <TextSequence className="flex flex-col items-center gap-4">
-          <SeqFade className="rounded-full bg-[#DFF8EC] px-6 py-2 text-base font-medium text-primary">
+    <section className="relative overflow-hidden bg-background px-4 py-14 sm:px-6 sm:py-16 lg:hidden">
+      <div className="mx-auto flex max-w-lg flex-col items-center gap-4 text-center">
+        <TextSequence className="flex flex-col items-center gap-3">
+          <SeqFade className="rounded-full bg-[#DFF8EC] px-5 py-1.5 text-sm font-medium text-primary">
             Reviews
           </SeqFade>
           <h2
             className="text-primary"
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: "clamp(1.75rem, 6vw, 2.5rem)",
+              fontSize: "clamp(1.75rem, 6vw, 2.25rem)",
               fontWeight: 700,
               lineHeight: 1.2,
               letterSpacing: "-0.02em",
@@ -658,103 +648,75 @@ function ReviewsMobile() {
             <SeqChars>Our Patients</SeqChars>
           </h2>
           <SeqLines
-            className="text-lg text-muted-foreground"
+            className="text-sm text-muted-foreground sm:text-base"
             lines={[
               "Real experiences shared by patients who chose MaryDoc for compassionate, physician-led care",
             ]}
           />
         </TextSequence>
 
-        <div className="mt-6 flex w-full items-center gap-2">
+        {/* Carousel Slider with Full Touch / Pointer Swiping */}
+        <div
+          className="relative mt-4 w-full max-w-sm cursor-grab overflow-hidden select-none active:cursor-grabbing"
+          style={{ touchAction: "pan-y" }}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+        >
+          <div
+            className={`flex ${isDragging ? "transition-none" : "transition-transform duration-500 ease-out"}`}
+            style={{
+              transform: `translateX(calc(-${index * 100}% + ${dragOffset}px))`,
+            }}
+          >
+            {reviews.map((r, i) => (
+              <div key={r.name} className="w-full shrink-0 px-1">
+                <MobileReviewCard review={r} isFeatured={i % 2 === 0} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Controls: Forward/Backward Buttons & Indicators */}
+        <div className="mt-4 flex items-center justify-center gap-4">
           <button
             type="button"
             aria-label="Previous review"
-            onClick={() => onArrow("left")}
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white sm:h-9 sm:w-9"
+            onClick={prevSlide}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white shadow-md transition-transform active:scale-95"
             style={{ background: "var(--gradient-primary)" }}
           >
-            <ArrowLeft className="h-3.5 w-3.5" />
+            <ArrowLeft className="h-4 w-4" />
           </button>
 
-          <div className="min-w-0 flex-1">
-            {!expanded ? (
-              /* Exactly two cards: mint front (double quotes) + dark back (single quote) */
-              <FigmaCanvas width={351} height={534} style={{ overflow: "visible" }}>
-                <div
-                  className="absolute z-0 overflow-hidden rounded-[30px] bg-primary shadow-lg"
-                  style={{
-                    left: 37,
-                    top: 17,
-                    width: 283,
-                    height: 500,
-                    transform: "rotate(7.86deg)",
-                  }}
-                >
-                  <SingleQuoteMark
-                    className="absolute opacity-90"
-                    style={{ right: 18, top: 8, width: 72, height: 96 }}
-                  />
-                </div>
-                <div
-                  className="absolute z-10"
-                  style={{ left: 13, top: 13, width: 283, height: 500 }}
-                >
-                  <MobileFrontCard review={review} />
-                </div>
-              </FigmaCanvas>
-            ) : (
-              <div
-                ref={trackRef}
-                className="flex min-w-0 snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-                onScroll={(e) => {
-                  const el = e.currentTarget;
-                  const card = el.children[0] as HTMLElement | undefined;
-                  if (!card) return;
-                  const step = card.offsetWidth + 12;
-                  const next = Math.round(el.scrollLeft / step);
-                  if (next !== index && next >= 0 && next < reviews.length) setIndex(next);
-                }}
-              >
-                {reviews.map((r) => (
-                  <div
-                    key={r.name}
-                    className="h-[420px] w-full shrink-0 snap-center sm:h-[460px]"
-                  >
-                    <MobileFrontCard review={r} />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <button
-            type="button"
-            aria-label="Next review"
-            onClick={() => onArrow("right")}
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white sm:h-9 sm:w-9"
-            style={{ background: "var(--gradient-primary)" }}
-          >
-            <ArrowRight className="h-3.5 w-3.5" />
-          </button>
-        </div>
-
-        {expanded && (
-          <div className="mt-3 flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             {reviews.map((r, i) => (
               <button
                 key={r.name}
                 type="button"
                 aria-label={`Go to review ${i + 1}`}
-                onClick={() => scrollToIndex(i)}
-                className="h-1.5 rounded-full transition-all"
+                onClick={() => setIndex(i)}
+                className="h-2 rounded-full transition-all"
                 style={{
-                  width: i === index ? 16 : 6,
-                  background: i === index ? "var(--primary)" : "rgba(14, 90, 77, 0.25)",
+                  width: i === index ? 20 : 7,
+                  background:
+                    i === index ? "var(--primary)" : "rgba(14, 90, 77, 0.25)",
                 }}
               />
             ))}
           </div>
-        )}
+
+          <button
+            type="button"
+            aria-label="Next review"
+            onClick={nextSlide}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white shadow-md transition-transform active:scale-95"
+            style={{ background: "var(--gradient-primary)" }}
+          >
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
       </div>
     </section>
   );
