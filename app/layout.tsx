@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     creator: "@marydoc",
   },
   alternates: {
-    canonical: "/",
+    canonical: "https://marydoc.com/",
   },
   verification: {
     google: "deGWDcGfkhgxV6bmW670CPyLyA-Wiqj9u-5UzS5ZsXg",
@@ -101,6 +101,7 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", plusJakartaSans.variable, spaceGrotesk.variable, "font-sans")}
     >
       <head>
+        <link rel="canonical" href="https://marydoc.com/" />
         <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml" />
         <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
