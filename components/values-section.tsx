@@ -6,9 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { FigmaCanvas } from "@/components/figma-canvas";
-import { ShieldCheck, Globe, Heart, Award } from "lucide-react";
+import { ShieldCheck, Globe, Heart, Award, ArrowLeft, ArrowRight } from "lucide-react";
 import { TextSequence, SeqChars } from "@/components/text-sequence";
-import { scrollStartBelowMobileHeader } from "@/lib/utils";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
@@ -431,126 +430,188 @@ function ValuesDesktop() {
   );
 }
 
-const CARD_COUNT = cards.length;
-
 function ValuesMobile() {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const pinRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
   const [active, setActive] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const startXRef = useRef<number | null>(null);
+  const startYRef = useRef<number | null>(null);
+  const isHorizontalSwipeRef = useRef<boolean | null>(null);
+  const n = cards.length;
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const track = trackRef.current;
-      if (!track) return;
-
-      const tween = gsap.to(track, {
-        xPercent: -(100 * (CARD_COUNT - 1)) / CARD_COUNT,
-        ease: "none",
-        scrollTrigger: {
-          trigger: wrapperRef.current,
-          // Pin just under the fixed mobile header so heading + cards
-          // match the resting screenshot position while scrubbing.
-          start: () => scrollStartBelowMobileHeader(),
-          end: `+=${(CARD_COUNT - 1) * window.innerHeight}`,
-          scrub: true,
-          pin: pinRef.current,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            setActive(Math.round(self.progress * (CARD_COUNT - 1)));
-          },
-        },
-      });
-
-      scrollTriggerRef.current = tween.scrollTrigger ?? null;
-    }, wrapperRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  function scrollToIndex(index: number) {
-    const st = scrollTriggerRef.current;
-    if (!st) return;
-    const target = st.start + (st.end - st.start) * (index / (CARD_COUNT - 1));
-    gsap.to(window, { scrollTo: target, duration: 0.6, ease: "power2.out" });
+  function prevSlide() {
+    setActive((prev) => (prev - 1 + n) % n);
   }
 
-  return (
-    <section className="relative overflow-hidden bg-background lg:hidden">
-      <div ref={wrapperRef} className="relative w-full">
-        <div
-          ref={pinRef}
-          className="w-full bg-background px-5 pb-10 pt-4 sm:px-8"
-        >
-          <div className="mx-auto flex max-w-xl flex-col items-center gap-8">
-            <TextSequence className="w-full text-center">
-              <h2
-                className="text-primary"
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontWeight: 800,
-                  fontSize: "clamp(2rem, 7vw, 2.75rem)",
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                <SeqChars>Four things</SeqChars>{" "}
-                <SeqChars>We Never Compromise</SeqChars>{" "}
-                <SeqChars>On</SeqChars>
-              </h2>
-            </TextSequence>
+  function nextSlide() {
+    setActive((prev) => (prev + 1) % n);
+  }
 
-            <div className="relative w-full overflow-hidden">
-              <div ref={trackRef} className="flex" style={{ width: `${CARD_COUNT * 100}%` }}>
-                {cards.map((card) => (
-                  <div key={card.title} className="shrink-0 px-1" style={{ width: `${100 / CARD_COUNT}%` }}>
-                    <div className="relative overflow-hidden rounded-[30px] bg-[#DFF8EC] p-8 text-left">
-                      <span
-                        className="pointer-events-none absolute right-4 top-2 select-none"
+  const handlePointerDown = (e: React.PointerEvent) => {
+    startXRef.current = e.clientX;
+    startYRef.current = e.clientY;
+    isHorizontalSwipeRef.current = null;
+    setIsDragging(true);
+    setDragOffset(0);
+    try {
+      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    } catch (_) {}
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (startXRef.current === null || startYRef.current === null) return;
+    const diffX = e.clientX - startXRef.current;
+    const diffY = e.clientY - startYRef.current;
+
+    if (isHorizontalSwipeRef.current === null) {
+      if (Math.abs(diffX) > 6 || Math.abs(diffY) > 6) {
+        isHorizontalSwipeRef.current = Math.abs(diffX) > Math.abs(diffY);
+      }
+    }
+
+    if (isHorizontalSwipeRef.current) {
+      setDragOffset(diffX);
+    }
+  };
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (startXRef.current !== null && isHorizontalSwipeRef.current) {
+      const diffX = e.clientX - startXRef.current;
+      const minSwipeDistance = 35;
+      if (diffX < -minSwipeDistance) {
+        nextSlide();
+      } else if (diffX > minSwipeDistance) {
+        prevSlide();
+      }
+    }
+    setIsDragging(false);
+    setDragOffset(0);
+    startXRef.current = null;
+    startYRef.current = null;
+    isHorizontalSwipeRef.current = null;
+    try {
+      (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+    } catch (_) {}
+  };
+
+  return (
+    <section className="relative overflow-hidden bg-background px-4 py-14 sm:px-6 sm:py-16 lg:hidden">
+      <div className="mx-auto flex max-w-lg flex-col items-center gap-6 text-center">
+        <TextSequence className="w-full text-center">
+          <h2
+            className="text-primary"
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontWeight: 800,
+              fontSize: "clamp(1.75rem, 6vw, 2.35rem)",
+              lineHeight: 1.15,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            <SeqChars>Four things</SeqChars>{" "}
+            <SeqChars>We Never Compromise</SeqChars>{" "}
+            <SeqChars>On</SeqChars>
+          </h2>
+        </TextSequence>
+
+        {/* Carousel Slider with Real-time Finger / Thumb Swipe */}
+        <div
+          className="relative mt-2 w-full max-w-sm cursor-grab overflow-hidden select-none active:cursor-grabbing"
+          style={{ touchAction: "pan-y" }}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+        >
+          <div
+            className={`flex ${isDragging ? "transition-none" : "transition-transform duration-500 ease-out"}`}
+            style={{
+              transform: `translateX(calc(-${active * 100}% + ${dragOffset}px))`,
+            }}
+          >
+            {cards.map((card) => (
+              <div key={card.title} className="w-full shrink-0 px-1">
+                <div className="relative overflow-hidden rounded-[28px] bg-[#DFF8EC] p-6 text-left shadow-none sm:p-7">
+                  <span
+                    className="pointer-events-none absolute right-4 top-2 select-none"
+                    style={{
+                      fontFamily: "var(--font-space-grotesk)",
+                      fontSize: "clamp(3.5rem, 18vw, 5.5rem)",
+                      fontWeight: 700,
+                      ...textGradient,
+                      opacity: 0.15,
+                    }}
+                  >
+                    {card.number}
+                  </span>
+                  <div className="relative flex flex-col gap-4">
+                    <div className="flex items-center gap-3.5">
+                      <div
+                        className="flex h-14 w-14 min-h-14 min-w-14 shrink-0 aspect-square items-center justify-center rounded-full text-white"
                         style={{
-                          fontFamily: "var(--font-space-grotesk)",
-                          fontSize: "clamp(4rem, 20vw, 6rem)",
-                          fontWeight: 700,
-                          ...textGradient,
-                          opacity: 0.15,
+                          background: "var(--gradient-primary)",
+                          flexShrink: 0,
+                          width: 56,
+                          height: 56,
+                          minWidth: 56,
+                          minHeight: 56,
+                          aspectRatio: "1 / 1",
                         }}
                       >
-                        {card.number}
-                      </span>
-                      <div className="relative flex flex-col gap-4">
-                        <div className="flex items-center gap-4">
-                          <div
-                            className="flex h-14 w-14 min-h-14 min-w-14 shrink-0 aspect-square items-center justify-center rounded-full text-white"
-                            style={{ background: "var(--gradient-primary)", flexShrink: 0, width: 56, height: 56, minWidth: 56, minHeight: 56, aspectRatio: "1 / 1" }}
-                          >
-                            <card.Icon className="h-6 w-6 shrink-0" />
-                          </div>
-                          <span className="min-w-0 flex-1 text-2xl font-semibold leading-tight text-primary">{card.title}</span>
-                        </div>
-                        <p className="text-lg leading-relaxed text-muted-foreground">{card.description}</p>
+                        <card.Icon className="h-6 w-6 shrink-0" />
                       </div>
+                      <span className="min-w-0 flex-1 text-xl font-bold leading-tight text-primary">
+                        {card.title}
+                      </span>
                     </div>
+                    <p className="text-base leading-relaxed text-muted-foreground">
+                      {card.description}
+                    </p>
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
-
-            <div className="flex items-center justify-center gap-3">
-              {cards.map((card, index) => (
-                <button
-                  key={card.title}
-                  type="button"
-                  aria-label={`Go to ${card.title}`}
-                  onClick={() => scrollToIndex(index)}
-                  className={`h-2 rounded-full transition-all ${
-                    index === active ? "w-6 bg-primary" : "w-2 bg-primary/30"
-                  }`}
-                />
-              ))}
-            </div>
+            ))}
           </div>
+        </div>
+
+        {/* Controls: Arrows & Indicators */}
+        <div className="mt-2 flex items-center justify-center gap-4">
+          <button
+            type="button"
+            aria-label="Previous value"
+            onClick={prevSlide}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white shadow-md transition-transform active:scale-95"
+            style={{ background: "var(--gradient-primary)" }}
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </button>
+
+          <div className="flex items-center gap-2">
+            {cards.map((card, index) => (
+              <button
+                key={card.title}
+                type="button"
+                aria-label={`Go to ${card.title}`}
+                onClick={() => setActive(index)}
+                className="h-2 rounded-full transition-all"
+                style={{
+                  width: index === active ? 20 : 7,
+                  background:
+                    index === active ? "var(--primary)" : "rgba(14, 90, 77, 0.25)",
+                }}
+              />
+            ))}
+          </div>
+
+          <button
+            type="button"
+            aria-label="Next value"
+            onClick={nextSlide}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white shadow-md transition-transform active:scale-95"
+            style={{ background: "var(--gradient-primary)" }}
+          >
+            <ArrowRight className="h-4 w-4" />
+          </button>
         </div>
       </div>
     </section>
