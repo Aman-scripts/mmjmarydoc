@@ -85,7 +85,7 @@ function CtaDesktop() {
         style={{ left: "37.62%", top: "-40.24%", width: "60.62%", height: "140.24%" }}
       >
         <Image
-          src="/cta-section.png"
+          src="/cta-new-section.png"
           alt="Doctor holding a phone with the MaryDoc medical marijuana card"
           fill
           className="select-none object-contain object-bottom"
@@ -143,7 +143,7 @@ function CtaMobile() {
         className="relative z-10 -mb-9 mt-6 w-full max-w-[320px] shrink-0 sm:max-w-[420px] md:-mb-12 lg:mt-0 lg:w-[52%] lg:max-w-none lg:self-end"
       >
         <Image
-          src="/cta-section.png"
+          src="/cta-new-section.png"
           alt="Doctor holding a phone with the MaryDoc medical marijuana card"
           width={780}
           height={585}
