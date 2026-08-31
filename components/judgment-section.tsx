@@ -24,7 +24,7 @@ const CANVAS_H = 520 + 48;
 
 const paragraphLines = [
   "Every patient comes with different questions, experiences, and expectations.",
-  "At MaryDoc, we believe better decisions start with listening, honest information, and giving people the space to make choices that feel right for them.",
+  "At Marydoc, we believe better decisions start with listening, honest information, and giving people the space to make choices that feel right for them.",
 ];
 
 function JudgmentDesktop() {
@@ -78,7 +78,7 @@ function JudgmentDesktop() {
           >
             <Image
               src={img.src}
-              alt="MaryDoc patient care"
+              alt="Marydoc patient care"
               fill
               className="object-cover"
               sizes={`${img.width}px`}
@@ -117,7 +117,7 @@ function JudgmentMobile() {
         <RevealOnView className="relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[30px]">
           <Image
             src="/judgement-section-center.png"
-            alt="MaryDoc patient care"
+            alt="Marydoc patient care"
             fill
             className="object-cover"
             sizes="(max-width: 1024px) 100vw, 384px"

@@ -8,16 +8,16 @@ export function JsonLd() {
         "@type": "WebSite",
         "@id": "https://marydoc.com/#website",
         "url": "https://marydoc.com/",
-        "name": "MaryDoc",
+        "name": "Marydoc",
         "description":
-          "MaryDoc connects patients with licensed physicians for HIPAA-compliant online medical marijuana card evaluations.",
+          "Marydoc connects patients with licensed physicians for HIPAA-compliant online medical marijuana card evaluations.",
         "inLanguage": "en-US",
         "primaryImageOfPage": {
           "@type": "ImageObject",
           "@id": "https://marydoc.com/#primaryimage",
           "url": "https://marydoc.com/features-section-center.png",
           "contentUrl": "https://marydoc.com/features-section-center.png",
-          "caption": "MaryDoc Online Medical Marijuana Card Evaluation",
+          "caption": "Marydoc Online Medical Marijuana Card Evaluation",
         },
         "publisher": {
           "@id": "https://marydoc.com/#organization",
@@ -38,13 +38,13 @@ export function JsonLd() {
       {
         "@type": "MedicalBusiness",
         "@id": "https://marydoc.com/#organization",
-        "name": "MaryDoc",
-        "alternateName": "MaryDoc Telehealth",
+        "name": "Marydoc",
+        "alternateName": "Marydoc Telehealth",
         "url": "https://marydoc.com/",
         "logo": "https://marydoc.com/marydoc-logo.webp",
         "image": "https://marydoc.com/features-section-center.png",
         "description":
-          "MaryDoc connects patients with licensed physicians for HIPAA-compliant online medical marijuana card evaluations.",
+          "Marydoc connects patients with licensed physicians for HIPAA-compliant online medical marijuana card evaluations.",
         "medicalSpecialty": "Telemedicine",
         "priceRange": "$$",
         "telephone": "+1-800-555-6279",
@@ -64,7 +64,7 @@ export function JsonLd() {
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "How do I get a medical marijuana card online with MaryDoc?",
+            "name": "How do I get a medical marijuana card online with Marydoc?",
             "acceptedAnswer": {
               "@type": "Answer",
               "text":
@@ -77,7 +77,7 @@ export function JsonLd() {
             "acceptedAnswer": {
               "@type": "Answer",
               "text":
-                "Yes, all consultations conducted through MaryDoc's telehealth platform with state-licensed physicians are 100% confidential and HIPAA-compliant.",
+                "Yes, all consultations conducted through Marydoc's telehealth platform with state-licensed physicians are 100% confidential and HIPAA-compliant.",
             },
           },
           {

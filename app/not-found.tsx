@@ -31,7 +31,7 @@ export default function NotFound() {
       />
 
       <Link href="/" className="relative flex items-center">
-        <Image src="/logo_marydoc.svg" alt="MaryDoc - Medical Marijuana Card Evaluations" width={141} height={46} />
+        <Image src="/logo_marydoc.svg" alt="Marydoc - Medical Marijuana Card Evaluations" width={141} height={46} />
       </Link>
 
       <div className="relative flex scale-50 flex-col items-center justify-center gap-2 sm:scale-75 md:scale-100">

@@ -86,7 +86,7 @@ function CtaDesktop() {
       >
         <Image
           src="/cta-new-section.png"
-          alt="Doctor holding a phone with the MaryDoc medical marijuana card"
+          alt="Doctor holding a phone with the Marydoc medical marijuana card"
           fill
           quality={95}
           className="select-none object-contain object-bottom"
@@ -145,7 +145,7 @@ function CtaMobile() {
       >
         <Image
           src="/cta-new-section.png"
-          alt="Doctor holding a phone with the MaryDoc medical marijuana card"
+          alt="Doctor holding a phone with the Marydoc medical marijuana card"
           width={1386}
           height={1665}
           quality={95}

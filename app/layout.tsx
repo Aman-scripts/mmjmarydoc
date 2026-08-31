@@ -25,7 +25,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://marydoc.com"),
-  title: "Online Medical Card Evaluation | MaryDoc",
+  title: "Online Medical Card Evaluation | Marydoc",
   description:
     "Complete a HIPAA-compliant online medical card evaluation with a state-licensed physician and guided support throughout the process.",
   keywords: [
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     "online medical card evaluation",
     "licensed physicians MMJ",
     "HIPAA compliant medical cannabis",
-    "MaryDoc",
+    "Marydoc",
   ],
   icons: {
     icon: [
@@ -47,17 +47,17 @@ export const metadata: Metadata = {
   },
   manifest: "/favicon/site.webmanifest",
   openGraph: {
-    title: "Online Medical Card Evaluation | MaryDoc",
+    title: "Online Medical Card Evaluation | Marydoc",
     description:
       "Complete a HIPAA-compliant online medical card evaluation with a state-licensed physician and guided support throughout the process.",
     url: "https://marydoc.com",
-    siteName: "MaryDoc",
+    siteName: "Marydoc",
     images: [
       {
         url: "/features-section-center.png",
         width: 1200,
         height: 630,
-        alt: "MaryDoc - Online Medical Marijuana Card Evaluation",
+        alt: "Marydoc - Online Medical Marijuana Card Evaluation",
       },
     ],
     locale: "en_US",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Online Medical Card Evaluation | MaryDoc",
+    title: "Online Medical Card Evaluation | Marydoc",
     description:
       "Complete a HIPAA-compliant online medical card evaluation with a state-licensed physician and guided support throughout the process.",
     images: ["/features-section-center.png"],

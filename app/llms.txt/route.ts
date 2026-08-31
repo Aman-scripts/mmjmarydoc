@@ -3,9 +3,9 @@ import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const content = `# MaryDoc
+  const content = `# Marydoc
 
-> MaryDoc connects patients with state-licensed physicians for HIPAA-compliant online medical marijuana card evaluations.
+> Marydoc connects patients with state-licensed physicians for HIPAA-compliant online medical marijuana card evaluations.
 
 ## Home
 

@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "MaryDoc",
+  name: "Marydoc",
   description:
     "Connect with state-licensed physicians online for secure, HIPAA-compliant medical card evaluations.",
   url: "https://marydoc.com",

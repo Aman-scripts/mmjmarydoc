@@ -342,7 +342,7 @@ export function LeadModalProvider({ children }: { children: React.ReactNode }) {
               <div className="relative mb-1 h-8 w-28 sm:h-9 sm:w-32">
                 <Image
                   src="/logo_marydoc.svg"
-                  alt="MaryDoc"
+                  alt="Marydoc"
                   fill
                   className="object-contain object-left"
                   priority

@@ -46,7 +46,7 @@ export function FooterSection() {
         <div className="flex flex-col items-center gap-4 lg:items-start">
           <Image
             src="/footer-logo.svg"
-            alt="MaryDoc - Compassionate Medical Cannabis Care"
+            alt="Marydoc - Compassionate Medical Cannabis Care"
             width={150}
             height={48}
             style={{ width: "auto", height: "auto" }}

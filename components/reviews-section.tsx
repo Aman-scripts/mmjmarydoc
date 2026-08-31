@@ -376,7 +376,7 @@ function ReviewsDesktop() {
               letterSpacing: "-0.32px",
             }}
             lines={[
-              "Real experiences shared by patients who chose MaryDoc for compassionate, physician-led care",
+              "Real experiences shared by patients who chose Marydoc for compassionate, physician-led care",
             ]}
           />
         </TextSequence>
@@ -677,7 +677,7 @@ function ReviewsMobile() {
           <SeqLines
             className="text-sm text-muted-foreground sm:text-base"
             lines={[
-              "Real experiences shared by patients who chose MaryDoc for compassionate, physician-led care",
+              "Real experiences shared by patients who chose Marydoc for compassionate, physician-led care",
             ]}
           />
         </TextSequence>

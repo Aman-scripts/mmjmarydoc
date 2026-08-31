@@ -26,7 +26,7 @@ const CANVAS_H = TOP + 1072 + BOTTOM;
 
 const COPY_LINES = [
   "Patients may explore their options when symptoms such as chronic pain, nausea, or sleep difficulties affect daily life. For some, it may be an option they want to discuss after exploring other approaches.",
-  "Having these symptoms or conditions alone does not mean you qualify for medical care. Eligibility varies by state and must be determined through an evaluation by a licensed physician. With MaryDoc, patients can navigate this process with a clearer understanding of what to expect and what options may be available to them.",
+  "Having these symptoms or conditions alone does not mean you qualify for medical care. Eligibility varies by state and must be determined through an evaluation by a licensed physician. With Marydoc, patients can navigate this process with a clearer understanding of what to expect and what options may be available to them.",
 ];
 
 function prefersReducedMotion() {
